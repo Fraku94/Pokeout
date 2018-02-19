@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "648694970104",
+    "firebase_url": "https://pokeout-62364.firebaseio.com",
+    "project_id": "pokeout-62364",
+    "storage_bucket": "pokeout-62364.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648694970104:android:57e585f51b9deee4",
+        "android_client_info": {
+          "package_name": "com.example.pokeout.pokeout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "648694970104-930k0ibsnsc12bmu1enjhcnh11jgiu8r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pokeout.pokeout",
+            "certificate_hash": "bb23da80c554220c6f8898f5e4bfe8e07b6e8261"
+          }
+        },
+        {
+          "client_id": "648694970104-iijs197p7o14pk7egdprehk5omipoodk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAL4uVN3lXSr7-FfHAQkOz294bA7maDE6I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "648694970104-iijs197p7o14pk7egdprehk5omipoodk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

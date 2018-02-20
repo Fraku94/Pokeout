@@ -41,7 +41,7 @@ import java.util.Map;
 
 public class ProfilActivity extends AppCompatActivity {
 
-    private EditText mNameProfil,mPhoneProfil;
+    private EditText mNameProfil, mPhoneProfil, mDescriptionProfil;
 
     private TextView mBrithProfil;
 
@@ -56,7 +56,7 @@ public class ProfilActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mUserDatabase;
 
-    private String userId, username, userphone, userprofileImageUrl, userSex, userbrith;
+    private String userId, username, userphone, userprofileImageUrl, userSex, userbrith, userDescription;
 
     private Uri resultUri;
 
@@ -72,6 +72,7 @@ public class ProfilActivity extends AppCompatActivity {
         //EditText
         mNameProfil = (EditText)findViewById(R.id.nameProfil);
         mPhoneProfil = (EditText)findViewById(R.id.phoneProfil);
+        mDescriptionProfil = (EditText)findViewById(R.id.descriptionProfil);
 
         //TextView
         mBrithProfil = (TextView)findViewById(R.id.brithProfil);
@@ -104,7 +105,7 @@ public class ProfilActivity extends AppCompatActivity {
 
         //Usatwienie daty kalendarza
         final Calendar calendar = Calendar.getInstance();
-        yearx = calendar.get(Calendar.YEAR);
+        yearx = (calendar.get(Calendar.YEAR))-18;
         monthx = calendar.get(Calendar.MONTH);
         dayx = calendar.get(Calendar.DAY_OF_MONTH);
 
@@ -149,6 +150,7 @@ public class ProfilActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists() && dataSnapshot.getChildrenCount()>0){
                     Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                    //Pobranie Imienia itd.
                     if(map.get("name")!=null){
                         username = map.get("name").toString();
                         mNameProfil.setText(username);
@@ -160,6 +162,10 @@ public class ProfilActivity extends AppCompatActivity {
                     if(map.get("phone")!=null){
                         userphone = map.get("phone").toString();
                         mPhoneProfil.setText(userphone);
+                    }
+                    if(map.get("description")!=null){
+                        userDescription = map.get("description").toString();
+                        mDescriptionProfil.setText(userDescription);
                     }
                     if(map.get("sex")!=null){
                         userSex = map.get("sex").toString();
@@ -211,10 +217,12 @@ public class ProfilActivity extends AppCompatActivity {
         userphone = mPhoneProfil.getText().toString();
         userSex = radioButton.getText().toString();
         userbrith = mBrithProfil.getText().toString();
+        userDescription = mDescriptionProfil.getText().toString();
 
         Map userInfo = new HashMap();
         userInfo.put("name", username);
         userInfo.put("phone", userphone);
+        userInfo.put("description", userDescription);
         if (mMaleProfil.isChecked()){
             userInfo.put("sex", "Male");
         }else{
@@ -270,7 +278,7 @@ public class ProfilActivity extends AppCompatActivity {
         }
     }
 
-
+//Kalnedarz....
     public void ShowDialogOnButtonClick(){
         mBrithProfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -294,7 +302,7 @@ public class ProfilActivity extends AppCompatActivity {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             yearx = year;
-            monthx = month;
+            monthx = month+1;
             dayx = dayOfMonth;
             mBrithProfil.setText(Integer.toString(yearx)+"/"+Integer.toString(monthx)+"/"+Integer.toString(dayx));
         }

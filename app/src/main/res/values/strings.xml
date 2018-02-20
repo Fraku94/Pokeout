@@ -7,4 +7,5 @@
     <string name="Name">Imie</string>
     <string name="Male">Mężczyzna</string>
     <string name="Female">Kobieta</string>
+    <string name="Description">Opis</string>
 </resources>

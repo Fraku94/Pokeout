@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Pokeout</string>
+    <string name="Confirm">Zatwierdż</string>
+    <string name="Back">Powrót</string>
+    <string name="Phone">Numer Telefonu</string>
+    <string name="Brith">Data Urodzin</string>
+    <string name="Name">Imie</string>
+    <string name="Male">Mężczyzna</string>
+    <string name="Female">Kobieta</string>
 </resources>

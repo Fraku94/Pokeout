@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context="com.example.pokeout.pokeout.Profil.ProfilActivity">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@mipmap/ic_default"
+        android:id="@+id/imageProfil" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/Name"
+        android:layout_margin="10dp"
+        android:id="@+id/nameProfil"
+        android:textAlignment="center"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/Phone"
+        android:inputType="phone"
+        android:layout_margin="10dp"
+        android:textAlignment="center"
+        android:id="@+id/phoneProfil"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/Brith"
+        android:layout_margin="10dp"
+        android:id="@+id/brithProfil"
+        android:textAlignment="center"
+        android:textSize="20dp"/>
+
+
+    <RadioGroup
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:id="@+id/radioGroupProfil">
+
+        <RadioButton
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/Male"
+            android:id="@+id/rbMaleProfil" />
+
+        <RadioButton
+            android:layout_marginLeft="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/Female"
+            android:id="@+id/rbFemaleProfil"/>
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_margin="25dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Confirm"
+            android:id="@+id/confirmProfil" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="@string/Back"
+            android:id="@+id/backProfil" />
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

@@ -7,12 +7,25 @@
     tools:context="com.example.pokeout.pokeout.MainActivity">
 
 /adda
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Logout"
         android:onClick="Logout"
         />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profil"
+        android:onClick="Profil"
+        />
+
+    </LinearLayout>
+
 
 
     <TextView

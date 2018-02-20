@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Pokeout.iml" filepath="$PROJECT_DIR$/.idea/Pokeout.iml" />
+      <module fileurl="file://A:\SqlLite01\Pokeout\.idea\Pokeout.iml" filepath="A:\SqlLite01\Pokeout\.idea\Pokeout.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://A:\SqlLite01\Pokeout\app\app.iml" filepath="A:\SqlLite01\Pokeout\app\app.iml" />
     </modules>
   </component>
 </project>

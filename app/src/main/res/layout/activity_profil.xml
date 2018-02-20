@@ -26,21 +26,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/Phone"
+        android:inputType="phone"
         android:layout_margin="10dp"
         android:textAlignment="center"
         android:id="@+id/phoneProfil"/>
 
 
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/Brith"
-            android:layout_margin="10dp"
-            android:id="@+id/brithProfil"
-            android:textAlignment="center"
-            android:textSize="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/Brith"
+        android:layout_margin="10dp"
+        android:id="@+id/brithProfil"
+        android:textAlignment="center"
+        android:textSize="20dp"/>
 
 
     <RadioGroup

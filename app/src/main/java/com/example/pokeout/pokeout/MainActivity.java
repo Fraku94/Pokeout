@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.pokeout.pokeout.Profil.ProfilActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +26,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent =new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
+        return;
+    }
+
+    public void Profil(View view) {
+        Intent intent =new Intent(MainActivity.this, ProfilActivity.class);
+        startActivity(intent);
         return;
     }
 }

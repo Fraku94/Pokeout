@@ -8,4 +8,12 @@
     <string name="Male">Mężczyzna</string>
     <string name="Female">Kobieta</string>
     <string name="Description">Opis</string>
+    <string name="categoryBest">Popularne</string>
+    <string name="categoryLiked">Ulubione</string>
+    <string name="categorySuggest">Polecane</string>
+    <string name="categoryBlank">Puste</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

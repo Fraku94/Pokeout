@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.pokeout.pokeout.Adapter.SampleFragmentPagerAdapter;
+import com.example.pokeout.pokeout.CategoryAdd.CategoryAddActivity;
 import com.example.pokeout.pokeout.Profil.ProfilActivity;
 import com.google.firebase.auth.FirebaseAuth;
 

@@ -11,9 +11,7 @@ import com.example.pokeout.pokeout.Fragments.LikedFragment;
 import com.example.pokeout.pokeout.Fragments.SuggestFragment;
 import com.example.pokeout.pokeout.R;
 
-/**
- * Created by bartl on 20.02.2018.
- */
+
 
 public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
 

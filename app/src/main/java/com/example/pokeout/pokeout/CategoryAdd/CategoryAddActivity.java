@@ -66,16 +66,17 @@ public class CategoryAddActivity extends AppCompatActivity {
 
         mUsersDatabase = FirebaseDatabase.getInstance().getReference();
 
-        //Przypisanie id Uzytkownika
+        //Przypisanie ID obecnemu uzytkwonikowi
         userId = mAuth.getCurrentUser().getUid();
 
+        //Uzyskujemy ID dodawanje Kategorii
         categoryId = mUsersDatabase.child("Category").push().getKey();
 
-        //DatabaseReference
+        //DatabaseReference dla Category>>categoryID
         mCategoryDatabase = FirebaseDatabase.getInstance().getReference().child("Category").child(categoryId);
 
 
-        //Wywołanie galerii i załadowanie do ImageView
+        //Wywolanie galerii i zaladowanie do ImageView
         mImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +91,8 @@ public class CategoryAddActivity extends AppCompatActivity {
         mConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Metoda zapisująca nowe informacje
+
+                //Metoda zapisujaca nowe informacje
                 saveCategory();
             }
         });
@@ -112,14 +114,21 @@ public class CategoryAddActivity extends AppCompatActivity {
         categoryName = mName.getText().toString();
         categoryDescription = mDescription.getText().toString();
 
-        //Map dodaje do bazy
+        //Map dodaje do bazy Firebase
         Map userInfo = new HashMap();
         userInfo.put("name", categoryName);
         userInfo.put("description", categoryDescription);
+
+        //Metoda wywoluje zapis do bazy
         mCategoryDatabase.updateChildren(userInfo);
+
+        //Zapisanie w Bazie danych kategorii ID uzytkownika ktory dodaje
         mCategoryDatabase.child("users").child(userId).setValue(true);
+
+        //Zapisanie w Bazie danych Users do ID uzytkownika ktory dodaje, ID dodawanje kategorii automatycznie do ulubionych
         mUsersDatabase.child("Users").child(userId).child("category").child(categoryId).setValue(true);
 
+        //Ladowanie zdjecia kategorii
         if(resultUri != null){
             StorageReference filepath = FirebaseStorage.getInstance().getReference().child("categoryImages").child(categoryId);
             Bitmap bitmap = null;
@@ -145,10 +154,12 @@ public class CategoryAddActivity extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
+                    //Zapisanie adresu URL zdjecia do bazy
                     Map userInfo = new HashMap();
                     userInfo.put("categoryImageUrl", downloadUrl.toString());
-                    mCategoryDatabase.updateChildren(userInfo);
 
+                    //Metoda wywoluje zapis do bazy
+                    mCategoryDatabase.updateChildren(userInfo);
                     finish();
                     return;
                 }
@@ -158,6 +169,7 @@ public class CategoryAddActivity extends AppCompatActivity {
         }
     }
 
+    //Do zapisanie zdjecia
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -40,35 +40,50 @@ public class LikedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup                  container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_liked, container, false);
 
+        //Pobranie Conextu dla fragmentu
         Context context = getActivity();
+
+        //Pobranie ID obecnego uzytkownika
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        //Ustawienie RecycleView
         mRecyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
 
+        //Ustawienie Adaptera oraz LayoutMenagera. Uzycie Contextu fragmentu
         mLikedLayoutMenager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLikedLayoutMenager);
-        mLikedAdapter = new LikedAdapter(getDataSetLiked(), context);
+        mLikedAdapter = new LikedAdapter(getDataSetLiked(),context);
         mRecyclerView.setAdapter(mLikedAdapter);
 
+        //Wywolanie metody by uzyskac ID Kategorii
         getCategoryId();
 
+        //zwrocenie wygladu
         return rootView;
     }
 
     private void getCategoryId() {
+
+        //Referencja do bazy Users>>userID>>category
         DatabaseReference likeddb = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("category");
         likeddb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //Sprawdzenie czy istnieje
                 if (dataSnapshot.exists()) {
+
+                    //pobranie wartości z "category"
                     for (DataSnapshot category : dataSnapshot.getChildren()) {
-                        FetchMatchInformation(category.getKey());
+
+                        //Wywolanie metody zbierajacej informacje o kategorii z przekazaniem w niej ID danej kategorii
+                        //getKey() pobiera ID kategorii
+                        FetchLikedInformation(category.getKey());
                     }
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -76,24 +91,40 @@ public class LikedFragment extends Fragment {
         });
     }
 
-    private void FetchMatchInformation(String key) {
+    private void FetchLikedInformation(String key) {
 
+        //Referencja do bazy Category>>categoryID. przekazanie zmiennyej categoryID z getCategoryId(); w metodzie jako key
         DatabaseReference categoryDb = FirebaseDatabase.getInstance().getReference().child("Category").child(key);
         categoryDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //Sprawdzenie czy istnieje
                 if (dataSnapshot.exists()) {
+
+                    //Przypisanie wartosci zmiennym
+                    //getKey() pobiera ID kategorii
                     String categoryId = dataSnapshot.getKey();
                     String name = "";
                     String categoryImageUrl = "";
+
+                    //Pobranie warosci name jesli nie jest pusta i przypisanie do zmiennej
                     if (dataSnapshot.child("name").getValue() != null) {
                         name = dataSnapshot.child("name").getValue().toString();
                     }
+
+                    //Pobranie warosci linku zdjecia jesli nie jest pusty i przypisanie do zmiennej
                     if (dataSnapshot.child("categoryImageUrl").getValue() != null) {
                         categoryImageUrl = dataSnapshot.child("categoryImageUrl").getValue().toString();
                     }
+
+                    //Dodanie zmeinnych do Obiektu (nazwy musza byc takie same jak w Objekcie
                     LikedObject object = new LikedObject(categoryId, name, categoryImageUrl);
+
+                    //Metoda dodawania do Objektu
                     resoultLiked.add(object);
+
+                    //Metoda notujaca zmiany (Wywoluje zapisanie zmiennych)
                     mLikedAdapter.notifyDataSetChanged();
                 }
             }
@@ -105,6 +136,7 @@ public class LikedFragment extends Fragment {
         });
     }
 
+    //Przeslanie do Adaptera Rezultatow
     private ArrayList<LikedObject> resoultLiked = new ArrayList<LikedObject>();
 
     private List<LikedObject> getDataSetLiked() {

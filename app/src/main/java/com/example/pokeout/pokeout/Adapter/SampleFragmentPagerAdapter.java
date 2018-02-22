@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.pokeout.pokeout.Fragments.BestFragment;
 import com.example.pokeout.pokeout.Fragments.BlankFragment;
-import com.example.pokeout.pokeout.Fragments.LikedFragment;
+import com.example.pokeout.pokeout.Liked.LikedFragment;
 import com.example.pokeout.pokeout.Fragments.SuggestFragment;
 import com.example.pokeout.pokeout.R;
 

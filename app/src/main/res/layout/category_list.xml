@@ -13,5 +13,6 @@
         android:drawSelectorOnTop="true"
         android:background="#ffffff"
         android:dividerHeight="3dp"
-        android:divider="#ffffff"/>
+        android:divider="#ffffff"
+        />
 </LinearLayout>

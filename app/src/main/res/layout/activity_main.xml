@@ -7,6 +7,18 @@
     android:orientation="vertical"
     tools:context="com.example.pokeout.pokeout.MainActivity">
 
+//dodanie do main.xml layotu toolbar
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+
+
+
+
 
 
    //Dodany viepager i tablayout
@@ -26,5 +38,7 @@
         android:layout_height="0px"
         android:layout_weight="1"
         android:background="@android:color/white"/>
+
+
 
 </LinearLayout>

@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         // Ustawienie toolbara jako action bar
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
         // Wywoołanie ViePagera i ustawienie na nim PageAdaptera co pozwala na wyświetlanie treści
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         //  2.aktualizuje gdy jest wyswietlane
         //  3.Ustawia nazwy tablayout z viepager adapter
         tabLayout.setupWithViewPager(viewPager);
-        toolbar.setTitle("null");
+
 
 
     }

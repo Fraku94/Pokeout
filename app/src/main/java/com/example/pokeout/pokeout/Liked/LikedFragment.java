@@ -56,9 +56,10 @@ public class LikedFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLikedLayoutMenager);
         mLikedAdapter = new LikedAdapter(getDataSetLiked(),context);
         mRecyclerView.setAdapter(mLikedAdapter);
-
+        clear();
         //Wywolanie metody by uzyskac ID Kategorii
         getCategoryId();
+
 
         //zwrocenie wygladu
         return rootView;
@@ -135,7 +136,11 @@ public class LikedFragment extends Fragment {
             }
         });
     }
-
+    private void clear() {
+        int size = this.resoultLiked.size();
+        this.resoultLiked.clear();
+        mLikedAdapter.notifyItemRangeChanged(0, size);
+    }
     //Przeslanie do Adaptera Rezultatow
     private ArrayList<LikedObject> resoultLiked = new ArrayList<LikedObject>();
 

@@ -31,6 +31,8 @@ public class LikedAdapter extends RecyclerView.Adapter<LikedViewHolder> {
     @Override
     public LikedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
+
+
         //Przypisanie wygladu okna do adaptera
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_liked, null,false);
 
@@ -43,7 +45,6 @@ public class LikedAdapter extends RecyclerView.Adapter<LikedViewHolder> {
 
         return rcv;
     }
-
 
     //Nadanie wartosci do okienek, pobranie ich z Objektow
     @Override

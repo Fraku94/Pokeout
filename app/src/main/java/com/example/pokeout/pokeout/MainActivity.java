@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-
         // Wywoołanie ViePagera i ustawienie na nim PageAdaptera co pozwala na wyświetlanie treści
         //Znajduje viepager i pozwala uzytkownikowi na przesuwanie
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);

@@ -5,10 +5,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.pokeout.pokeout.Fragments.BestFragment;
+import com.example.pokeout.pokeout.Best.BestFragment;
 import com.example.pokeout.pokeout.Fragments.BlankFragment;
 import com.example.pokeout.pokeout.Liked.LikedFragment;
-import com.example.pokeout.pokeout.Fragments.SuggestFragment;
+import com.example.pokeout.pokeout.Suggest.SuggestFragment;
 import com.example.pokeout.pokeout.R;
 
 
@@ -26,9 +26,9 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new BestFragment();
-        } else if (position == 1){
             return new LikedFragment();
+        } else if (position == 1){
+            return new BestFragment();
         } else if (position == 2){
             return new SuggestFragment();
         } else {

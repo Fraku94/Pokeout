@@ -11,7 +11,7 @@
         android:layout_height="175dp"
         android:scaleType="fitXY"
         android:src="@mipmap/ic_default"
-        android:id="@+id/categoryImage"/>
+        android:id="@+id/bestImage"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -26,11 +26,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Liked name"
+                android:text="Best name"
                 android:textAlignment="center"
                 android:textSize="45dp"
-                android:id="@+id/categoryName"/>
+                android:id="@+id/bestName"/>
         </LinearLayout>
+
+
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="175dp">
@@ -41,17 +44,34 @@
 
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/categoryCount"
+                android:layout_alignTop="@+id/bestCount"
                 android:src="@mipmap/ic_grup" />
 
             <TextView
                 android:text="@string/Count"
-                android:id="@+id/categoryCount"
+                android:id="@+id/bestCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_toStartOf="@+id/imageView"
                 android:textSize="35dp" />
+
+            <ImageView
+                android:id="@+id/bestFollow"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:src="@mipmap/ic_add_grup" />
+
+            <ImageView
+                android:id="@+id/bestGo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/bestFollow"
+                android:src="@mipmap/ic_go" />
+
         </RelativeLayout>
 
 

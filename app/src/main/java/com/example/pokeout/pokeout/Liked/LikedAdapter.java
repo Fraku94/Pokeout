@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.pokeout.pokeout.R;
@@ -18,7 +19,6 @@ import java.util.List;
 public class LikedAdapter extends RecyclerView.Adapter<LikedViewHolder> {
 
     private List<LikedObject> likedList;
-
     private Context context;
 
     //Przypisanie Obiektów do adaptera
@@ -50,13 +50,16 @@ public class LikedAdapter extends RecyclerView.Adapter<LikedViewHolder> {
     @Override
     public void onBindViewHolder(LikedViewHolder holder, int position) {
 
-        holder.mCategoryId.setText(likedList.get(position).getCategoryId());
+        holder.mCategoryId = likedList.get(position).getCategoryId();
         holder.mCategoryName.setText(likedList.get(position).getName());
+        holder.mCategoryCount.setText(likedList.get(position).getCount());
 
         //Sprawdzenie czy wartosc linku to "default" jesli nie ma załadować link i podpiac zdjecie ImageView
         if(!likedList.get(position).getCategoryImageUrl().equals("default")){
             Glide.with(context).load(likedList.get(position).getCategoryImageUrl()).into(holder.mCategoryImage);
         }
+
+
 
     }
 

@@ -10,13 +10,16 @@ public class LikedObject {
     private String categoryId;
     private String name;
     private String categoryImageUrl;
+    private String count;
 
 
 
-    public LikedObject (String categoryId, String name, String categoryImageUrl){
+
+    public LikedObject (String categoryId, String name, String categoryImageUrl, String count){
         this.categoryId = categoryId;
         this.name = name;
         this.categoryImageUrl = categoryImageUrl;
+        this.count = count;
     }
 
     public String getCategoryId(){
@@ -29,7 +32,6 @@ public class LikedObject {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -37,8 +39,14 @@ public class LikedObject {
     public String getCategoryImageUrl() {
         return categoryImageUrl;
     }
-
     public void setCategoryImageUrl(String categoryImageUrl) {
         this.categoryImageUrl = categoryImageUrl;
+    }
+
+    public String getCount() {
+        return count;
+    }
+    public void setCount(String count) {
+        this.count = count;
     }
 }

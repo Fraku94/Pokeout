@@ -1,4 +1,4 @@
-package com.example.pokeout.pokeout.Liked;
+package com.example.pokeout.pokeout.Best;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,91 +6,73 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.pokeout.pokeout.CategoryAdd.CategoryAddActivity;
+import com.example.pokeout.pokeout.Liked.LikedAdapter;
+import com.example.pokeout.pokeout.Liked.LikedObject;
 import com.example.pokeout.pokeout.R;
-
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class LikedFragment extends Fragment {
-    public LikedFragment() {
-        // Required empty public constructor
+public class BestFragment extends Fragment {
+    public BestFragment() {
+
     }
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mLikedAdapter;
-    private RecyclerView.LayoutManager mLikedLayoutMenager;
+    private RecyclerView.Adapter mBestAdapter;
+    private RecyclerView.LayoutManager mBestLayoutMenager;
     private String currentUserId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup                  container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_liked, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_best, container, false);
 
         //Pobranie Conextu dla fragmentu
         Context context = getActivity();
-
-
-
-        FloatingActionButton floatingActionButton = rootView.findViewById(R.id.fab);
-
-
 
         //Pobranie ID obecnego uzytkownika
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         //Ustawienie RecycleView
-        mRecyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerView);
+        mRecyclerView = (RecyclerView)rootView.findViewById(R.id.bestRecyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
 
         //Ustawienie Adaptera oraz LayoutMenagera. Uzycie Contextu fragmentu
-        mLikedLayoutMenager = new LinearLayoutManager(context);
-        mRecyclerView.setLayoutManager(mLikedLayoutMenager);
-        mLikedAdapter = new LikedAdapter(getDataSetLiked(),context);
-        mRecyclerView.setAdapter(mLikedAdapter);
+        mBestLayoutMenager = new LinearLayoutManager(context);
+        mRecyclerView.setLayoutManager(mBestLayoutMenager);
+        mBestAdapter = new BestAdapter(getDataSetBest(),context);
+        mRecyclerView.setAdapter(mBestAdapter);
 
-        //Dodawanie kategorii
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddCategory();
-            }
-        });
+        //Czyszczenie recycleview
         clear();
+
         //Wywolanie metody by uzyskac ID Kategorii
         getCategoryId();
-
-
 
         //zwrocenie wygladu
         return rootView;
     }
-
-
-
-
     private void getCategoryId() {
 
-        //Referencja do bazy Users>>userID>>category
-        DatabaseReference likeddb = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("category");
-        likeddb.addListenerForSingleValueEvent(new ValueEventListener() {
+        //Referencja do bazy Category
+        DatabaseReference bestdb = FirebaseDatabase.getInstance().getReference().child("Category");
+        bestdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -113,8 +95,10 @@ public class LikedFragment extends Fragment {
         });
     }
 
+    //Pobranie liczby uzytkownikow danej kategorii
     private void getCategoryCount(final String key) {
 
+        //Referencja do Category>>categoryID>>users
         DatabaseReference countdb = FirebaseDatabase.getInstance().getReference().child("Category").child(key).child("users");
         countdb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -147,8 +131,8 @@ public class LikedFragment extends Fragment {
                     String categoryId = dataSnapshot.getKey();
                     String name = "";
                     String categoryImageUrl = "";
+                    String descryption = "";
                     String Count = Long.toString(count);
-
 
                     //Pobranie warosci name jesli nie jest pusta i przypisanie do zmiennej
                     if (dataSnapshot.child("name").getValue() != null) {
@@ -160,15 +144,19 @@ public class LikedFragment extends Fragment {
                         categoryImageUrl = dataSnapshot.child("categoryImageUrl").getValue().toString();
                     }
 
+                    //Pobranie warosci linku zdjecia jesli nie jest pusty i przypisanie do zmiennej
+                    if (dataSnapshot.child("descryption").getValue() != null) {
+                        descryption = dataSnapshot.child("descryption").getValue().toString();
+                    }
 
                     //Dodanie zmeinnych do Obiektu (nazwy musza byc takie same jak w Objekcie
-                    LikedObject object = new LikedObject(categoryId, name, categoryImageUrl,Count);
+                    BestObject object = new BestObject(categoryId, name, categoryImageUrl, descryption, Count);
 
                     //Metoda dodawania do Objektu
-                    resoultLiked.add(object);
+                    resoultBest.add(object);
 
                     //Metoda notujaca zmiany (Wywoluje zapisanie zmiennych)
-                    mLikedAdapter.notifyDataSetChanged();
+                    mBestAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -179,23 +167,23 @@ public class LikedFragment extends Fragment {
         });
     }
     private void clear() {
-        int size = this.resoultLiked.size();
-        this.resoultLiked.clear();
-        mLikedAdapter.notifyItemRangeChanged(0, size);
+        int size = this.resoultBest.size();
+        this.resoultBest.clear();
+        mBestAdapter.notifyItemRangeChanged(0, size);
     }
     //Przeslanie do Adaptera Rezultatow
-    private ArrayList<LikedObject> resoultLiked = new ArrayList<LikedObject>();
+    private ArrayList<BestObject> resoultBest = new ArrayList<BestObject>();
 
-    private List<LikedObject> getDataSetLiked() {
+    private List<BestObject> getDataSetBest() {
 
-        return resoultLiked;
+        return resoultBest;
 
     }
 
-    private void AddCategory() {
-        Intent intent = new Intent(getContext(), CategoryAddActivity.class);
-        startActivity(intent);
-        return;
-    }
 
 }
+
+
+
+
+//getChildrenCount ()

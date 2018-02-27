@@ -16,7 +16,6 @@ import android.widget.Toast;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.example.pokeout.pokeout.Adapter.SampleFragmentPagerAdapter;
-import com.example.pokeout.pokeout.CategoryAdd.CategoryAddActivity;
 import com.example.pokeout.pokeout.Profil.ProfilActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -31,9 +30,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
         auth = FirebaseAuth.getInstance();
         //Wywoolanie obiektu  buttona do layotu do wylogowania
         logout =(ImageButton)findViewById(R.id.menu_logout);
+
+        //Sprawdzenie obserwaowanych kategorii
+        CategoryInformation categoryInformationListner = new CategoryInformation();
+        categoryInformationListner.startFetching();
+
+        //Sprawdzenie obserwaowanych uzytkownikow
+        UserInformation userInformationListner = new UserInformation();
+        userInformationListner.startFetching();
+
 
         // Wywołanie  obiektu toolbar i dolaczenie do layotu
         // Attaching the layout to the toolbar object
@@ -76,13 +87,13 @@ public class MainActivity extends AppCompatActivity {
 //        return;
 //    }
 
-    public void AddCategory(View view) {
-
-        Intent intent = new Intent(MainActivity.this, CategoryAddActivity.class);
-        startActivity(intent);
-        return;
-
-    }
+//    public void AddCategory(View view) {
+//
+//        Intent intent = new Intent(MainActivity.this, CategoryAddActivity.class);
+//        startActivity(intent);
+//        return;
+//
+//    }
 
     @Override
 

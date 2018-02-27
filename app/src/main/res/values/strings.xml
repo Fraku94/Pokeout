@@ -17,4 +17,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="CategoryName">Nazwa Kategorii</string>
+    <string name="Add">Dodaj</string>
+    <string name="User_Name">Nazwa użytkownika</string>
+    <string name="Sex">Płeć</string>
+    <string name="Count">Liczba</string>
 </resources>

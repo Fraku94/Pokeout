@@ -1,4 +1,4 @@
-package com.example.pokeout.pokeout.Fragments;
+package com.example.pokeout.pokeout.Suggest;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,8 +11,10 @@ import android.view.ViewGroup;
 import com.example.pokeout.pokeout.R;
 
 
-public class BestFragment extends Fragment {
-    public BestFragment() {
+public class SuggestFragment extends Fragment {
+
+
+    public SuggestFragment() {
 
     }
 
@@ -20,8 +22,5 @@ public class BestFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup                  container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.category_list, container, false);
         return rootView;
-
-
-
     }
 }

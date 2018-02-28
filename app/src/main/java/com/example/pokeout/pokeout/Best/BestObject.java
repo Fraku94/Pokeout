@@ -9,17 +9,17 @@ public class BestObject {
     private String Id;
     private String Name;
     private String ImageUrl;
-    private String Descryption;
+    private String catDescryption;
     private String Count;
 
 
 
 
-    public BestObject (String Id, String Name, String ImageUrl, String Descryption, String Count){
+    public BestObject (String Id, String Name, String ImageUrl, String catDescryption, String Count){
         this.Id = Id;
         this.Name = Name;
         this.ImageUrl = ImageUrl;
-        this.Descryption = Descryption;
+        this.catDescryption = catDescryption;
         this.Count = Count;
 
     }
@@ -45,11 +45,11 @@ public class BestObject {
         ImageUrl = imageUrl;
     }
 
-    public String getDescryption() {
-        return Descryption;
+    public String getCatDescryption() {
+        return catDescryption;
     }
-    public void setDescryption(String descryption) {
-        Descryption = descryption;
+    public void setCatDescryption(String catDescryption) {
+        catDescryption = catDescryption;
     }
 
     public String getCount() {

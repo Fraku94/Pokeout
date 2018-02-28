@@ -145,8 +145,8 @@ public class BestFragment extends Fragment {
                     }
 
                     //Pobranie warosci linku zdjecia jesli nie jest pusty i przypisanie do zmiennej
-                    if (dataSnapshot.child("descryption").getValue() != null) {
-                        descryption = dataSnapshot.child("descryption").getValue().toString();
+                    if (dataSnapshot.child("description").getValue() != null) {
+                        descryption = dataSnapshot.child("description").getValue().toString();
                     }
 
                     //Dodanie zmeinnych do Obiektu (nazwy musza byc takie same jak w Objekcie

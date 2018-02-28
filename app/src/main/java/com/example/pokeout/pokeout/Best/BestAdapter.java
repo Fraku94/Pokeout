@@ -63,7 +63,10 @@ public class BestAdapter extends RecyclerView.Adapter<BestViewHolder>{
 
         //Ustawienie tekstu dla imienia
         holder.mBestName.setText(bestObjectsList.get(position).getName());
+
+        //Ustawienie tekstu dla wartosci liczby obserwujacych uzytkownikow
         holder.mBestCount.setText(bestObjectsList.get(position).getCount());
+
         //Sprawdzenie i ustawienie czy kategorie mamy juz dodana czy nie (odpowiednia zmiana ikon)
         if(CategoryInformation.listFollowingCategory.contains(bestObjectsList.get(position).getId())){
             holder.mBestFollow.setImageResource(R.mipmap.ic_remove_user);
@@ -114,7 +117,7 @@ public class BestAdapter extends RecyclerView.Adapter<BestViewHolder>{
                 Bundle b = new Bundle();
                 b.putString("Name", bestObjectsList.get(position).getName());
                 b.putString("ImageUrl", bestObjectsList.get(position).getImageUrl());
-                b.putString("Descryption", bestObjectsList.get(position).getDescryption());
+                b.putString("Descryption", bestObjectsList.get(position).getCatDescryption());
                 intent.putExtras(b);
                 v.getContext().startActivity(intent);
 
@@ -127,6 +130,9 @@ public class BestAdapter extends RecyclerView.Adapter<BestViewHolder>{
             public void onClick(View v) {
 
                 Intent intent = new Intent(v.getContext(), UsersInCategoryActivity.class);
+                Bundle b = new Bundle();
+                b.putString("CategoryId", bestObjectsList.get(position).getId());
+                intent.putExtras(b);
                 v.getContext().startActivity(intent);
 
             }

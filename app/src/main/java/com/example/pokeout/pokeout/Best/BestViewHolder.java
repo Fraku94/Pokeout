@@ -14,7 +14,6 @@ import com.example.pokeout.pokeout.R;
 public class BestViewHolder extends RecyclerView.ViewHolder  {
     public TextView mBestName, mBestCount;
     public ImageView mBestImage, mBestGo, mBestFollow;
-    public String mCatID;
 
 
     public BestViewHolder(View itemView) {

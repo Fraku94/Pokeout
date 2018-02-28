@@ -48,6 +48,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
 
     private void getUsersId()
     {
+        final String adminId = "UYjTdbeg7zXSwXFhN72eDPseU1R2";
         DatabaseReference usersInCategorydb = FirebaseDatabase.getInstance().getReference().child("Category").child(categoryID).child("users");
         usersInCategorydb.addListenerForSingleValueEvent(new ValueEventListener()
         {
@@ -60,9 +61,11 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                     //pobranie wartości z "category"
                     for (DataSnapshot userInCategory : dataSnapshot.getChildren()) {
 
-                        //Wywolanie metody zbierajacej informacje o kategorii z przekazaniem w niej ID danej kategorii
-                        //getKey() pobiera ID kategorii
-                        FetchUsersInCategoryInformation(userInCategory.getKey());
+                        if (!userInCategory.getKey().equals(adminId)) {
+                            //Wywolanie metody zbierajacej informacje o kategorii z przekazaniem w niej ID danej kategorii
+                            //getKey() pobiera ID kategorii
+                            FetchUsersInCategoryInformation(userInCategory.getKey());
+                        }
                     }
                 }
             }

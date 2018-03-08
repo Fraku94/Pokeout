@@ -1,4 +1,4 @@
-package com.example.pokeout.pokeout.Best;
+package com.example.pokeout.pokeout.Fragments.Best;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

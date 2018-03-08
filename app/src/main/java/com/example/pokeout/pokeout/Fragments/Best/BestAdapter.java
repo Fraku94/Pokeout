@@ -1,4 +1,4 @@
-package com.example.pokeout.pokeout.Best;
+package com.example.pokeout.pokeout.Fragments.Best;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,13 +11,8 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.example.pokeout.pokeout.CategoryDescryption.CategoryDescryptionActivity;
 import com.example.pokeout.pokeout.CategoryInformation;
-import com.example.pokeout.pokeout.Chat.ChatActivity;
 import com.example.pokeout.pokeout.R;
-import com.example.pokeout.pokeout.UserDescryption.UserDescryptionActivity;
-import com.example.pokeout.pokeout.UserInformation;
 import com.example.pokeout.pokeout.UsersInCategory.UsersInCategoryActivity;
-import com.example.pokeout.pokeout.UsersInCategory.UsersInCategoryObject;
-import com.example.pokeout.pokeout.UsersInCategory.UsersInCategoryViewHolder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 

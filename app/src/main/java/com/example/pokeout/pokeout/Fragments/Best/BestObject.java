@@ -1,4 +1,4 @@
-package com.example.pokeout.pokeout.Best;
+package com.example.pokeout.pokeout.Fragments.Best;
 
 /**
  * Created by Z710 on 2018-02-27.

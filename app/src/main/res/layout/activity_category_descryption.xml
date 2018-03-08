@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_margin="10dp"
     tools:context="com.example.pokeout.pokeout.CategoryDescryption.CategoryDescryptionActivity">
 
     <LinearLayout
@@ -49,6 +50,13 @@
             android:textSize="15dp"
             android:textAlignment="center"/>
     </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    </android.support.v7.widget.RecyclerView>
 
 
 

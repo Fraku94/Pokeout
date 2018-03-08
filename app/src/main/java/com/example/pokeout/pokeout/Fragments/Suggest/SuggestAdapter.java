@@ -1,4 +1,4 @@
-package com.example.pokeout.pokeout.Suggest;
+package com.example.pokeout.pokeout.Fragments.Suggest;
 
 import android.content.Context;
 import android.content.Intent;

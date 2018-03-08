@@ -5,10 +5,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.pokeout.pokeout.Best.BestFragment;
-import com.example.pokeout.pokeout.Fragments.BlankFragment;
-import com.example.pokeout.pokeout.Liked.LikedFragment;
-import com.example.pokeout.pokeout.Suggest.SuggestFragment;
+import com.example.pokeout.pokeout.Fragments.Best.BestFragment;
+import com.example.pokeout.pokeout.Fragments.Blank.BlankFragment;
+import com.example.pokeout.pokeout.Fragments.Liked.LikedFragment;
+import com.example.pokeout.pokeout.Fragments.Suggest.SuggestFragment;
 import com.example.pokeout.pokeout.R;
 
 

@@ -21,4 +21,6 @@
     <string name="User_Name">Nazwa użytkownika</string>
     <string name="Sex">Płeć</string>
     <string name="Count">Liczba</string>
+    <string name="Message">Wiadomość...</string>
+    <string name="send">Wyślij</string>
 </resources>

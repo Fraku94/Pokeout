@@ -1,17 +1,15 @@
-package com.example.pokeout.pokeout.Suggest;
+package com.example.pokeout.pokeout.Fragments.Suggest;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.pokeout.pokeout.Best.BestAdapter;
-import com.example.pokeout.pokeout.Best.BestObject;
 import com.example.pokeout.pokeout.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +24,8 @@ import java.util.List;
 
 public class SuggestFragment extends Fragment {
 
+    //Odswiezanie
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public SuggestFragment() {
 
@@ -57,15 +57,53 @@ public class SuggestFragment extends Fragment {
         mSuggestAdapter = new SuggestAdapter(getDataSetSuggest(),context);
         mRecyclerView.setAdapter(mSuggestAdapter);
 
-        //Czyszczenie recycleview
-        clear();
+        //Przypisanie funkicji odswiezania
+        swipeRefreshLayout = rootView.findViewById(R.id.swipeContainerSuggest);
 
-        //Wywolanie metody by uzyskac ID Kategorii
-        getCategoryId();
+        //Inicjacja odswierzania
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                clear();
+                mSuggestAdapter = new SuggestAdapter(getDataSetSuggest(),getContext());
+                mRecyclerView.setAdapter(mSuggestAdapter);
+
+            }
+        });
+
+        //Style kolka odswiezania
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+        //Czyszczenie fragmentu gdy jest automatycznie przesowany
+        clear();
 
         //zwrocenie wygladu
         return rootView;
     }
+
+    //Czyszczenie fragmentu
+    private void clear() {
+        int size = this.resoultSuggest.size();
+        this.resoultSuggest.clear();
+        mSuggestAdapter.notifyItemRangeChanged(0, size);
+    }
+
+    //Przeslanie do Adaptera Rezultatow
+    private ArrayList<SuggestObject> resoultSuggest = new ArrayList<SuggestObject>();
+
+    private List<SuggestObject> getDataSetSuggest() {
+
+        //Tu Startuje fragment
+        getCategoryId();
+
+        return resoultSuggest;
+
+    }
+
     private void getCategoryId() {
 
         //Referencja do bazy z sugerowanymi kategoriami
@@ -103,7 +141,7 @@ public class SuggestFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
-                    FetchLikedInformation(dataSnapshot.getChildrenCount(),key);
+                    FetchSuggestInformation(dataSnapshot.getChildrenCount(),key);
                 }
             }
 
@@ -114,7 +152,7 @@ public class SuggestFragment extends Fragment {
         });
     }
 
-    private void FetchLikedInformation(final Long count, final String key) {
+    private void FetchSuggestInformation(final Long count, final String key) {
 
         //Referencja do bazy Category>>categoryID. przekazanie zmiennyej categoryID z getCategoryId(); w metodzie jako key
         DatabaseReference categoryDb = FirebaseDatabase.getInstance().getReference().child("Category").child(key);
@@ -156,6 +194,9 @@ public class SuggestFragment extends Fragment {
 
                     //Metoda notujaca zmiany (Wywoluje zapisanie zmiennych)
                     mSuggestAdapter.notifyDataSetChanged();
+
+                    //Zatrzymanie animacji wyszukiwania
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             }
 
@@ -165,19 +206,7 @@ public class SuggestFragment extends Fragment {
             }
         });
     }
-    private void clear() {
-        int size = this.resoultSuggest.size();
-        this.resoultSuggest.clear();
-        mSuggestAdapter.notifyItemRangeChanged(0, size);
-    }
-    //Przeslanie do Adaptera Rezultatow
-    private ArrayList<SuggestObject> resoultSuggest = new ArrayList<SuggestObject>();
 
-    private List<SuggestObject> getDataSetSuggest() {
-
-        return resoultSuggest;
-
-    }
 
 
 }

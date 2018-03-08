@@ -1,4 +1,4 @@
-package com.example.pokeout.pokeout.Liked;
+package com.example.pokeout.pokeout.Fragments.Liked;
 
 /**
  * Created by Z710 on 2018-02-22.

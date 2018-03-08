@@ -1,4 +1,4 @@
-package com.example.pokeout.pokeout.Suggest;
+package com.example.pokeout.pokeout.Fragments.Suggest;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

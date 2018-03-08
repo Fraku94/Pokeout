@@ -1,4 +1,4 @@
-package com.example.pokeout.pokeout.Liked;
+package com.example.pokeout.pokeout.Fragments.Liked;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pokeout.pokeout.R;
 import com.example.pokeout.pokeout.UsersInCategory.UsersInCategoryActivity;

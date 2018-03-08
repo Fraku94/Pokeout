@@ -1,27 +1,21 @@
-package com.example.pokeout.pokeout.Best;
+package com.example.pokeout.pokeout.Fragments.Best;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.pokeout.pokeout.CategoryAdd.CategoryAddActivity;
-import com.example.pokeout.pokeout.Liked.LikedAdapter;
-import com.example.pokeout.pokeout.Liked.LikedObject;
 import com.example.pokeout.pokeout.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -29,6 +23,10 @@ import java.util.List;
 
 
 public class BestFragment extends Fragment {
+
+    //Odswiezanie
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     public BestFragment() {
 
     }
@@ -59,15 +57,53 @@ public class BestFragment extends Fragment {
         mBestAdapter = new BestAdapter(getDataSetBest(),context);
         mRecyclerView.setAdapter(mBestAdapter);
 
-        //Czyszczenie recycleview
-        clear();
+        //Przypisanie funkicji odswiezania
+        swipeRefreshLayout = rootView.findViewById(R.id.swipeContainerBest);
 
-        //Wywolanie metody by uzyskac ID Kategorii
-        getCategoryId();
+        //Inicjacja odswierzania
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                clear();
+                mBestAdapter = new BestAdapter(getDataSetBest(),getContext());
+                mRecyclerView.setAdapter(mBestAdapter);
+
+            }
+        });
+
+        //Style kolka odswiezania
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+        //Czyszczenie fragmentu gdy jest automatycznie przesowany
+        clear();
 
         //zwrocenie wygladu
         return rootView;
     }
+
+    //Czyszczenie fragmentu
+    private void clear() {
+        int size = this.resoultBest.size();
+        this.resoultBest.clear();
+        mBestAdapter.notifyItemRangeChanged(0, size);
+    }
+
+    //Przeslanie do Adaptera Rezultatow
+    private ArrayList<BestObject> resoultBest = new ArrayList<BestObject>();
+
+    private List<BestObject> getDataSetBest() {
+
+        //Tu Startuje fragment
+        getCategoryId();
+
+        return resoultBest;
+
+    }
+
     private void getCategoryId() {
 
         //Referencja do bazy Category
@@ -104,7 +140,7 @@ public class BestFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
-                    FetchLikedInformation(dataSnapshot.getChildrenCount(),key);
+                    FetchBestInformation(dataSnapshot.getChildrenCount(),key);
                 }
             }
 
@@ -115,7 +151,7 @@ public class BestFragment extends Fragment {
         });
     }
 
-    private void FetchLikedInformation(final Long count, final String key) {
+    private void FetchBestInformation(final Long count, final String key) {
 
         //Referencja do bazy Category>>categoryID. przekazanie zmiennyej categoryID z getCategoryId(); w metodzie jako key
         DatabaseReference categoryDb = FirebaseDatabase.getInstance().getReference().child("Category").child(key);
@@ -157,6 +193,9 @@ public class BestFragment extends Fragment {
 
                     //Metoda notujaca zmiany (Wywoluje zapisanie zmiennych)
                     mBestAdapter.notifyDataSetChanged();
+
+                    //Zatrzymanie animacji wyszukiwania
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             }
 
@@ -166,19 +205,7 @@ public class BestFragment extends Fragment {
             }
         });
     }
-    private void clear() {
-        int size = this.resoultBest.size();
-        this.resoultBest.clear();
-        mBestAdapter.notifyItemRangeChanged(0, size);
-    }
-    //Przeslanie do Adaptera Rezultatow
-    private ArrayList<BestObject> resoultBest = new ArrayList<BestObject>();
 
-    private List<BestObject> getDataSetBest() {
-
-        return resoultBest;
-
-    }
 
 
 }

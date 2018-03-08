@@ -1,11 +1,11 @@
-package com.example.pokeout.pokeout.Liked;
+package com.example.pokeout.pokeout.Fragments.Liked;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +13,9 @@ import android.view.ViewGroup;
 import com.example.pokeout.pokeout.CategoryAdd.CategoryAddActivity;
 import com.example.pokeout.pokeout.R;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +29,10 @@ import java.util.List;
 
 
 public class LikedFragment extends Fragment {
+
+    //Odswiezanie
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     public LikedFragment() {
         // Required empty public constructor
     }
@@ -46,11 +49,8 @@ public class LikedFragment extends Fragment {
         //Pobranie Conextu dla fragmentu
         Context context = getActivity();
 
-
-
+        //Przypisanie buttona dodawania kategorii
         FloatingActionButton floatingActionButton = rootView.findViewById(R.id.fab);
-
-
 
         //Pobranie ID obecnego uzytkownika
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -70,20 +70,58 @@ public class LikedFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddCategory();
+                Intent intent = new Intent(getContext(), CategoryAddActivity.class);
+                startActivity(intent);
+                return;
             }
         });
+
+        //Przypisanie funkicji odswiezania
+        swipeRefreshLayout = rootView.findViewById(R.id.swipeContainerLiked);
+
+        //Inicjacja odswierzania
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                clear();
+                mLikedAdapter = new LikedAdapter(getDataSetLiked(),getContext());
+                mRecyclerView.setAdapter(mLikedAdapter);
+
+            }
+        });
+
+        //Style kolka odswiezania
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+        //Czyszczenie fragmentu gdy jest automatycznie przesowany
         clear();
-        //Wywolanie metody by uzyskac ID Kategorii
-        getCategoryId();
-
-
 
         //zwrocenie wygladu
         return rootView;
     }
 
+    //Czyszczenie fragmentu
+    private void clear() {
+        int size = this.resoultLiked.size();
+        this.resoultLiked.clear();
+        mLikedAdapter.notifyItemRangeChanged(0, size);
+    }
 
+    //Przeslanie do Adaptera Rezultatow
+    private ArrayList<LikedObject> resoultLiked = new ArrayList<LikedObject>();
+
+    private List<LikedObject> getDataSetLiked() {
+
+        //Tu Startuje fragment
+        getCategoryId();
+
+        return resoultLiked;
+
+    }
 
 
     private void getCategoryId() {
@@ -169,6 +207,10 @@ public class LikedFragment extends Fragment {
 
                     //Metoda notujaca zmiany (Wywoluje zapisanie zmiennych)
                     mLikedAdapter.notifyDataSetChanged();
+
+                    //Zatrzymanie animacji wyszukiwania
+                    swipeRefreshLayout.setRefreshing(false);
+
                 }
             }
 
@@ -178,24 +220,8 @@ public class LikedFragment extends Fragment {
             }
         });
     }
-    private void clear() {
-        int size = this.resoultLiked.size();
-        this.resoultLiked.clear();
-        mLikedAdapter.notifyItemRangeChanged(0, size);
-    }
-    //Przeslanie do Adaptera Rezultatow
-    private ArrayList<LikedObject> resoultLiked = new ArrayList<LikedObject>();
 
-    private List<LikedObject> getDataSetLiked() {
 
-        return resoultLiked;
 
-    }
-
-    private void AddCategory() {
-        Intent intent = new Intent(getContext(), CategoryAddActivity.class);
-        startActivity(intent);
-        return;
-    }
 
 }

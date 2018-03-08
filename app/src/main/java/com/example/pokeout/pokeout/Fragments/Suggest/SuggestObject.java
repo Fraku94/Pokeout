@@ -1,4 +1,4 @@
-package com.example.pokeout.pokeout.Suggest;
+package com.example.pokeout.pokeout.Fragments.Suggest;
 
 /**
  * Created by Z710 on 2018-02-27.

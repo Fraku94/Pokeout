@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/holo_orange_dark"
+    android:id="@+id/toolbar"
+    android:minHeight="?attr/actionBarSize"
+
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    android:elevation="4dp">
+
+
+    //ikona wylogowania zakcja onClick
+    <ImageButton
+        android:src="@drawable/ic_exit_to_app_black_24dp"
+        android:title="logout"
+        android:id="@+id/menu_logout"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?selectableItemBackground"
+        android:onClick="Logout"
+
+        app:showAsAction="always"/>
+
+</android.support.v7.widget.Toolbar>

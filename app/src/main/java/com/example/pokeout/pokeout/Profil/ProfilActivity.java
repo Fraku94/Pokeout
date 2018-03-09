@@ -206,30 +206,32 @@ public class ProfilActivity extends AppCompatActivity {
     }
 
     private void saveUserInformation() {
-        //Sprawdzenie zaznaczonego RadioButtona
-        int selectId = mRadioGroupProfil.getCheckedRadioButtonId();
-        final RadioButton radioButton = (RadioButton) findViewById(selectId);
 
-        if(radioButton.getText() == null){
-            return;
-        }
+        //Przypisanie wartosci z "okienek" do zmiennych
         username = mNameProfil.getText().toString();
         userphone = mPhoneProfil.getText().toString();
-        userSex = radioButton.getText().toString();
+//        userSex = radioButton.getText().toString();
         userbrith = mBrithProfil.getText().toString();
         userDescription = mDescriptionProfil.getText().toString();
 
+        //Map dodaje do bazy Firebase
         Map userInfo = new HashMap();
         userInfo.put("name", username);
         userInfo.put("phone", userphone);
         userInfo.put("description", userDescription);
+
+        //Sprawdzenie ktory radiobutton jest wybrany
         if (mMaleProfil.isChecked()){
             userInfo.put("sex", "Male");
         }else{
             userInfo.put("sex", "Female");
         }
         userInfo.put("brith", userbrith);
+
+        //Metoda wywoluje zapis do bazy
         mUserDatabase.updateChildren(userInfo);
+
+        //Do zapisanie zdjecia
         if(resultUri != null){
             StorageReference filepath = FirebaseStorage.getInstance().getReference().child("profileImages").child(userId);
             Bitmap bitmap = null;
@@ -240,6 +242,7 @@ public class ProfilActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+            //Do zapisanie zdjecia
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
             byte[] data = baos.toByteArray();
@@ -255,10 +258,12 @@ public class ProfilActivity extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
+                    //Zapisanie adresu URL zdjecia do bazy
                     Map userInfo = new HashMap();
                     userInfo.put("profileImageUrl", downloadUrl.toString());
-                    mUserDatabase.updateChildren(userInfo);
 
+                    //Metoda wywoluje zapis do bazy
+                    mUserDatabase.updateChildren(userInfo);
                     finish();
                     return;
                 }
@@ -268,6 +273,7 @@ public class ProfilActivity extends AppCompatActivity {
         }
     }
 
+    //Do zapisanie zdjecia
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -22,7 +22,8 @@
         <activity android:name=".UsersInCategory.UsersInCategoryActivity" />
         <activity android:name=".UserDescryption.UserDescryptionActivity" />
         <activity android:name=".Chat.ChatActivity" />
-        <activity android:name=".CategoryDescryption.CategoryDescryptionActivity"></activity>
+        <activity android:name=".CategoryDescryption.CategoryDescryptionActivity" />
+        <activity android:name=".Connect.ConnectActivity"></activity>
     </application>
 
 </manifest>

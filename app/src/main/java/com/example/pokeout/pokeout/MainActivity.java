@@ -16,6 +16,7 @@ import android.widget.Toast;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.example.pokeout.pokeout.Adapter.SampleFragmentPagerAdapter;
+import com.example.pokeout.pokeout.LoginRegister.LoginActivity;
 import com.example.pokeout.pokeout.Profil.ProfilActivity;
 import com.google.firebase.auth.FirebaseAuth;
 

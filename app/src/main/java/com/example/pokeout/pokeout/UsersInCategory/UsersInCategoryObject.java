@@ -17,6 +17,7 @@ public class UsersInCategoryObject {
 
 
 
+
     public UsersInCategoryObject (String Id, String Name, String ImageUrl, String Descryption, String Brith, String Sex, String Phone){
         this.Id = Id;
         this.Name = Name;
@@ -25,6 +26,7 @@ public class UsersInCategoryObject {
         this.Brith = Brith;
         this.Sex = Sex;
         this.Phone = Phone;
+
     }
 
     public String getId(){
@@ -75,4 +77,5 @@ public class UsersInCategoryObject {
     public void setPhone(String phone) {
         Phone = phone;
     }
+
 }

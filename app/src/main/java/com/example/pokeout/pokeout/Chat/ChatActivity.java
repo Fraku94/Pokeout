@@ -1,7 +1,7 @@
 package com.example.pokeout.pokeout.Chat;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -24,8 +24,9 @@ import java.util.Map;
 
 public class ChatActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
-    private android.support.v7.widget.RecyclerView.Adapter mChatAdapter;
+    private RecyclerView.Adapter mChatAdapter;
     private RecyclerView.LayoutManager mChatLayoutManager;
+
 
     private EditText mSendEditText;
 

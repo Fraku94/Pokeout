@@ -1,36 +1,30 @@
 package com.example.pokeout.pokeout.UsersInCategory;
 
-
-import android.content.Intent;
 import android.location.Location;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.pokeout.pokeout.Connect.ConnectActivity;
 import com.example.pokeout.pokeout.R;
-import com.example.pokeout.pokeout.UserDescryption.UserDescryptionActivity;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
-import com.firebase.geofire.GeoQuery;
 import com.firebase.geofire.GeoQueryEventListener;
+
+import com.firebase.geofire.GeoQuery;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,34 +32,23 @@ import java.util.Map;
 
 public class UsersInCategoryActivity extends AppCompatActivity {
 
-    private UsersInCategoryObject cards_data[];
-    private UsersInCategoryAdapter UsersInCategoryAdapter;
-    private int i;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mUsersInCategoryAdapter;
+    private RecyclerView.LayoutManager mUsersInCategoryLayoutMenager;
+
+    private ArrayList<UsersInCategoryObject> resoultUsersInCategory = new ArrayList<UsersInCategoryObject>();
 
     private FirebaseAuth mAuth;
-
-    private String currentUId, categoryID;
+    GeoQuery geoQuery;
     double locationLat;
     double locationLng;
-    private Boolean requestBol = false;
+    public Location Loc1;
     private int intRadius;
 
-   public Location Loc1;
-    private Location location;
-    double l = 66;
-    double lt = 69;
-    GeoQuery geoQuery;
     private String radius;
-    private String userId, username, userphone, userprofileImageUrl, userSex, userbrith, userDescription;
-    TextView tvradius;
-    private String userFoundID;
+    private String CurrentUserId, categoryID;
 
-
-    private DatabaseReference usersDb, mUserDatabase, userLocationRef;
-
-
-    ListView listView;
-    List<UsersInCategoryObject> rowItems;
+    private DatabaseReference usersDb, mUserDatabase, userLocationRef, userLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,273 +58,144 @@ public class UsersInCategoryActivity extends AppCompatActivity {
         //ID kliknietej kategorii
         categoryID = getIntent().getExtras().getString("CategoryId");
 
-        usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
-        tvradius = (TextView) findViewById(R.id.tvradius);
+        //Odwołanie do Auth bazy
         mAuth = FirebaseAuth.getInstance();
-        currentUId = mAuth.getCurrentUser().getUid();
 
-
-        //Przypisanie id Uzytkownika
-        userId = mAuth.getCurrentUser().getUid();
+        //ID obecnego Uzytkownika
+        CurrentUserId = mAuth.getCurrentUser().getUid();
 
         //DatabaseReference
-        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUId);
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(CurrentUserId);
 
+        userLocationRef = FirebaseDatabase.getInstance().getReference().child("location").child(CurrentUserId).child("l");
 
-        rowItems = new ArrayList<UsersInCategoryObject>();
+        usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        //przypsianie layoutu adapterowi
-        UsersInCategoryAdapter = new UsersInCategoryAdapter(this, R.layout.item_users_in_category, rowItems);
-        //biblioteka do przesówania kart
-        SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
+        userLocation = FirebaseDatabase.getInstance().getReference().child("location");
 
+        //ID kliknietej kategorii
+        categoryID = getIntent().getExtras().getString("CategoryId");
 
+        //Ustawienie RecyclerView
+        mRecyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        mRecyclerView.setNestedScrollingEnabled(false);
+        mRecyclerView.setHasFixedSize(true);
+
+        //Podpiecie LayoutMenagera
+        mUsersInCategoryLayoutMenager = new LinearLayoutManager(UsersInCategoryActivity.this);
+        mRecyclerView.setLayoutManager(mUsersInCategoryLayoutMenager);
+        mUsersInCategoryAdapter = new UsersInCategoryAdapter(getDataSetUsersInCategory(), UsersInCategoryActivity.this);
+        mRecyclerView.setAdapter(mUsersInCategoryAdapter);
+
+        //Metoda pobiera promień. Start Activity
         getUserdRadius();
+        }
 
+        //Metoda pobiera promien uzytkownika
+        public void getUserdRadius() {
 
+            mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
-        flingContainer.setAdapter(UsersInCategoryAdapter);
-        flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
-            @Override
-            public void removeFirstObjectInAdapter() {
-                Log.d("LIST", "removed object!");
-                rowItems.remove(0);
-                UsersInCategoryAdapter.notifyDataSetChanged();
+                    if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
 
+                        Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
 
-            }
+                        //Pobieranie promienia wyszukiwania
+                        if (map.get("radius") != null) {
 
-            @Override
-            public void onLeftCardExit(Object dataObject) {
+                            radius = map.get("radius").toString();
+                            intRadius = Integer.parseInt(radius);
 
-                UsersInCategoryObject obj = (UsersInCategoryObject) dataObject;
-                String userId = obj.getId();
-                //dodanie do bazy Firebase połaczenia Nie
-                usersDb.child(userId).child("follow").child("no").child(currentUId).setValue(true);
-                Toast.makeText(UsersInCategoryActivity.this, "Left", Toast.LENGTH_SHORT).show();
-                if (rowItems.isEmpty()) {
-                    setContentView(R.layout.activity_users_in_category_empty);
+                            //metoda pobiera lokalizacje uzytkownika
+                            getUserdLocation();
 
-                }
-            }
-
-            @Override
-            public void onRightCardExit(Object dataObject) {
-                UsersInCategoryObject obj = (UsersInCategoryObject) dataObject;
-                String userId = obj.getId();
-                //dodanie do bazy Firebase połaczenia Tak
-                usersDb.child(userId).child("follow").child("yes").child(currentUId).setValue(true);
-                isConnectionMatch(userId);
-                Toast.makeText(UsersInCategoryActivity.this, "Right", Toast.LENGTH_SHORT).show();
-                if (rowItems.isEmpty()) {
-                    setContentView(R.layout.activity_users_in_category_empty);
-                }
-            }
-
-            @Override
-            public void onAdapterAboutToEmpty(int itemsInAdapter) {
-
-            }
-
-            @Override
-            public void onScroll(float scrollProgressPercent) {
-            }
-        });
-
-
-        // Optionally add an OnItemClickListener
-        flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClicked(int itemPosition, Object dataObject) {
-                UsersInCategoryObject obj = (UsersInCategoryObject) dataObject;
-                Intent intent = new Intent(getApplicationContext(), UserDescryptionActivity.class);
-                Bundle b = new Bundle();
-                b.putString("Name", obj.getName());
-                b.putString("ImageUrl", obj.getImageUrl());
-                b.putString("Descryption", obj.getDescryption());
-                b.putString("Brith", obj.getBrith());
-                b.putString("Sex", obj.getSex());
-                b.putString("Phone", obj.getPhone());
-                intent.putExtras(b);
-                startActivity(intent);
-
-            }
-        });
-
-    }
-
-    public void getUserdRadius() {
-
-        mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
-
-                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                    //Pobranie Imienia itd.
-
-                    if (map.get("radius") != null) {
-
-                        radius = map.get("radius").toString();
-                        intRadius = Integer.parseInt(radius);
-                        getUserdLocation();
-
+                        }
                     }
-
-
-
-                    //Załadowanie zdjecia
-                    Log.e("tag", "radius get");
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
 
-    }
-    private Boolean userFound = false;
+        ////metoda pobiera lokalizacje uzytkownika
+        public void getUserdLocation() {
 
-    public void getUserdLocation() {
-        Log.e("tag", "50");
+            userLocationRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
 
-        userLocationRef = FirebaseDatabase.getInstance().getReference().child("location").child(currentUId).child("l");
-        userLocationRef.addValueEventListener(new ValueEventListener()
+                        List<Object> map = (List<Object>) dataSnapshot.getValue();
 
-        {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e("tag", "71");
-                if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
-                    Log.e("tag", "72");
-                    List<Object> map = (List<Object>) dataSnapshot.getValue();
-                    //Pobranie Imienia itd.
-                    Log.e("tag", "73");
-                    if (map.get(0) != null) {
-                        locationLat = Double.parseDouble(map.get(0).toString());
+                        //Pobranie promienia
+                        if (map.get(0) != null) {
+                            locationLat = Double.parseDouble(map.get(0).toString());
+                        }
+                        if (map.get(1) != null) {
+                            locationLng = Double.parseDouble(map.get(1).toString());
+                        }
+
+                        //Ustawienie lokalizacji uzytkownika
+                        Loc1 = new Location("");
+                        Loc1.setLatitude(locationLat);
+                        Loc1.setLongitude(locationLng);
+
+                        //Metoda pobiera uzytkownikow znajdujacych sie w promienu
+                        getClosestUsers();
                     }
-                    Log.e("tag", "74");
-                    if (map.get(1) != null) {
-                        locationLng = Double.parseDouble(map.get(1).toString());
-                    }
-                    Log.e("tag", "75");
-
-
-                     Loc1 = new Location("");
-                    Loc1.setLatitude(locationLat);
-                    Loc1.setLongitude(locationLng);
-
-                    getClosestUsers();
                 }
-                LatLng userLatLng = new LatLng(locationLat, locationLng);
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-
-                tvradius.setText("lat" + locationLat + "lon" + locationLng);
-                //Załadowanie zdjecia
-                Log.e("tag", "location get");
-
-
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-    }
-
-
-    //Sprawdzanie czy uzytkownicy sie połączyli jesli tak to wyswietla sie toast
-    private void isConnectionMatch(String userId) {
-        DatabaseReference currentUserConnectionsDb = usersDb.child(currentUId).child("follow").child("yes").child(userId);
-        currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-
-                    String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey();
-
-                    usersDb.child(dataSnapshot.getKey()).child("follow").child("connect").child(currentUId).child("ChatId").setValue(key);
-                    usersDb.child(currentUId).child("follow").child("connect").child(dataSnapshot.getKey()).child("ChatId").setValue(key);
-
-                    Toast.makeText(UsersInCategoryActivity.this, "Is Conenct", Toast.LENGTH_SHORT).show();
-                    Log.e("tag", "commect get");
                 }
-            }
+            });
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+        }
 
-            }
-        });
-    }
+        //Metoda pobiera uzytkownikow znajdujacych sie w promienu
+        public void getClosestUsers() {
 
+            GeoFire geoFire = new GeoFire(userLocation);
 
-    public void getClosestUsers() {
+            //zapytanie i lokalizacja osoby szukajacej centru
+            geoQuery = geoFire.queryAtLocation(new GeoLocation(locationLat, locationLng), intRadius);
 
-        DatabaseReference userLocation = FirebaseDatabase.getInstance().getReference().child("location");
+            geoQuery.removeAllListeners();
 
-        GeoFire geoFire = new GeoFire(userLocation);
+            geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
+                @Override
+                public void onKeyEntered(String key, GeoLocation location) {
 
-        //zapytanie i lokalizacja osoby szukajacej centru
-        geoQuery = geoFire.queryAtLocation(new GeoLocation(locationLat, locationLng), intRadius);
-
-
-        geoQuery.removeAllListeners();
-
-        Log.e("tag", "start szukania");
-        geoQuery.addGeoQueryEventListener(new GeoQueryEventListener()
-
-        {
-            @Override
-            public void onKeyEntered(String key, GeoLocation location) {
-
-                Log.e("tag", "user found    "+key);
-
-
-                    userLocationRef = FirebaseDatabase.getInstance().getReference().child("location").child(key).child("l");
-                    userLocationRef.addValueEventListener(new ValueEventListener()
-
-                    {
+                    userLocationRef.addValueEventListener(new ValueEventListener(){
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
                             if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
 
+                                //Pobranie lokalizacji uzytkownika w poblizu
                                 List<Object> map = (List<Object>) dataSnapshot.getValue();
-                                //Pobranie Imienia itd.
-
                                 if (map.get(0) != null) {
                                     locationLat = Double.parseDouble(map.get(0).toString());
                                 }
-
                                 if (map.get(1) != null) {
                                     locationLng = Double.parseDouble(map.get(1).toString());
                                 }
-
-
                             }
 
-
+                            //Lokalizajcia uzytkownika w poblizu
                             Location Loc2 = new Location("");
                             Loc2.setLatitude(locationLat);
                             Loc2.setLongitude(locationLat);
 
-
-
                             float distance = Loc1.distanceTo(Loc2)/1000;
-//
                             String formattedDistanceString = String.format("%.1f", distance) ;
-                            Log.e("tag", "distance :         " + distance + "     "+ Loc1 + "" +Loc2);
-                            tvradius.setText(formattedDistanceString);
-
+                          //  Log.e("tag", "distance :         " + distance + "     "+ Loc1 + "" +Loc2);
                         }
-
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
@@ -349,83 +203,43 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                         }
                     });
 
+                    FetchUsersInCategoryInformation(key);
+
+                }
+
+                @Override
+                public void onKeyExited(String key) {
+
+                }
+
+                @Override
+                public void onKeyMoved(String key, GeoLocation location) {
+
+                }
+
+                @Override
+                public void onGeoQueryReady() {
 
 
 
+                }
 
-                FetchUsersInCategoryInformation(key);
+                @Override
+                public void onGeoQueryError(DatabaseError error) {
 
+                }
+            });
+        }
 
+        private void FetchUsersInCategoryInformation(final String key) {
 
-            }
-
-
-            @Override
-            public void onKeyExited(String key) {
-
-            }
-
-            @Override
-            public void onKeyMoved(String key, GeoLocation location) {
-
-            }
-
-            @Override
-            public void onGeoQueryReady() {
-
-
-
-            }
-
-            @Override
-            public void onGeoQueryError(DatabaseError error) {
-
-            }
-        });
-    }
-
-
-//    public void getUserId() {
-//
-//        final String adminId = "UYjTdbeg7zXSwXFhN72eDPseU1R2";
-//        DatabaseReference usersInCategorydb = FirebaseDatabase.getInstance().getReference().child("Category").child(categoryID).child("users");
-//        usersInCategorydb.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                //Sprawdzenie czy istnieje
-//                if (dataSnapshot.exists()) {
-//
-//                    //pobranie wartości z "category"
-//                    for (DataSnapshot userInCategory : dataSnapshot.getChildren()) {
-//                        Log.e("tag", "2a");
-//                        if (!userInCategory.getKey().equals(adminId)) {
-//                            //Wywolanie metody zbierajacej informacje o kategorii z przekazaniem w niej ID danej kategorii
-//                            //getKey() pobiera ID kategorii
-//                            Log.e("tag", "getUserId");
-//                            FetchUsersInCategoryInformation(userInCategory.getKey());
-//                            Log.e("tag", "getUserId ++++++fetch");
-//                        }
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
-
-    private void FetchUsersInCategoryInformation(final String key) {
-
-        DatabaseReference usersDb = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
+        usersDb = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
         usersDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists() && !dataSnapshot.child("follow").child("no").hasChild(currentUId) && !dataSnapshot.child("follow").child("yes").hasChild(currentUId)) {
+                if (dataSnapshot.exists() && !dataSnapshot.child("follow").child("no").hasChild(CurrentUserId) ) {
                     if (!key.equals(FirebaseAuth.getInstance().getUid())) {
 
-                        Log.e("tag", "user information      : " + key+ "  "+ currentUId);
                         String Id = dataSnapshot.getKey();
                         String Name = "";
                         String ImageUrl = "";
@@ -453,40 +267,21 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                             Phone = dataSnapshot.child("phone").getValue().toString();
                         }
 
-
-                        //przypisanie do obiektu Cards
+                        //przypisanie do obiektu zmiennych
                         UsersInCategoryObject item = new UsersInCategoryObject(Id, Name, ImageUrl, Description, Brith, Sex, Phone);
-                        rowItems.add(item);
-                        UsersInCategoryAdapter.notifyDataSetChanged();
-                        Log.e("tag", "FetchUsersInCategoryInformation");
-
+                        resoultUsersInCategory.add(item);
+                        mUsersInCategoryAdapter.notifyDataSetChanged();
                     }
-
-
                 }
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-    }
+        }
 
+        private List<UsersInCategoryObject> getDataSetUsersInCategory() {
 
-            public void goToConnect(View view) {
-
-                        Log.e("tag","10");
-                        Intent intent = new Intent(getApplicationContext(), ConnectActivity.class);
-                        startActivity(intent);
-
-
-            }
-
-
+            return resoultUsersInCategory;
+        }
 }
-
-
-
-
-

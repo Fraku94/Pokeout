@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pokeout.pokeout.R;
+import com.example.pokeout.pokeout.UserInCategory.UserInCategoryActivity;
 import com.example.pokeout.pokeout.UsersInCategory.UsersInCategoryActivity;
 
 /**

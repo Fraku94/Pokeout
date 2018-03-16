@@ -110,6 +110,7 @@ public void onClick(View v) {
         //Przekazanie danych potzrebnych do opisania szczegolow kategorii
         Intent intent = new Intent(v.getContext(), CategoryDescryptionActivity.class);
         Bundle b = new Bundle();
+        b.putString("Id", suggestObjectsList.get(position).getId());
         b.putString("Name", suggestObjectsList.get(position).getName());
         b.putString("ImageUrl", suggestObjectsList.get(position).getImageUrl());
         b.putString("Descryption", suggestObjectsList.get(position).getCatDescryption());

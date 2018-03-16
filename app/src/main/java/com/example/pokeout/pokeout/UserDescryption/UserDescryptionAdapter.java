@@ -13,23 +13,29 @@ import com.example.pokeout.pokeout.R;
 import java.util.List;
 
 /**
- * Created by Z710 on 2018-02-17.
+ * Created by Z710 on 2018-02-27.
  */
 
 public class UserDescryptionAdapter extends RecyclerView.Adapter<UserDescryptionViewHolder>{
-    private List<UserDescryptionObject> userDescryptionObject;
+
+    private List<UserDescryptionObject> userDescryptionObjectsList;
+
     private Context context;
 
-    public UserDescryptionAdapter(List<UserDescryptionObject> userDescryptionObject, Context context){
-        this.userDescryptionObject = userDescryptionObject;
+    //Przypisanie Obiektów do adaptera
+    public UserDescryptionAdapter(List<UserDescryptionObject> userDescryptionObjectsList, Context context){
+        this.userDescryptionObjectsList = userDescryptionObjectsList;
         this.context = context;
     }
 
+    //Tworzenie wyglądu i przypisanie ViewHoldera do adaptera
     @Override
     public UserDescryptionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
+
+
         //Przypisanie wygladu okna do adaptera
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_connect, null,false);
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_descryption, null,false);
 
         //Ustawienie RecycleView
         RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -40,19 +46,22 @@ public class UserDescryptionAdapter extends RecyclerView.Adapter<UserDescryption
 
         return rcv;
     }
-
+    //Nadanie wartosci do okienek, pobranie ich z Objektow
     @Override
-    public void onBindViewHolder(UserDescryptionViewHolder holder, int position) {
+    public void onBindViewHolder(final UserDescryptionViewHolder holder, final int position) {
 
-        holder.mConnectId.setText(userDescryptionObject.get(position).getUserId());
-        holder.mConnectName.setText(userDescryptionObject.get(position).getName());
-        if(!userDescryptionObject.get(position).getProfileImageUrl().equals("default")){
-            Glide.with(context).load(userDescryptionObject.get(position).getProfileImageUrl()).into(holder.mConnectImage);
+        //Ustawienie tekstu dla imienia
+        holder.mUserDescryptionName.setText(userDescryptionObjectsList.get(position).getName());
+
+        //Sprawdzenie czy wartosc linku to "default" jesli nie ma załadować link i podpiac zdjecie ImageView
+        if(!userDescryptionObjectsList.get(position).getImageUrl().equals("default")){
+            Glide.with(context).load(userDescryptionObjectsList.get(position).getImageUrl()).into(holder.mUserDescryptionImage);
         }
-
     }
+
+    //Liczba prawdobodobnie ilości tych okien do załadowania
     @Override
     public int getItemCount() {
-        return this.userDescryptionObject.size();
+        return this.userDescryptionObjectsList.size();
     }
 }

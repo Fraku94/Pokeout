@@ -133,6 +133,7 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
                 //Przekazanie danych potzrebnych do opisania szczegolow uzytkownika
                 Intent intent = new Intent(v.getContext(), UserDescryptionActivity.class);
                 Bundle b = new Bundle();
+                b.putString("Id", usersInCategoryObjectsList.get(position).getId());
                 b.putString("Name", usersInCategoryObjectsList.get(position).getName());
                 b.putString("ImageUrl", usersInCategoryObjectsList.get(position).getImageUrl());
                 b.putString("Descryption", usersInCategoryObjectsList.get(position).getDescryption());

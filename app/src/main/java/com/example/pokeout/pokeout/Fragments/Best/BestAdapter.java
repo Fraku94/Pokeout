@@ -112,6 +112,7 @@ public class BestAdapter extends RecyclerView.Adapter<BestViewHolder>{
                 //Przekazanie danych potzrebnych do opisania szczegolow kategorii
                 Intent intent = new Intent(v.getContext(), CategoryDescryptionActivity.class);
                 Bundle b = new Bundle();
+                b.putString("Id", bestObjectsList.get(position).getId());
                 b.putString("Name", bestObjectsList.get(position).getName());
                 b.putString("ImageUrl", bestObjectsList.get(position).getImageUrl());
                 b.putString("Descryption", bestObjectsList.get(position).getCatDescryption());

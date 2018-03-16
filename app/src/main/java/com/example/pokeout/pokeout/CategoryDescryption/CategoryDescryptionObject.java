@@ -1,10 +1,10 @@
-package com.example.pokeout.pokeout.UserDescryption;
+package com.example.pokeout.pokeout.CategoryDescryption;
 
 /**
  * Created by Z710 on 2018-02-27.
  */
 
-public class UserDescryptionObject {
+public class CategoryDescryptionObject {
 
     private String Id;
     private String Name;
@@ -14,7 +14,7 @@ public class UserDescryptionObject {
 
 
 
-    public UserDescryptionObject(String Id, String Name, String ImageUrl){
+    public CategoryDescryptionObject(String Id, String Name, String ImageUrl){
         this.Id = Id;
         this.Name = Name;
         this.ImageUrl = ImageUrl;

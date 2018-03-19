@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.example.pokeout.pokeout.Adapter.SampleFragmentPagerAdapter;
 import com.example.pokeout.pokeout.LoginRegister.LoginActivity;
 import com.example.pokeout.pokeout.Profil.ProfilActivity;
+import com.example.pokeout.pokeout.UsersInCategory.UsersInCategoryObject;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 
@@ -49,9 +50,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -76,10 +81,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private FirebaseAuth mAuth;
     private LatLng pickupLocation;
     String city;
+
     private DatabaseReference mUserDatabase;
+    private Query mCategory;
 private Location mLocation;
     LocationRequest mLocationRequest;
-
+ public String name;
 
     private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
@@ -336,11 +343,46 @@ mLocation=location;
         //so the search input will show up after taping the search iconified
         //if you want to make it visible all the time make it false
         searchView.setIconifiedByDefault(true);
-
+        Log.e("tag", "statr" );
         //here we will get the search query
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(final String query) {
+                Log.e("tag", "szuk" + query);
+                mCategory = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("name").equalTo("query");
+                Log.e("tag", "szuk2" + query);
+                mCategory.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        Log.e("tag", "szuk3" + query);
+
+String f;
+
+                                //Pobranie Imienia itd.
+
+//                                    name = map.get("name").toString();
+//                      f= dataSnapshot.getChildren().iterator().next().getValue(query);
+//                                    intRadius = Integer.parseInt(radius);
+                                    Log.e("tag", "String" + query+ "dsdsds"+name);
+
+                                }
+
+
+
+                                //Załadowanie zdjecia
+
+
+
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
 
                 //logika wyszukiwania do dodania
                 return false;
@@ -348,6 +390,9 @@ mLocation=location;
 
             @Override
             public boolean onQueryTextChange(String newText) {
+
+
+
                 return false;
             }
         });

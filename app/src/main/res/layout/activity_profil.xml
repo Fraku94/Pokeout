@@ -1,109 +1,340 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp"
-    tools:context="com.example.pokeout.pokeout.Profil.ProfilActivity">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@mipmap/ic_default"
-        android:id="@+id/imageProfil" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@null"
-        android:hint="@string/Description"
-        android:layout_margin="10dp"
-        android:id="@+id/descriptionProfil"
-        android:textAlignment="center"/>
-</LinearLayout>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 
-
-    <EditText
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/Name"
-        android:layout_margin="10dp"
-        android:id="@+id/nameProfil"
-        android:textAlignment="center"/>
+        android:orientation="vertical"
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/Phone"
-        android:inputType="phone"
-        android:layout_margin="10dp"
-        android:textAlignment="center"
-        android:id="@+id/phoneProfil"/>
+        android:background="@color/white"
+        tools:context="com.example.pokeout.pokeout.UserDescryption.UserDescryptionActivity">
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/Brith"
-        android:layout_margin="10dp"
-        android:id="@+id/brithProfil"
-        android:textAlignment="center"
-        android:textSize="20dp"/>
 
 
-    <RadioGroup
-        android:layout_margin="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:id="@+id/radioGroupProfil">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <RadioButton
+            <ImageView
+                android:id="@+id/imageProfil"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="center"
+                android:src="@drawable/login"
+                android:gravity="fill"
+                />
 
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/Male"
-            android:id="@+id/rbMaleProfil" />
-
-        <RadioButton
-            android:layout_marginLeft="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/Female"
-            android:id="@+id/rbFemaleProfil"/>
-
-    </RadioGroup>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:layout_margin="25dp">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Confirm"
-            android:id="@+id/confirmProfil" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:text="@string/Back"
-            android:id="@+id/backProfil" />
-
-    </LinearLayout>
+            <!--<ImageButton-->
+            <!--android:id="@+id/imageUserDescryption"-->
+            <!--android:layout_width="120dp"-->
+            <!--android:layout_height="120dp"-->
+            <!--android:layout_below="@+id/header_cover_image"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginTop="-60dp"-->
+            <!--android:background="@drawable/ic_password"-->
+            <!--android:elevation="5dp"-->
+            <!--android:padding="20dp"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@mipmap/ic_default" />-->
 
 
 
 
 
-</LinearLayout>
+
+            <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="300px"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:src="@mipmap/ic_default"-->
+            <!--android:id="@+id/imageUserDescryption" />-->
+
+
+
+
+            <TextView
+                android:id="@+id/About"
+                android:text="About me"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5pt"
+                android:paddingLeft="10pt"
+                android:textSize="15dp"
+                android:textColor="@color/orange"
+                android:textAlignment="center"
+                android:layout_below="@id/imageProfil"
+
+                />
+
+
+
+            <EditText
+                android:id="@+id/descriptionProfil"
+                android:paddingTop="5pt"
+                android:layout_width="wrap_content"
+                android:layout_height="230px"
+                android:layout_below="@id/About"
+                android:paddingLeft="10pt"
+                android:text="About me"
+                android:textAlignment="center"
+                android:textColor="@color/black" />
+
+
+            <LinearLayout
+                android:id="@+id/namel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="3"
+                android:layout_below="@id/descriptionProfil"
+                >
+
+
+                <TextView
+                    android:text="Name"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/orange"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/nameProfil"
+                    android:text="Name"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"/>
+
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/phonel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="3"
+                android:layout_below="@id/namel"
+                >
+
+                <TextView
+                    android:text="Phone"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/orange"
+                    android:textAlignment="center" />
+
+
+
+                <EditText
+                    android:id="@+id/phoneProfil"
+                    android:text="@string/Phone"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
+                    android:textAlignment="center" />
+
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/datel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/phonel"
+                android:layout_weight="3"
+                >
+
+
+                <TextView
+                    android:text="Date Birth"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/orange"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:id="@+id/brithProfil"
+
+                    android:text="Date Birth"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+
+
+
+
+            <LinearLayout
+android:id="@+id/sexl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="3"
+                android:layout_below="@id/datel"
+                >
+
+
+                <TextView
+                    android:text="Gender"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/orange"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:id="@+id/sexUserDescryption"
+                    android:text="Gender"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/buttonl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="35pt"
+                android:layout_gravity="center_horizontal"
+                android:layout_below="@id/sexl"
+                >
+
+
+                <Button
+                    android:id="@+id/confirmProfil"
+                    android:hint="@string/Sex"
+                    android:layout_margin="10dp"
+                    android:layout_height="100px"
+                    android:layout_width="250px"
+                    android:text="Confirm"
+                    android:background="@drawable/shapebuttonprofile"
+                    android:textSize="15dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"/>
+                <Button
+                    android:id="@+id/backProfil"
+                    android:hint="@string/Sex"
+                    android:layout_margin="10dp"
+                    android:layout_height="100px"
+                    android:layout_width="250px"
+                    android:text="Back"
+                    android:background="@drawable/shapebuttonprofile"
+                    android:textSize="15dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="3"
+                android:layout_below="@id/buttonl"
+                >
+
+
+                <TextView
+                    android:id="@+id/Radius"
+                    android:hint="@string/Sex"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Radius"
+
+                    android:textSize="15dp"
+
+                    android:textAlignment="center"
+                    android:textColor="@color/orange"/>
+
+                <SeekBar
+
+                    android:layout_marginRight="30pt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:progressTint="@color/orange"
+                    android:thumbTint="@color/orange"
+                    />
+
+            </LinearLayout>
+
+
+
+
+
+
+        </RelativeLayout>
+
+
+
+
+    </ScrollView>
+
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <!--</android.support.v7.widget.RecyclerView>-->
+
+
+
+
+
+
+
+
+
+
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <!--</android.support.v7.widget.RecyclerView>-->
+
+
+

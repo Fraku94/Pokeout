@@ -85,11 +85,11 @@ public class ProfilActivity extends AppCompatActivity {
         mImageProfil = (ImageView)findViewById(R.id.imageProfil);
 
         //RadioGroup
-        mRadioGroupProfil = (RadioGroup)findViewById(R.id.radioGroupProfil);
+//        mRadioGroupProfil = (RadioGroup)findViewById(R.id.radioGroupProfil);
 
         //RadioButton
-        mFemaleProfil = (RadioButton)findViewById(R.id.rbFemaleProfil);
-        mMaleProfil = (RadioButton)findViewById(R.id.rbMaleProfil);
+//        mFemaleProfil = (RadioButton)findViewById(R.id.rbFemaleProfil);
+//        mMaleProfil = (RadioButton)findViewById(R.id.rbMaleProfil);
 
         //FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
@@ -167,20 +167,20 @@ public class ProfilActivity extends AppCompatActivity {
                         userDescription = map.get("description").toString();
                         mDescriptionProfil.setText(userDescription);
                     }
-                    if(map.get("sex")!=null){
-                        userSex = map.get("sex").toString();
-                        switch (userSex){
-                            case "Male":
-                                mMaleProfil.setChecked(true);
-                                mFemaleProfil.setChecked(false);
-                                break;
-                            case "Female":
-                                mMaleProfil.setChecked(false);
-                                mFemaleProfil.setChecked(true);
-                                break;
-                        }
-
-                    }
+//                    if(map.get("sex")!=null){
+//                        userSex = map.get("sex").toString();
+//                        switch (userSex){
+//                            case "Male":
+//                                mMaleProfil.setChecked(true);
+//                                mFemaleProfil.setChecked(false);
+//                                break;
+//                            case "Female":
+//                                mMaleProfil.setChecked(false);
+//                                mFemaleProfil.setChecked(true);
+//                                break;
+//                        }
+//
+//                    }
                     //Załadowanie zdjecia
                     Glide.clear(mImageProfil);
                     if(map.get("profileImageUrl")!=null){
@@ -221,11 +221,11 @@ public class ProfilActivity extends AppCompatActivity {
         userInfo.put("description", userDescription);
 
         //Sprawdzenie ktory radiobutton jest wybrany
-        if (mMaleProfil.isChecked()){
-            userInfo.put("sex", "Male");
-        }else{
-            userInfo.put("sex", "Female");
-        }
+//        if (mMaleProfil.isChecked()){
+//            userInfo.put("sex", "Male");
+//        }else{
+//            userInfo.put("sex", "Female");
+//        }
         userInfo.put("brith", userbrith);
 
         //Metoda wywoluje zapis do bazy

@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.example.pokeout.pokeout.CategoryDescryption.CategoryDescryptionActivity;
 import com.example.pokeout.pokeout.CategoryInformation;
+import com.example.pokeout.pokeout.Fragments.Best.BestObject;
+import com.example.pokeout.pokeout.Fragments.Best.BestViewHolder;
 import com.example.pokeout.pokeout.R;
 import com.example.pokeout.pokeout.UsersInCategory.UsersInCategoryActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -64,10 +66,10 @@ public class BestAdapter extends RecyclerView.Adapter<BestViewHolder>{
 
         //Sprawdzenie i ustawienie czy kategorie mamy juz dodana czy nie (odpowiednia zmiana ikon)
         if(CategoryInformation.listFollowingCategory.contains(bestObjectsList.get(position).getId())){
-            holder.mBestFollow.setImageResource(R.mipmap.ic_remove_user);
+            holder.mBestFollow.setImageResource(R.drawable.like);
             holder.mBestGo.setVisibility(View.VISIBLE);
         }else {
-            holder.mBestFollow.setImageResource(R.mipmap.ic_add_grup);
+            holder.mBestFollow.setImageResource(R.drawable.unffalow);
             holder.mBestGo.setVisibility(View.INVISIBLE);
         }
 
@@ -81,7 +83,7 @@ public class BestAdapter extends RecyclerView.Adapter<BestViewHolder>{
 
                 //Jesli w "categoryInformation" nie ma id kategorii to ma ja doda i zmienic odpowiednio ikony
                 if(!CategoryInformation.listFollowingCategory.contains(bestObjectsList.get(position).getId())){
-                    holder.mBestFollow.setImageResource(R.mipmap.ic_remove_user);
+                    holder.mBestFollow.setImageResource(R.drawable.like);
                     holder.mBestGo.setVisibility(View.VISIBLE);
                     FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("category").child(bestObjectsList.get(position).getId()).setValue(true);
                     FirebaseDatabase.getInstance().getReference().child("Category").child(bestObjectsList.get(position).getId()).child("users").child(userId).setValue(true);
@@ -89,7 +91,7 @@ public class BestAdapter extends RecyclerView.Adapter<BestViewHolder>{
 
                 //Jesli w "categoryInformation" jest id kategorii to ma ja usunac i zmienic odpowiednio ikony
                 else{
-                    holder.mBestFollow.setImageResource(R.mipmap.ic_add_grup);
+                    holder.mBestFollow.setImageResource(R.drawable.unffalow);
                     holder.mBestGo.setVisibility(View.INVISIBLE);
                     FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("category").child(bestObjectsList.get(position).getId()).removeValue();
                     FirebaseDatabase.getInstance().getReference().child("Category").child(bestObjectsList.get(position).getId()).child("users").child(userId).removeValue();

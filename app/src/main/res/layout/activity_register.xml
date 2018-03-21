@@ -3,7 +3,9 @@
     android:orientation="vertical"
 android:background="@drawable/register"
     android:layout_height="match_parent"
-    tools:context="com.example.pokeout.pokeout.LoginRegister.RegisterActivity">
+    tools:context="com.example.pokeout.pokeout.LoginRegister.RegisterActivity"
+    android:fitsSystemWindows="true"
+    android:scaleType="centerCrop">
 
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"

@@ -82,9 +82,13 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
+                if (!validate()) {
+                    Toast.makeText(RegisterActivity.this, "Fill empty ", Toast.LENGTH_SHORT).show();
+
+                }else {
 
 
-                Log.d("tag", "Login");
+                Log.d("tag", "Register");
 
 
                 final String email = etEmail.getText().toString();
@@ -106,6 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 });
+                }
             }
         });
 

@@ -13,6 +13,7 @@ import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
@@ -31,6 +32,7 @@ import android.widget.Toast;
 
 
 import com.example.pokeout.pokeout.Adapter.SampleFragmentPagerAdapter;
+import com.example.pokeout.pokeout.Connect.ConnectActivity;
 import com.example.pokeout.pokeout.LoginRegister.LoginActivity;
 import com.example.pokeout.pokeout.Profil.ProfilActivity;
 import com.example.pokeout.pokeout.UsersInCategory.UsersInCategoryObject;
@@ -57,6 +59,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -67,7 +70,7 @@ import java.util.Map;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 
-public class MainActivity extends AppCompatActivity implements LocationListener  {
+public class MainActivity extends AppCompatActivity implements LocationListener {
 
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -84,10 +87,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     private DatabaseReference mUserDatabase;
     private Query mCategory;
-private Location mLocation;
+    private Location mLocation;
     LocationRequest mLocationRequest;
- public String name;
-
+    public String name;
+    private MaterialSearchView searchView;
     private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
 
@@ -117,7 +120,7 @@ private Location mLocation;
 
         // Wywołanie  obiektu toolbar i dolaczenie do layotu
         // Attaching the layout to the toolbar object
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Ustawienie toolbara jako action bar
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -140,11 +143,6 @@ private Location mLocation;
         getLastLocation();
         startLocationUpdates();
 
-
-
-
-
-
     }
 
     @Override
@@ -152,8 +150,8 @@ private Location mLocation;
 
         latitude = location.getLatitude();
         longitude = location.getLongitude();
-mLocation=location;
-        LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
+        mLocation = location;
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         pickupLocation = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
         Geocoder geocoder;
         List<Address> addresses;
@@ -165,7 +163,7 @@ mLocation=location;
                 geocoder = new Geocoder(this, Locale.getDefault());
                 addresses = geocoder.getFromLocation(latitude, longitude, 1);
                 if (addresses != null && addresses.size() > 0) {
-                     city = addresses.get(0).getLocality();
+                    city = addresses.get(0).getLocality();
                     locationTxt.setText(mLocation.getLatitude() + " " + city + " " + mLocation.getLongitude());
                     mAuth = FirebaseAuth.getInstance();
 
@@ -177,15 +175,14 @@ mLocation=location;
                     GeoFire geoFire = new GeoFire(ref);
 
 
-                    geoFire.setLocation(userId,new GeoLocation(mLocation.getLatitude(),mLocation.getLongitude()));
+                    geoFire.setLocation(userId, new GeoLocation(mLocation.getLatitude(), mLocation.getLongitude()));
                     saveUserCity();
                 }
-            }catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
-    }
+            }
         }
     }
-
 
 
     @Override
@@ -211,6 +208,7 @@ mLocation=location;
         mUserDatabase.updateChildren(userInfo);
 
     }
+
     public void getLastLocation() {
         // Get last known recent location using new Google Play Services SDK (v11+)
         FusedLocationProviderClient locationClient = getFusedLocationProviderClient(this);
@@ -287,16 +285,12 @@ mLocation=location;
     }
 
 
-
-
-
-
     public void Logout(View view) {
 
-            mAuth.signOut();
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
+        mAuth.signOut();
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
 
 
     }
@@ -325,15 +319,21 @@ mLocation=location;
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_main, menu);
 
+//        MenuItem item = menu.findItem(R.id.action_search);
+//        searchView.setMenuItem(item);
+//        return true;
 
         //getting the search view from the menu
+
         MenuItem searchViewItem = menu.findItem(R.id.menuSearch);
 
         //getting search manager from systemservice
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 
+
         //getting the search view
         final SearchView searchView = (SearchView) searchViewItem.getActionView();
+
 
         //Wyswietlenie podpowiedzi do wyszukiwania
         searchView.setQueryHint("Search Category...");
@@ -343,54 +343,18 @@ mLocation=location;
         //so the search input will show up after taping the search iconified
         //if you want to make it visible all the time make it false
         searchView.setIconifiedByDefault(true);
-        Log.e("tag", "statr" );
+        Log.e("tag", "statr");
         //here we will get the search query
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
             public boolean onQueryTextSubmit(final String query) {
-                Log.e("tag", "szuk" + query);
-                mCategory = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("name").equalTo("query");
-                Log.e("tag", "szuk2" + query);
-                mCategory.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        Log.e("tag", "szuk3" + query);
-
-String f;
-
-                                //Pobranie Imienia itd.
-
-//                                    name = map.get("name").toString();
-//                      f= dataSnapshot.getChildren().iterator().next().getValue(query);
-//                                    intRadius = Integer.parseInt(radius);
-                                    Log.e("tag", "String" + query+ "dsdsds"+name);
-
-                                }
-
-
-
-                                //Załadowanie zdjecia
-
-
-
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-
-
-                //logika wyszukiwania do dodania
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
 
 
                 return false;
@@ -400,6 +364,8 @@ String f;
         return true;
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -407,7 +373,7 @@ String f;
             // akcje,ktore ma sie wykonac po kliknieciu na dany obiekt wskazany ID.Klikasz i odrazu wykonuje sie akcja np:odswiezanie,wylogowanie
             case R.id.menu_profile:
                 Toast.makeText(getApplicationContext(), "You clicked profile"+latitude, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, ProfilActivity.class);
+                Intent intent = new Intent(MainActivity.this, ConnectActivity.class);
                 startActivity(intent);
                 break;
         }

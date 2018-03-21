@@ -2,6 +2,7 @@ package com.example.pokeout.pokeout.LoginRegister;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+
 
 import com.example.pokeout.pokeout.MainActivity;
 import com.example.pokeout.pokeout.R;
@@ -37,6 +40,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
+
+    public LoginActivity() {
+    }
 
 
     @Override
@@ -96,19 +102,18 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
                 }
-
-
-
-
-
-
-
             }
         });
+
+
         //** po kliknieciiu przejdz do actyvity   rjestracji  **//
         tvregister.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View view) {
+
+
                 Intent linkloginintent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(linkloginintent);
                 finish();

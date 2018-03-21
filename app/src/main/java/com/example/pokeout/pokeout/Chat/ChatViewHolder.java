@@ -13,7 +13,7 @@ import com.example.pokeout.pokeout.R;
 //Wyglad tu wszysto z Matches activity buttony textView itp.
 public class ChatViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
-    public TextView mMessage;
+    public TextView mMessage,messagerec;
     public LinearLayout mContainer;
     public ChatViewHolder(View itemView) {
         super(itemView);
@@ -21,6 +21,7 @@ public class ChatViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
         mMessage = itemView.findViewById(R.id.message);
         mContainer = itemView.findViewById(R.id.container);
+//        messagerec = itemView.findViewById(R.id.messagerec);
     }
 
     @Override

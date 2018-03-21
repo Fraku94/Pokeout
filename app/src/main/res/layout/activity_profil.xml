@@ -15,7 +15,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingRight="10pt">
 
             <ImageView
                 android:id="@+id/imageProfil"
@@ -62,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="5pt"
                 android:paddingLeft="10pt"
+
                 android:textSize="15dp"
                 android:textColor="@color/orange"
                 android:textAlignment="center"
@@ -90,6 +92,7 @@
                 android:orientation="horizontal"
                 android:layout_weight="3"
                 android:layout_below="@id/descriptionProfil"
+
                 >
 
 

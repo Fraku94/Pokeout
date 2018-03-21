@@ -1,7 +1,5 @@
 package com.example.pokeout.pokeout;
 
-
-
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.pokeout.pokeout.Adapter.SampleFragmentPagerAdapter;
 import com.example.pokeout.pokeout.Connect.ConnectActivity;
+import com.example.pokeout.pokeout.Adapter.ZoomOutPageTransformer;
 import com.example.pokeout.pokeout.LoginRegister.LoginActivity;
 import com.example.pokeout.pokeout.Profil.ProfilActivity;
 import com.example.pokeout.pokeout.UsersInCategory.UsersInCategoryObject;
@@ -132,6 +131,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         //Tworzenie adaptera rozpoznajacego,który fragment ma się pojawić i usttawienie adatera w ViePagerze
         SampleFragmentPagerAdapter adapter = new SampleFragmentPagerAdapter(this, getSupportFragmentManager());
         viewPager.setAdapter(adapter);
+
+        //Odwołanie do klasy Transformer (Przejscai miedzy fragmentami)
+        ZoomOutPageTransformer transformer = new ZoomOutPageTransformer();
+        viewPager.setPageTransformer(true,transformer);
 
         // Znajdowanie Tablayout ,który pokaże napisy
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
@@ -283,6 +286,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 },
                 Looper.myLooper());
     }
+
 
 
     public void Logout(View view) {

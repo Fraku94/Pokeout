@@ -1,7 +1,7 @@
 package com.example.pokeout.pokeout.Chat;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -127,6 +127,9 @@ public class ChatActivity extends AppCompatActivity {
                         resultsChat.add(newMessage);
                         mChatAdapter.notifyDataSetChanged();
                     }
+                    Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE );
+                    Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), alarmSound);
+                    r.play();
                 }
 
             }

@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.pokeout.pokeout.Connect.ConnectActivity;
 import com.example.pokeout.pokeout.R;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
@@ -289,3 +292,4 @@ public class UsersInCategoryActivity extends AppCompatActivity {
             return resoultUsersInCategory;
         }
 }
+

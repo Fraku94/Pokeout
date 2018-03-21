@@ -23,4 +23,6 @@
     <string name="Count">Liczba</string>
     <string name="Message">Wiadomość...</string>
     <string name="send">Wyślij</string>
+    <string name="Distance">Odległość</string>
+    <string name="City">Miasto</string>
 </resources>

@@ -50,8 +50,6 @@ public class ConnectAdapter extends RecyclerView.Adapter<ConnectViewHolder>{
         if(!connectObject.get(position).getProfileImageUrl().equals("default")){
             Glide.with(context).load(connectObject.get(position).getProfileImageUrl()).into(holder.mConnectImage);
         }
-        Log.e("TAG", connectObject.get(position).getUserId());
-        Log.e("TAG", connectObject.get(position).getName());
 
     }
     @Override

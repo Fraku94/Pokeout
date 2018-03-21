@@ -1,5 +1,7 @@
 package com.example.pokeout.pokeout;
 
+
+
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -291,10 +293,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     public void Logout(View view) {
 
-        mAuth.signOut();
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
+            mAuth.signOut();
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
 
 
     }
@@ -377,8 +379,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             // akcje,ktore ma sie wykonac po kliknieciu na dany obiekt wskazany ID.Klikasz i odrazu wykonuje sie akcja np:odswiezanie,wylogowanie
             case R.id.menu_profile:
                 Toast.makeText(getApplicationContext(), "You clicked profile"+latitude, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, ConnectActivity.class);
-                startActivity(intent);
+
+
+                Intent profil = new Intent(MainActivity.this, ProfilActivity.class);
+                startActivity(profil);
+                break;
+            case R.id.menuSearch:
+                Toast.makeText(getApplicationContext(), "You clicked profile", Toast.LENGTH_SHORT).show();
+                Intent search = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(search);
                 break;
         }
         return super.onOptionsItemSelected(item);

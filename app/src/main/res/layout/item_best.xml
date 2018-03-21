@@ -27,19 +27,21 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_item_height"
         android:orientation="vertical"
-        android:gravity="fill"
+
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_toRightOf="@+id/bestImage"
         android:paddingLeft="10dp"
-        tools:background="@color/white">
+        android:paddingTop="30dp"
+        tools:background="@color/white"
+        android:weightSum="2">
 
         <TextView
             android:id="@+id/bestName"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             tools:text="Best Category"
@@ -50,7 +52,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1">
 
             <ImageView
 
@@ -58,21 +62,18 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginBottom="40px"
-                android:layout_toRightOf="@+id/bestCount"
                 android:src="@drawable/group" />
 
 
             <TextView
-            android:id="@+id/bestCount"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-        android:paddingLeft="20px"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:textAppearance="?android:textAppearanceListItemSmall"
-            android:textColor="@android:color/black"
-            tools:text="one" />
+                android:id="@+id/bestCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20px"
+                android:layout_weight="1"
+                android:textAppearance="?android:textAppearanceListItemSmall"
+                android:textColor="@android:color/black"
+                tools:text="one" />
 
 
         </LinearLayout>
@@ -85,11 +86,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:gravity="center"
         android:paddingRight="80px"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-
+         android:weightSum="2"
         android:orientation="vertical">
 
         <!--<ImageView-->
@@ -103,17 +104,15 @@
 
 
         <ImageView
+            android:layout_weight="0.5"
             android:id="@+id/bestFollow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15px"
             android:src="@drawable/like"/>
 
-
-
         <ImageView
+            android:layout_weight="0.5"
             android:id="@+id/bestGo"
-            android:layout_marginTop="60px"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/next" />

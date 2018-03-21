@@ -40,6 +40,7 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
         public UsersInCategoryAdapter(List<UsersInCategoryObject> usersInCategoryObjectsList, Context context){
             this.usersInCategoryObjectsList = usersInCategoryObjectsList;
             this.context = context;
+
         }
 
         //Tworzenie wyglądu i przypisanie ViewHoldera do adaptera
@@ -73,7 +74,9 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
 
         //Ustawienie tekstu dla imienia
         holder.mUserInCatName.setText(usersInCategoryObjectsList.get(position).getName());
-        holder.mUsersInCategoryMessage.setVisibility(View.INVISIBLE);
+        holder.mUserInCatName.setText(usersInCategoryObjectsList.get(position).getName());
+//        holder.mUsersInCategoryMessage.setVisibility(View.INVISIBLE);
+        holder.mCityUser.setText(usersInCategoryObjectsList.get(position).getCity());
         //Sprawdzenie i ustawienie czy uzytkwonika mamy juz dodanego czy nie (odpowiednia zmiana ikon)
         if(UserInformation.listFollowingUsers.contains(usersInCategoryObjectsList.get(position).getId())) {
 
@@ -87,7 +90,7 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
 
         }else if (UserInformation.listIsConnectUsers.contains(usersInCategoryObjectsList.get(position).getId())) {
 
-            holder.mUsersInCategoryMessage.setVisibility(View.VISIBLE);
+//            holder.mUsersInCategoryMessage.setVisibility(View.VISIBLE);
             holder.mUserInCatNo.setVisibility(View.INVISIBLE);
             holder.mUserInCatYes.setVisibility(View.INVISIBLE);
         }else{
@@ -140,19 +143,19 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
                 v.getContext().startActivity(intent);
 
             }
-        });
+        });}
 
         //Klikniecie w ikone idz do czatu z uzytkownikiem
-        holder.mUsersInCategoryMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(v.getContext(), ConnectActivity.class);
-                v.getContext().startActivity(intent);
-
-            }
-        });
-    }
+//        holder.mUsersInCategoryMessage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent intent = new Intent(v.getContext(), ConnectActivity.class);
+//                v.getContext().startActivity(intent);
+//
+//            }
+//        });
+//    }
     //Sprawdzanie czy uzytkownicy sie połączyli jesli tak to wyswietla sie toast
     private void isConnectionMatch(String OtherUserID, final UsersInCategoryViewHolder holder) {
         DatabaseReference currentUserConnectionsDb = usersDb.child(CurrentUserID).child("follow").child("yes").child(OtherUserID);
@@ -168,7 +171,7 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
                     Toast.makeText(context, "Is Conenct", Toast.LENGTH_SHORT).show();
                     Log.e("tag", "commect get");
 
-                    holder.mUsersInCategoryMessage.setVisibility(View.VISIBLE);
+//                    holder.mUsersInCategoryMessage.setVisibility(View.VISIBLE);
 
                 }
             }

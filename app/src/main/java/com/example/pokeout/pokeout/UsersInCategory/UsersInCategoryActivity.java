@@ -156,7 +156,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
             });
 
         }
-
+   private String formattedDistanceString;
         //Metoda pobiera uzytkownikow znajdujacych sie w promienu
         public void getClosestUsers() {
 
@@ -193,8 +193,8 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                             Loc2.setLongitude(locationLat);
 
                             float distance = Loc1.distanceTo(Loc2)/1000;
-                            String formattedDistanceString = String.format("%.1f", distance) ;
-                          //  Log.e("tag", "distance :         " + distance + "     "+ Loc1 + "" +Loc2);
+                            formattedDistanceString = String.format("%.1f", distance) ;
+                           Log.e("tag", "distance :         " + distance + "     "+ Loc1 + "" +Loc2);
                         }
 
                         @Override
@@ -203,7 +203,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                         }
                     });
 
-                    FetchUsersInCategoryInformation(key);
+                    FetchUsersInCategoryInformation(key,formattedDistanceString);
 
                 }
 
@@ -231,7 +231,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
             });
         }
 
-        private void FetchUsersInCategoryInformation(final String key) {
+        private void FetchUsersInCategoryInformation(final String key, final String Distance) {
 
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
         usersDb.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -247,7 +247,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                         String Brith = "";
                         String Sex = "";
                         String Phone = "";
-
+                        String City = "";
                         if (dataSnapshot.child("name").getValue() != null) {
                             Name = dataSnapshot.child("name").getValue().toString();
                         }
@@ -266,9 +266,13 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                         if (dataSnapshot.child("phone").getValue() != null) {
                             Phone = dataSnapshot.child("phone").getValue().toString();
                         }
+                        if (dataSnapshot.child("city").getValue() != null) {
+                            City = dataSnapshot.child("city").getValue().toString();
+                        }
+
 
                         //przypisanie do obiektu zmiennych
-                        UsersInCategoryObject item = new UsersInCategoryObject(Id, Name, ImageUrl, Description, Brith, Sex, Phone);
+                        UsersInCategoryObject item = new UsersInCategoryObject(Id, Name, ImageUrl, Description, Brith, Sex, Phone,City,Distance);
                         resoultUsersInCategory.add(item);
                         mUsersInCategoryAdapter.notifyDataSetChanged();
                     }

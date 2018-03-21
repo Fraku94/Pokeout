@@ -20,10 +20,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserDescryptionActivity extends AppCompatActivity {
 
-    private TextView mName, mDescryption, mBrith, mSex, mPhone, mCity;
-    private RecyclerView mRecyclerView;
+
     private RecyclerView.Adapter mUserDescryptionAdapter;
     private RecyclerView.LayoutManager mUserDescryptionLayoutMenager;
 
@@ -50,7 +52,7 @@ public class UserDescryptionActivity extends AppCompatActivity {
         mBrith = (TextView)findViewById(R.id.brithUserDescryption);
         mSex = (TextView)findViewById(R.id.sexUserDescryption);
         mPhone = (TextView)findViewById(R.id.phoneUserDescryption);
-        mCity = (TextView)findViewById(R.id.cityUserDescryption);
+        //mCity = (TextView)findViewById(R.id.cityUserDescryption);
 
         //ImageView
         mImage = (ImageView)findViewById(R.id.imageUserDescryption);
@@ -63,7 +65,7 @@ public class UserDescryptionActivity extends AppCompatActivity {
         mBrith.setText(getIntent().getExtras().getString("Brith"));
         mSex.setText(getIntent().getExtras().getString("Sex"));
         mPhone.setText(getIntent().getExtras().getString("Phone"));
-        mCity.setText(getIntent().getExtras().getString("City"));
+      //  mCity.setText(getIntent().getExtras().getString("City"));
 
         //Sprawdzenie czy wartosc linku to "default" jesli nie ma załadować link i podpiac zdjecie ImageView
 

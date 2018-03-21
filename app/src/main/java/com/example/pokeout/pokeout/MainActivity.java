@@ -338,47 +338,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_main, menu);
 
-//        MenuItem item = menu.findItem(R.id.action_search);
-//        searchView.setMenuItem(item);
-//        return true;
 
-        //getting the search view from the menu
-
-        MenuItem searchViewItem = menu.findItem(R.id.menuSearch);
-
-        //getting search manager from systemservice
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-
-
-        //getting the search view
-        final SearchView searchView = (SearchView) searchViewItem.getActionView();
-
-
-        //Wyswietlenie podpowiedzi do wyszukiwania
-        searchView.setQueryHint("Search Category...");
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
-        //by setting it true we are making it iconified
-        //so the search input will show up after taping the search iconified
-        //if you want to make it visible all the time make it false
-        searchView.setIconifiedByDefault(true);
-        Log.e("tag", "statr");
-        //here we will get the search query
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(final String query) {
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-
-                return false;
-            }
-        });
 
         return true;
     }
@@ -391,7 +351,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         switch (item.getItemId()) {
             // akcje,ktore ma sie wykonac po kliknieciu na dany obiekt wskazany ID.Klikasz i odrazu wykonuje sie akcja np:odswiezanie,wylogowanie
             case R.id.menu_profile:
-                Toast.makeText(getApplicationContext(), "You clicked profile"+latitude, Toast.LENGTH_SHORT).show();
+               
 
                 Toast.makeText(getApplicationContext(), "You clicked profile", Toast.LENGTH_SHORT).show();
                 Intent profil = new Intent(MainActivity.this, ProfilActivity.class);
@@ -399,7 +359,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 break;
             case R.id.menuSearch:
                 Toast.makeText(getApplicationContext(), "You clicked profile", Toast.LENGTH_SHORT).show();
-                Intent search = new Intent(MainActivity.this, SearchActivity.class);
+                Intent search = new Intent(MainActivity.this, ConnectActivity.class);
                 startActivity(search);
                 break;
         }

@@ -17,6 +17,8 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -34,6 +36,8 @@ import android.widget.Toast;
 import com.example.pokeout.pokeout.Adapter.SampleFragmentPagerAdapter;
 import com.example.pokeout.pokeout.Connect.ConnectActivity;
 import com.example.pokeout.pokeout.Adapter.ZoomOutPageTransformer;
+import com.example.pokeout.pokeout.Adapter.ZoomOutPageTransformer;
+import com.example.pokeout.pokeout.Fragments.Liked.LikedAdapter;
 import com.example.pokeout.pokeout.LoginRegister.LoginActivity;
 import com.example.pokeout.pokeout.Profil.ProfilActivity;
 import com.example.pokeout.pokeout.UsersInCategory.UsersInCategoryObject;
@@ -71,7 +75,7 @@ import java.util.Map;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 
-public class MainActivity extends AppCompatActivity implements LocationListener {
+public class MainActivity extends AppCompatActivity implements LocationListener  {
 
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -148,6 +152,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         getLastLocation();
         startLocationUpdates();
 
+
+
+
+
+
     }
 
     @Override
@@ -188,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             }
         }
     }
+
 
 
     @Override
@@ -291,6 +301,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
 
 
+
+
+
     public void Logout(View view) {
 
             mAuth.signOut();
@@ -380,7 +393,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             case R.id.menu_profile:
                 Toast.makeText(getApplicationContext(), "You clicked profile"+latitude, Toast.LENGTH_SHORT).show();
 
-
+                Toast.makeText(getApplicationContext(), "You clicked profile", Toast.LENGTH_SHORT).show();
                 Intent profil = new Intent(MainActivity.this, ProfilActivity.class);
                 startActivity(profil);
                 break;

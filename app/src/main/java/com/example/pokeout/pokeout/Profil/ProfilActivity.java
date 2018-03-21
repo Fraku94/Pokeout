@@ -215,6 +215,16 @@ public class ProfilActivity extends AppCompatActivity {
 //                        }
 //
 //                    }
+                    if(map.get("city")!=null){
+                        userCity = map.get("city").toString();
+                        mCityProfil.setText(userCity);
+                    }
+                    if(map.get("radius")!=null){
+                        userRadius = map.get("radius").toString();
+                        mRadiusProfil.setText(userRadius);
+                        mRadiusSeekBarProfil.setProgress(Integer.parseInt(userRadius));
+                    }
+
                     //Załadowanie zdjecia
                     Glide.clear(mImageProfil);
                     if(map.get("profileImageUrl")!=null){

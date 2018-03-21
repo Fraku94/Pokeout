@@ -1,6 +1,6 @@
 package com.example.pokeout.pokeout.UserDescryption;
 
-
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;

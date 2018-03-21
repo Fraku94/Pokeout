@@ -28,4 +28,6 @@
     <string name="menu_profile">Profil</string>
     <string name="navigation_drawer_open">drower</string>
     <string name="navigation_drawer_close">close</string>
+    <string name="Distance">Odległość</string>
+    <string name="City">Miasto</string>
 </resources>

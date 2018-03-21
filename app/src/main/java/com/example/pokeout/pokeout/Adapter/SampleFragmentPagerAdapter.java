@@ -29,17 +29,18 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
             return new LikedFragment();
         } else if (position == 1){
             return new BestFragment();
-        } else if (position == 2){
-            return new SuggestFragment();
         } else {
-            return new BlankFragment();
+            return new SuggestFragment();
         }
+//        else {
+//            return new BlankFragment();
+//        }
     }
 
     // Liczba wyswietlanych tab
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 
     // Przypisanie nazw do tablayot tam na góre
@@ -53,8 +54,8 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
                 return mContext.getString(R.string.categoryBest);
             case 2:
                 return mContext.getString(R.string.categorySuggest);
-            case 3:
-                return mContext.getString(R.string.categoryBlank);
+//            case 3:
+//                return mContext.getString(R.string.categoryBlank);
             default:
                 return null;
         }

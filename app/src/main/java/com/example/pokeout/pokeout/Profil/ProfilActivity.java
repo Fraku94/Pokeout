@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -43,7 +44,7 @@ public class ProfilActivity extends AppCompatActivity {
 
     private EditText mNameProfil, mPhoneProfil, mDescriptionProfil;
 
-    private TextView mBrithProfil;
+    private TextView mBrithProfil, mRadiusProfil, mCityProfil;
 
     private Button mConfirmProfil, mBackProfil;
 
@@ -53,10 +54,12 @@ public class ProfilActivity extends AppCompatActivity {
 
     private ImageView mImageProfil;
 
+    private SeekBar mRadiusSeekBarProfil;
+
     private FirebaseAuth mAuth;
     private DatabaseReference mUserDatabase;
 
-    private String userId, username, userphone, userprofileImageUrl, userSex, userbrith, userDescription;
+    private String userId, username, userphone, userprofileImageUrl, userSex, userbrith, userDescription, userRadius, userCity;
 
     private Uri resultUri;
 
@@ -76,6 +79,8 @@ public class ProfilActivity extends AppCompatActivity {
 
         //TextView
         mBrithProfil = (TextView)findViewById(R.id.brithProfil);
+        mRadiusProfil = (TextView)findViewById(R.id.radiusProfil);
+        mCityProfil = (TextView)findViewById(R.id.cityProfil);
 
         //Button
         mConfirmProfil = (Button)findViewById(R.id.confirmProfil);
@@ -91,6 +96,26 @@ public class ProfilActivity extends AppCompatActivity {
         mFemaleProfil = (RadioButton)findViewById(R.id.rbFemaleProfil);
         mMaleProfil = (RadioButton)findViewById(R.id.rbMaleProfil);
 
+        //SeekBar
+        mRadiusSeekBarProfil = (SeekBar)findViewById(R.id.radiusseekBarProfil);
+
+        mRadiusSeekBarProfil.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                userRadius= String.valueOf(progress);
+                mRadiusProfil.setText(String.valueOf(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
         //FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
 
@@ -167,6 +192,15 @@ public class ProfilActivity extends AppCompatActivity {
                         userDescription = map.get("description").toString();
                         mDescriptionProfil.setText(userDescription);
                     }
+                    if(map.get("city")!=null){
+                        userCity = map.get("city").toString();
+                        mCityProfil.setText(userCity);
+                    }
+                    if(map.get("radius")!=null){
+                        userRadius = map.get("radius").toString();
+                        mRadiusProfil.setText(userRadius);
+                        mRadiusSeekBarProfil.setProgress(Integer.parseInt(userRadius));
+                    }
                     if(map.get("sex")!=null){
                         userSex = map.get("sex").toString();
                         switch (userSex){
@@ -213,13 +247,14 @@ public class ProfilActivity extends AppCompatActivity {
 //        userSex = radioButton.getText().toString();
         userbrith = mBrithProfil.getText().toString();
         userDescription = mDescriptionProfil.getText().toString();
+        userRadius = mRadiusProfil.getText().toString();
 
         //Map dodaje do bazy Firebase
         Map userInfo = new HashMap();
         userInfo.put("name", username);
         userInfo.put("phone", userphone);
         userInfo.put("description", userDescription);
-
+        userInfo.put("radius", userRadius);
         //Sprawdzenie ktory radiobutton jest wybrany
         if (mMaleProfil.isChecked()){
             userInfo.put("sex", "Male");

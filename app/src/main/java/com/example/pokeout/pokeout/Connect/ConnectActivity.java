@@ -45,7 +45,6 @@ public class ConnectActivity extends AppCompatActivity {
         mConnectAdapter = new ConnectAdapter(getDataSetConnect(), ConnectActivity.this);
         mRecyclerview.setAdapter(mConnectAdapter);
 
-       // Toast.makeText(ConnectActivity.this, "1", Toast.LENGTH_SHORT).show();
         getUserConnectId();
 
     }
@@ -95,9 +94,7 @@ public class ConnectActivity extends AppCompatActivity {
                     if (dataSnapshot.child("profileImageUrl").getValue() != null) {
                         profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
                     }
-                    Log.e("TAG", userId);
-                    Log.e("TAG", name);
-                    Log.e("TAG", profileImageUrl);
+
                     ConnectObject obj = new ConnectObject(userId, name, profileImageUrl);
                     resultsConnect.add(obj);
                     mConnectAdapter.notifyDataSetChanged();

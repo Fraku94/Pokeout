@@ -17,14 +17,30 @@
             android:layout_height="150dp"
             android:src="@mipmap/ic_default"
             android:id="@+id/imageUserDescryption" />
-        <TextView
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@null"
-            android:hint="@string/Description"
-            android:layout_margin="10dp"
-            android:id="@+id/descriptionUserDescryption"
-            android:textAlignment="center"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/City"
+                android:id="@+id/cityUserDescryption"
+                android:textAlignment="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="@string/Description"
+                android:layout_margin="10dp"
+                android:id="@+id/descriptionUserDescryption"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 <LinearLayout

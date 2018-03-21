@@ -2,6 +2,7 @@ package com.example.pokeout.pokeout.UserDescryption;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,10 +13,15 @@ import org.w3c.dom.Text;
 
 public class UserDescryptionActivity extends AppCompatActivity {
 
-    private TextView mName, mDescryption, mBrith, mSex, mPhone;
+    private TextView mName, mDescryption, mBrith, mSex, mPhone, mCity;
     private ImageView mImage;
 
     String ImageUrl;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mUDescryptionAdapter;
+    private RecyclerView.LayoutManager mUDescryptionLayoutMenager;
+    private String currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +34,7 @@ public class UserDescryptionActivity extends AppCompatActivity {
         mBrith = (TextView)findViewById(R.id.brithUserDescryption);
         mSex = (TextView)findViewById(R.id.sexUserDescryption);
         mPhone = (TextView)findViewById(R.id.phoneUserDescryption);
+        mCity = (TextView)findViewById(R.id.cityUserDescryption);
 
         //ImageView
         mImage = (ImageView)findViewById(R.id.imageUserDescryption);
@@ -39,6 +46,7 @@ public class UserDescryptionActivity extends AppCompatActivity {
         mBrith.setText(getIntent().getExtras().getString("Brith"));
         mSex.setText(getIntent().getExtras().getString("Sex"));
         mPhone.setText(getIntent().getExtras().getString("Phone"));
+        mCity.setText(getIntent().getExtras().getString("City"));
 
         //Sprawdzenie czy wartosc linku to "default" jesli nie ma załadować link i podpiac zdjecie ImageView
 

@@ -13,11 +13,12 @@ public class UsersInCategoryObject {
     private String Brith;
     private String Sex;
     private String Phone;
+    private String City;
 
 
 
 
-    public UsersInCategoryObject (String Id, String Name, String ImageUrl, String Descryption, String Brith, String Sex, String Phone){
+    public UsersInCategoryObject (String Id, String Name, String ImageUrl, String Descryption, String Brith, String Sex, String Phone, String City){
         this.Id = Id;
         this.Name = Name;
         this.ImageUrl = ImageUrl;
@@ -25,6 +26,8 @@ public class UsersInCategoryObject {
         this.Brith = Brith;
         this.Sex = Sex;
         this.Phone = Phone;
+        this.City = City;
+
     }
 
     public String getId(){
@@ -74,5 +77,12 @@ public class UsersInCategoryObject {
     }
     public void setPhone(String phone) {
         Phone = phone;
+    }
+
+    public String getCity() {
+        return City;
+    }
+    public void setCity(String city) {
+        City = city;
     }
 }

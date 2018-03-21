@@ -16,6 +16,7 @@ import android.widget.Toast;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.example.pokeout.pokeout.Adapter.SampleFragmentPagerAdapter;
+import com.example.pokeout.pokeout.Adapter.ZoomOutPageTransformer;
 import com.example.pokeout.pokeout.LoginRegister.LoginActivity;
 import com.example.pokeout.pokeout.Profil.ProfilActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
         SampleFragmentPagerAdapter adapter = new SampleFragmentPagerAdapter(this, getSupportFragmentManager());
         viewPager.setAdapter(adapter);
 
+        //Odwołanie do klasy Transformer (Przejscai miedzy fragmentami)
+        ZoomOutPageTransformer transformer = new ZoomOutPageTransformer();
+        viewPager.setPageTransformer(true,transformer);
+
         // Znajdowanie Tablayout ,który pokaże napisy
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         //Wyświetlanie Tablayout w ViePager
@@ -73,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
     public void Logout(View view) {
         auth.signOut();

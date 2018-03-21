@@ -17,14 +17,30 @@
         android:layout_height="150dp"
         android:src="@mipmap/ic_default"
         android:id="@+id/imageProfil" />
-    <EditText
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@null"
-        android:hint="@string/Description"
-        android:layout_margin="10dp"
-        android:id="@+id/descriptionProfil"
-        android:textAlignment="center"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="@string/City"
+            android:id="@+id/cityProfil"
+            android:textAlignment="center"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:hint="@string/Description"
+            android:layout_margin="10dp"
+            android:id="@+id/descriptionProfil"
+            android:textAlignment="center"/>
+
+    </LinearLayout>
+
 </LinearLayout>
 
 
@@ -80,6 +96,34 @@
 
     </RadioGroup>
 
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:min="0"
+        android:id="@+id/radiusseekBarProfil"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
+        <TextView
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="@string/Distance"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="@string/Distance"
+            android:textAlignment="center"
+            android:id="@+id/radiusProfil"/>
+    </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -101,6 +145,7 @@
             android:id="@+id/backProfil" />
 
     </LinearLayout>
+
 
 
 

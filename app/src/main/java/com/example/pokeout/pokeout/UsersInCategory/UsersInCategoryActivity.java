@@ -127,6 +127,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                 b.putString("Brith", obj.getBrith());
                 b.putString("Sex", obj.getSex());
                 b.putString("Phone", obj.getPhone());
+                b.putString("City", obj.getCity());
                 intent.putExtras(b);
                 startActivity(intent);
 
@@ -206,6 +207,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                         String Brith = "";
                         String Sex = "";
                         String Phone = "";
+                        String City = "";
                         if (dataSnapshot.child("name").getValue() != null) {
                             Name = dataSnapshot.child("name").getValue().toString();
                         }
@@ -224,8 +226,11 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                         if (dataSnapshot.child("phone").getValue() != null) {
                             Phone = dataSnapshot.child("phone").getValue().toString();
                         }
+                        if (dataSnapshot.child("city").getValue() != null) {
+                            Phone = dataSnapshot.child("city").getValue().toString();
+                        }
                         //przypisanie do obiektu Cards
-                        UsersInCategoryObject item = new UsersInCategoryObject(Id, Name, ImageUrl, Description, Brith, Sex, Phone);
+                        UsersInCategoryObject item = new UsersInCategoryObject(Id, Name, ImageUrl, Description, Brith, Sex, Phone, City);
                         rowItems.add(item);
                         UsersInCategoryAdapter.notifyDataSetChanged();
                     }

@@ -71,12 +71,15 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
 
 
         final String OtherUserID = usersInCategoryObjectsList.get(position).getId();
-
+        Log.e("City", "City :    ffffffffff     "  );
         //Ustawienie tekstu dla imienia
         holder.mUserInCatName.setText(usersInCategoryObjectsList.get(position).getName());
-        holder.mUserInCatName.setText(usersInCategoryObjectsList.get(position).getName());
+
+        holder.mUserDistance.setText(usersInCategoryObjectsList.get(position).getDistance());
+        Log.e("City", "position :         " + usersInCategoryObjectsList.get(position).getDistance()  );
 //        holder.mUsersInCategoryMessage.setVisibility(View.INVISIBLE);
         holder.mCityUser.setText(usersInCategoryObjectsList.get(position).getCity());
+
         //Sprawdzenie i ustawienie czy uzytkwonika mamy juz dodanego czy nie (odpowiednia zmiana ikon)
         if(UserInformation.listFollowingUsers.contains(usersInCategoryObjectsList.get(position).getId())) {
 

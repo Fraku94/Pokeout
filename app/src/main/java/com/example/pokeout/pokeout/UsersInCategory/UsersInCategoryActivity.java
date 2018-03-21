@@ -242,7 +242,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
         usersDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists() && !dataSnapshot.child("follow").child("no").hasChild(CurrentUserId) ) {
+                if (dataSnapshot.exists() && !dataSnapshot.child("follow").child("no").hasChild(CurrentUserId) && !dataSnapshot.child("follow").child("yes").hasChild(CurrentUserId)) {
                     if (!key.equals(FirebaseAuth.getInstance().getUid())) {
 
                         String Id = dataSnapshot.getKey();

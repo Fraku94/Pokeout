@@ -14,7 +14,7 @@ import com.example.pokeout.pokeout.R;
  */
 
 public class UsersInCategoryViewHolder extends RecyclerView.ViewHolder{
-    public TextView mUserInCatName,mCityUser;
+    public TextView mUserInCatName,mCityUser,mUserDistance;
     public ImageView mUserInCatImage;
     public ImageView mUserInCatYes,mUserInCatNo, mUsersInCategoryMessage;
 
@@ -27,6 +27,7 @@ public class UsersInCategoryViewHolder extends RecyclerView.ViewHolder{
         mUserInCatYes = (ImageView) itemView.findViewById(R.id.usersInCategoryYes);
         mUserInCatNo = (ImageView) itemView.findViewById(R.id.usersInCategoryNo);
         mCityUser = (TextView) itemView.findViewById(R.id.cityUser);
+        mUserDistance = (TextView) itemView.findViewById(R.id.UserDistance);
 //        mUsersInCategoryMessage = (ImageView) itemView.findViewById(R.id.usersInCategoryMessage);
 
     }

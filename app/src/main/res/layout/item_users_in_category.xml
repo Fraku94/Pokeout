@@ -27,22 +27,19 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_item_height"
         android:orientation="vertical"
-
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_toRightOf="@+id/usersInCategoryImage"
         android:paddingLeft="10dp"
-        android:paddingTop="30dp"
         tools:background="@color/white"
-        android:weightSum="2">
+       >
 
         <TextView
             android:id="@+id/usersInCategoryName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center"
             tools:text="@string/User_Name"
             android:textStyle="bold"
@@ -54,26 +51,35 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1">
+            >
 
-            <ImageView
+            <!--<ImageView-->
 
-                android:id="@+id/bestCountIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginBottom="40px"
-                android:src="@drawable/group" />
+                <!--android:id="@+id/bestCountIcon"-->
+                <!--android:layout_width="24dp"-->
+                <!--android:layout_height="24dp"-->
+                <!--android:layout_marginBottom="40px"-->
+                <!--android:src="@drawable/group" />-->
 
 
             <TextView
                 android:id="@+id/cityUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20px"
-                android:layout_weight="1"
                 android:textAppearance="?android:textAppearanceListItemSmall"
                 android:textColor="@android:color/black"
                 tools:text="one" />
+
+
+            <TextView
+                android:id="@+id/UserDistance"
+                android:paddingLeft="55px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/cityUser"
+                android:textAppearance="?android:textAppearanceListItemSmall"
+                android:textColor="@android:color/black"
+                tools:text="one sff" />
 
 
         </LinearLayout>
@@ -90,8 +96,8 @@
         android:gravity="center"
         android:paddingRight="80px"
         android:layout_alignParentRight="true"
-        android:weightSum="2"
-        android:orientation="vertical">
+
+        android:orientation="horizontal">
 
         <!--<ImageView-->
 
@@ -104,18 +110,18 @@
 
 
         <ImageView
-            android:layout_weight="0.5"
+
             android:id="@+id/usersInCategoryYes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/like"/>
 
         <ImageView
-            android:layout_weight="0.5"
+
             android:id="@+id/usersInCategoryNo"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/next" />
+            android:src="@drawable/unffalow" />
     </LinearLayout>
 
 </RelativeLayout>

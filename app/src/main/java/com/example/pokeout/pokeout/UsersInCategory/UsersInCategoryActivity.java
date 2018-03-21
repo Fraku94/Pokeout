@@ -43,15 +43,15 @@ public class UsersInCategoryActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     GeoQuery geoQuery;
-    double locationLat;
-    double locationLng;
+    double locationLat1,locationLat2;
+    double locationLng1, locationLng2;
     public Location Loc1;
     private int intRadius;
 
     private String radius;
     private String CurrentUserId, categoryID;
 
-    private DatabaseReference usersDb, mUserDatabase, userLocationRef, userLocation;
+    private DatabaseReference usersDb, mUserDatabase, userLocationRef, closeLocationRef, userLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +71,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(CurrentUserId);
 
         userLocationRef = FirebaseDatabase.getInstance().getReference().child("location").child(CurrentUserId).child("l");
+
 
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -137,16 +138,16 @@ public class UsersInCategoryActivity extends AppCompatActivity {
 
                         //Pobranie promienia
                         if (map.get(0) != null) {
-                            locationLat = Double.parseDouble(map.get(0).toString());
+                            locationLat1 = Double.parseDouble(map.get(0).toString());
                         }
                         if (map.get(1) != null) {
-                            locationLng = Double.parseDouble(map.get(1).toString());
+                            locationLng1 = Double.parseDouble(map.get(1).toString());
                         }
 
                         //Ustawienie lokalizacji uzytkownika
                         Loc1 = new Location("");
-                        Loc1.setLatitude(locationLat);
-                        Loc1.setLongitude(locationLng);
+                        Loc1.setLatitude(locationLat1);
+                        Loc1.setLongitude(locationLng1);
 
                         //Metoda pobiera uzytkownikow znajdujacych sie w promienu
                         getClosestUsers();
@@ -166,38 +167,39 @@ public class UsersInCategoryActivity extends AppCompatActivity {
             GeoFire geoFire = new GeoFire(userLocation);
 
             //zapytanie i lokalizacja osoby szukajacej centru
-            geoQuery = geoFire.queryAtLocation(new GeoLocation(locationLat, locationLng), intRadius);
+            geoQuery = geoFire.queryAtLocation(new GeoLocation(locationLat1, locationLng1), intRadius);
 
             geoQuery.removeAllListeners();
 
             geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
                 @Override
-                public void onKeyEntered(String key, GeoLocation location) {
-
-                    userLocationRef.addValueEventListener(new ValueEventListener(){
+                public void onKeyEntered(final String key, GeoLocation location) {
+                    closeLocationRef = FirebaseDatabase.getInstance().getReference().child("location").child(key).child("l");
+                    closeLocationRef.addValueEventListener(new ValueEventListener(){
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
                             if (dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
 
-                                //Pobranie lokalizacji uzytkownika w poblizu
+                                //Pobranie lokalizacji uzytkownika w pobliz
                                 List<Object> map = (List<Object>) dataSnapshot.getValue();
                                 if (map.get(0) != null) {
-                                    locationLat = Double.parseDouble(map.get(0).toString());
+                                    locationLat2 = Double.parseDouble(map.get(0).toString());
+
                                 }
                                 if (map.get(1) != null) {
-                                    locationLng = Double.parseDouble(map.get(1).toString());
+                                    locationLng2 = Double.parseDouble(map.get(1).toString());
                                 }
                             }
 
                             //Lokalizajcia uzytkownika w poblizu
                             Location Loc2 = new Location("");
-                            Loc2.setLatitude(locationLat);
-                            Loc2.setLongitude(locationLat);
+                            Loc2.setLatitude(locationLat2);
+                            Loc2.setLongitude(locationLng2);
 
                             float distance = Loc1.distanceTo(Loc2)/1000;
-                            formattedDistanceString = String.format("%.1f", distance) ;
-                           Log.e("tag", "distance :         " + distance + "     "+ Loc1 + "" +Loc2);
+                            formattedDistanceString = String.format("%.1f", distance);
+                           Log.e("tag", "formattedDistanceString :         " + formattedDistanceString + "     "+ Loc1 + "" +Loc2);
                         }
 
                         @Override
@@ -272,10 +274,10 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                         if (dataSnapshot.child("city").getValue() != null) {
                             City = dataSnapshot.child("city").getValue().toString();
                         }
-
+                        Log.e("tag", "Distance :         " + Distance );
 
                         //przypisanie do obiektu zmiennych
-                        UsersInCategoryObject item = new UsersInCategoryObject(Id, Name, ImageUrl, Description, Brith, Sex, Phone,City,Distance);
+                        UsersInCategoryObject item = new UsersInCategoryObject(Id, Name, ImageUrl, Description, Brith, Sex, Phone,Distance,City);
                         resoultUsersInCategory.add(item);
                         mUsersInCategoryAdapter.notifyDataSetChanged();
                     }

@@ -5,7 +5,9 @@
     android:layout_height="@dimen/image"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:minHeight="@dimen/list_item_height"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:id="@+id/Gointo"
+    >
 
 
 
@@ -110,12 +112,6 @@
             android:layout_height="wrap_content"
             android:src="@drawable/like"/>
 
-        <ImageView
-            android:layout_weight="0.5"
-            android:id="@+id/bestGo"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/next" />
     </LinearLayout>
 
 </RelativeLayout>

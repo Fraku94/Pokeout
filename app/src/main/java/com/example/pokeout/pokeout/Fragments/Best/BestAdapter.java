@@ -54,9 +54,13 @@ public class BestAdapter extends RecyclerView.Adapter<BestViewHolder>{
 
         return rcv;
     }
+
+
     //Nadanie wartosci do okienek, pobranie ich z Objektow
     @Override
     public void onBindViewHolder(final BestViewHolder holder, final int position) {
+
+
 
         //Ustawienie tekstu dla imienia
         holder.mBestName.setText(bestObjectsList.get(position).getName());
@@ -67,10 +71,20 @@ public class BestAdapter extends RecyclerView.Adapter<BestViewHolder>{
         //Sprawdzenie i ustawienie czy kategorie mamy juz dodana czy nie (odpowiednia zmiana ikon)
         if(CategoryInformation.listFollowingCategory.contains(bestObjectsList.get(position).getId())){
             holder.mBestFollow.setImageResource(R.drawable.like);
-            holder.mBestGo.setVisibility(View.VISIBLE);
+
+            holder.mGointo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), UsersInCategoryActivity.class);
+                    Bundle b = new Bundle();
+                    b.putString("CategoryId", bestObjectsList.get(position).getId());
+                    intent.putExtras(b);
+                    v.getContext().startActivity(intent);
+                }
+            });
+
         }else {
             holder.mBestFollow.setImageResource(R.drawable.unffalow);
-            holder.mBestGo.setVisibility(View.INVISIBLE);
         }
 
         //Klikniecie w ikone dodawania kategori do obserwowanych
@@ -84,7 +98,16 @@ public class BestAdapter extends RecyclerView.Adapter<BestViewHolder>{
                 //Jesli w "categoryInformation" nie ma id kategorii to ma ja doda i zmienic odpowiednio ikony
                 if(!CategoryInformation.listFollowingCategory.contains(bestObjectsList.get(position).getId())){
                     holder.mBestFollow.setImageResource(R.drawable.like);
-                    holder.mBestGo.setVisibility(View.VISIBLE);
+                    holder.mGointo.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(v.getContext(), UsersInCategoryActivity.class);
+                            Bundle b = new Bundle();
+                            b.putString("CategoryId", bestObjectsList.get(position).getId());
+                            intent.putExtras(b);
+                            v.getContext().startActivity(intent);
+                        }
+                    });
                     FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("category").child(bestObjectsList.get(position).getId()).setValue(true);
                     FirebaseDatabase.getInstance().getReference().child("Category").child(bestObjectsList.get(position).getId()).child("users").child(userId).setValue(true);
                 }
@@ -92,7 +115,6 @@ public class BestAdapter extends RecyclerView.Adapter<BestViewHolder>{
                 //Jesli w "categoryInformation" jest id kategorii to ma ja usunac i zmienic odpowiednio ikony
                 else{
                     holder.mBestFollow.setImageResource(R.drawable.unffalow);
-                    holder.mBestGo.setVisibility(View.INVISIBLE);
                     FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("category").child(bestObjectsList.get(position).getId()).removeValue();
                     FirebaseDatabase.getInstance().getReference().child("Category").child(bestObjectsList.get(position).getId()).child("users").child(userId).removeValue();
                 }
@@ -122,19 +144,8 @@ public class BestAdapter extends RecyclerView.Adapter<BestViewHolder>{
             }
         });
 
-        //Klikniecie w ikone idz do uzytkownikow z kategporii
-        holder.mBestGo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Intent intent = new Intent(v.getContext(), UsersInCategoryActivity.class);
-                Bundle b = new Bundle();
-                b.putString("CategoryId", bestObjectsList.get(position).getId());
-                intent.putExtras(b);
-                v.getContext().startActivity(intent);
 
-            }
-        });
     }
 
 

@@ -119,17 +119,13 @@ public class LikedFragment extends Fragment {
     private ArrayList<LikedObject> resoultLiked = new ArrayList<LikedObject>();
 
     private List<LikedObject> getDataSetLiked() {
-
         //Tu Startuje fragment
         getCategoryId();
-
         return resoultLiked;
-
     }
 
 
     private void getCategoryId() {
-
         //Referencja do bazy Users>>userID>>category
         DatabaseReference likeddb = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("category");
         likeddb.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -192,7 +188,7 @@ public class LikedFragment extends Fragment {
                     String Count = Long.toString(count);
 
 
-                    //Pobranie warosci name jesli nie jest pusta i przypisanie do zmiennej
+                    //Pobranie warosc name jesli nie jest pusta i przypisanie do zmiennej
                     if (dataSnapshot.child("name").getValue() != null) {
                         name = dataSnapshot.child("name").getValue().toString();
                     }

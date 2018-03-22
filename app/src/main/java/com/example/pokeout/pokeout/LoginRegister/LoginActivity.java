@@ -145,12 +145,7 @@ public class LoginActivity extends AppCompatActivity {
             etPassword.setError(null);
         }
 
-
-
-
         return valid;
-
-
     }
 
 

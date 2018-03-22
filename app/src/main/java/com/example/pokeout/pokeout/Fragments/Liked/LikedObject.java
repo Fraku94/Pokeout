@@ -6,14 +6,10 @@ package com.example.pokeout.pokeout.Fragments.Liked;
 
 public class LikedObject {
 
-
     private String categoryId;
     private String name;
     private String categoryImageUrl;
     private String count;
-
-
-
 
     public LikedObject (String categoryId, String name, String categoryImageUrl, String count){
         this.categoryId = categoryId;

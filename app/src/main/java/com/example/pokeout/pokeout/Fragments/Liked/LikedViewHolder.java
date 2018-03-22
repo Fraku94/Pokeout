@@ -28,7 +28,6 @@ public class LikedViewHolder extends RecyclerView.ViewHolder implements View.OnC
         mCategoryCount = (TextView) itemView.findViewById(R.id.categoryCount);
         mCategoryName = (TextView) itemView.findViewById(R.id.categoryName);
         mCategoryImage = (ImageView) itemView.findViewById(R.id.categoryImage);
-
     }
 
     //Tutaj masz co sie stanie gdy sobie klikniesz w dana kategorie (prawdopodobnie :D)
@@ -43,6 +42,4 @@ public class LikedViewHolder extends RecyclerView.ViewHolder implements View.OnC
         intent.putExtras(b);
         v.getContext().startActivity(intent);
     }
-
-
 }

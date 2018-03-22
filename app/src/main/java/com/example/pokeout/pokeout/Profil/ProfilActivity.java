@@ -79,8 +79,8 @@ public class ProfilActivity extends AppCompatActivity {
 
         //TextView
         mBrithProfil = (TextView)findViewById(R.id.brithProfil);
-//        mRadiusProfil = (TextView)findViewById(R.id.radiusProfil);
-//        mCityProfil = (TextView)findViewById(R.id.cityProfil);
+        mRadiusProfil = (TextView)findViewById(R.id.radiusProfil);
+        mCityProfil = (TextView)findViewById(R.id.cityProfil);
 
         //Button
         mConfirmProfil = (Button)findViewById(R.id.confirmProfil);
@@ -97,7 +97,7 @@ public class ProfilActivity extends AppCompatActivity {
 //        mMaleProfil = (RadioButton)findViewById(R.id.rbMaleProfil);
 
         //SeekBar
-//        mRadiusSeekBarProfil = (SeekBar)findViewById(R.id.radiusseekBarProfil);
+        mRadiusSeekBarProfil = (SeekBar)findViewById(R.id.radiusseekBarProfil);
 
         mRadiusSeekBarProfil.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -207,15 +207,15 @@ public class ProfilActivity extends AppCompatActivity {
 //                        }
 //
 //                    }
-//                    if(map.get("city")!=null){
-//                        userCity = map.get("city").toString();
-//                        mCityProfil.setText(userCity);
-//                    }
-//                    if(map.get("radius")!=null){
-//                        userRadius = map.get("radius").toString();
-//                        mRadiusProfil.setText(userRadius);
-//                        mRadiusSeekBarProfil.setProgress(Integer.parseInt(userRadius));
-//                    }
+                    if(map.get("city")!=null){
+                        userCity = map.get("city").toString();
+                        mCityProfil.setText(userCity);
+                    }
+                    if(map.get("radius")!=null){
+                        userRadius = map.get("radius").toString();
+                        mRadiusProfil.setText(userRadius);
+                        mRadiusSeekBarProfil.setProgress(Integer.parseInt(userRadius));
+                    }
 
                     //Załadowanie zdjecia
                     Glide.clear(mImageProfil);

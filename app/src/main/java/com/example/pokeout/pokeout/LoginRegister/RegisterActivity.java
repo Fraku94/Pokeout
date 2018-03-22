@@ -168,9 +168,6 @@ public class RegisterActivity extends AppCompatActivity {
             valid = false;
         }
 
-
-
-
         return valid;
     }
 

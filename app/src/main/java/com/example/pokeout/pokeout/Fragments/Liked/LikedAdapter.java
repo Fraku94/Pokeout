@@ -35,8 +35,6 @@ public class LikedAdapter extends RecyclerView.Adapter<LikedViewHolder> implemen
     @Override
     public LikedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-
-
         //Przypisanie wygladu okna do adaptera
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_liked, null,false);
 
@@ -62,9 +60,6 @@ public class LikedAdapter extends RecyclerView.Adapter<LikedViewHolder> implemen
         if(!likedList.get(position).getCategoryImageUrl().equals("default")){
             Glide.with(context).load(likedList.get(position).getCategoryImageUrl()).into(holder.mCategoryImage);
         }
-
-
-
     }
 
     //Liczba prawdobodobnie ilości tych okien do załadowania
@@ -106,6 +101,4 @@ public class LikedAdapter extends RecyclerView.Adapter<LikedViewHolder> implemen
             }
         };
     }
-
-
 }

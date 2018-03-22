@@ -53,23 +53,59 @@
             <!--android:id="@+id/imageUserDescryption" />-->
 
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:id="@+id/About"
+    android:layout_below="@id/imageProfil">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left">
+        <TextView
+
+            android:text="About me"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5pt"
+            android:paddingLeft="10pt"
+
+            android:textSize="15dp"
+            android:textColor="@color/orange"
+            android:textAlignment="center"
 
 
-            <TextView
-                android:id="@+id/About"
-                android:text="About me"
+            />
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingRight="25dp">
+        <TextView
+            android:id="@+id/cityProfil"
+            android:text="City"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5pt"
+            android:paddingLeft="10pt"
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="5pt"
-                android:paddingLeft="10pt"
+            android:textSize="15dp"
+            android:textColor="@color/orange"
+            android:textAlignment="center"
+            android:layout_below="@id/imageProfil"
 
-                android:textSize="15dp"
-                android:textColor="@color/orange"
-                android:textAlignment="center"
-                android:layout_below="@id/imageProfil"
+            />
+    </LinearLayout>
 
-                />
+
+
+</LinearLayout>
+
+
 
 
 
@@ -235,8 +271,7 @@ android:id="@+id/sexl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="35pt"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center"
                 android:layout_below="@id/sexl"
                 >
 
@@ -279,10 +314,9 @@ android:id="@+id/sexl"
 
 
                 <TextView
-                    android:id="@+id/Radius"
                     android:hint="@string/Sex"
                     android:layout_weight="1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
 
                     android:text="Radius"
@@ -293,15 +327,28 @@ android:id="@+id/sexl"
                     android:textColor="@color/orange"/>
 
                 <SeekBar
-
+                    android:id="@+id/radiusseekBarProfil"
                     android:layout_marginRight="30pt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:progressTint="@color/orange"
                     android:thumbTint="@color/orange"
                     />
 
+                <TextView
+                    android:id="@+id/radiusProfil"
+                    android:hint="@string/Sex"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:text="Radius"
+
+                    android:textSize="15dp"
+
+                    android:textAlignment="center"
+                    android:textColor="@color/orange"/>
             </LinearLayout>
 
 

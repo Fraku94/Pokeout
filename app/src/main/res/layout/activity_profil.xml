@@ -78,18 +78,7 @@ android:paddingTop="15px"
 
 
 
-        <TextView
-            android:paddingRight="200px"
-            android:textAlignment="textEnd"
-            android:layout_weight="1"
-            android:id="@+id/cityProfil"
-            android:text="@string/City"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-android:layout_marginRight="30dp"
-            android:textColor="@color/orange"
-            />
+
 
 
 
@@ -107,10 +96,59 @@ android:layout_marginRight="30dp"
                 android:textSize="15dp"
                 android:paddingLeft="20pt"
                 android:text="About me"
-                android:textAlignment="center"
+
+
                 android:textColor="@color/black"
 
+
                 />
+
+
+
+
+
+            <LinearLayout
+                android:id="@+id/city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="3"
+                android:layout_below="@id/descriptionProfil"
+
+                >
+
+
+
+
+
+                <TextView
+                    android:text="@string/City"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/orange"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/cityProfil"
+                    android:text="@string/City"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"/>
+
+
+
+
+            </LinearLayout>
+
+
+
 
 
             <LinearLayout
@@ -119,9 +157,12 @@ android:layout_marginRight="30dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_weight="3"
-                android:layout_below="@id/descriptionProfil"
+                android:layout_below="@id/city"
 
                 >
+
+
+
 
 
                 <TextView
@@ -264,6 +305,7 @@ android:layout_marginRight="30dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_centerHorizontal="true"
+
                 android:layout_below="@id/sexl"
                 android:weightSum="3"
                 >
@@ -280,10 +322,9 @@ android:layout_marginRight="30dp"
 
                     <SeekBar
                         android:layout_weight="2"
-                        android:id="@+id/radiusseekBarProfil"
-
+                        android:id="@+id/radiusseekBarProfil"s
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:progressTint="@color/orange"
                         android:thumbTint="@color/orange"
                         />

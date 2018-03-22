@@ -40,7 +40,6 @@
         <activity android:name=".Chat.ChatActivity" />
         <activity android:name=".CategoryDescryption.CategoryDescryptionActivity" />
         <activity android:name=".Connect.ConnectActivity" />
-        <activity android:name=".CategoryDescryption.CategoryDescryptionActivity" />
         <activity android:name=".UserInCategory.UserInCategoryActivity" />
         <activity android:name=".SearchActivity"></activity>
     </application>

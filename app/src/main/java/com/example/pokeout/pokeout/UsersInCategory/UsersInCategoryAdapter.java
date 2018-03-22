@@ -71,12 +71,10 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
 
 
         final String OtherUserID = usersInCategoryObjectsList.get(position).getId();
-        Log.e("City", "City :    ffffffffff     "  );
         //Ustawienie tekstu dla imienia
         holder.mUserInCatName.setText(usersInCategoryObjectsList.get(position).getName());
 
         holder.mUserDistance.setText(usersInCategoryObjectsList.get(position).getDistance());
-        Log.e("City", "position :         " + usersInCategoryObjectsList.get(position).getDistance()  );
 //        holder.mUsersInCategoryMessage.setVisibility(View.INVISIBLE);
         holder.mCityUser.setText(usersInCategoryObjectsList.get(position).getCity());
 
@@ -106,6 +104,8 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
                     holder.mUserInCatNo.setVisibility(View.INVISIBLE);
                     usersDb.child(OtherUserID).child("follow").child("yes").child(CurrentUserID).setValue(true);
                     usersDb.child(CurrentUserID).child("follow").child("following").child("yes").child(OtherUserID).setValue(true);
+                    usersDb.child(OtherUserID).child("follow").child("no").child(CurrentUserID).removeValue();
+                    usersDb.child(CurrentUserID).child("follow").child("following").child("no").child(OtherUserID).removeValue();
                     isConnectionMatch(OtherUserID,holder);
                 }
             });
@@ -116,7 +116,9 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
                     holder.mUserInCatNo.setBackgroundColor(0xFF471A);
                     holder.mUserInCatYes.setVisibility(View.INVISIBLE);
                     usersDb.child(OtherUserID).child("follow").child("no").child(CurrentUserID).setValue(true);
-                    usersDb.child(CurrentUserID).child("follow").child("following").child("no").child(OtherUserID).removeValue();
+                    usersDb.child(CurrentUserID).child("follow").child("following").child("no").child(OtherUserID).setValue(true);
+                    usersDb.child(OtherUserID).child("follow").child("yes").child(CurrentUserID).removeValue();
+                    usersDb.child(CurrentUserID).child("follow").child("following").child("yes").child(OtherUserID).removeValue();
                 }
             });
 

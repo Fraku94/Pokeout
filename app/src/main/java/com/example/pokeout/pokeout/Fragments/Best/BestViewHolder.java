@@ -3,6 +3,7 @@ package com.example.pokeout.pokeout.Fragments.Best;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pokeout.pokeout.R;
@@ -13,7 +14,9 @@ import com.example.pokeout.pokeout.R;
 
 public class BestViewHolder extends RecyclerView.ViewHolder  {
     public TextView mBestName, mBestCount;
-    public ImageView mBestImage, mBestGo, mBestFollow;
+    public ImageView mBestImage,  mBestFollow;
+
+    public RelativeLayout mbestGointo;
 
 
     public BestViewHolder(View itemView) {
@@ -23,10 +26,10 @@ public class BestViewHolder extends RecyclerView.ViewHolder  {
         mBestCount = (TextView) itemView.findViewById(R.id.bestCount);
         mBestName = (TextView) itemView.findViewById(R.id.bestName);
         mBestImage = (ImageView) itemView.findViewById(R.id.bestImage);
-        mBestGo = (ImageView) itemView.findViewById(R.id.bestGo);
+
         mBestFollow = (ImageView) itemView.findViewById(R.id.bestFollow);
 
-
+        mbestGointo = (RelativeLayout) itemView.findViewById(R.id.bestGointo);
     }
 
 }

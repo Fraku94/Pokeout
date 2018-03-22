@@ -44,13 +44,9 @@ public class ProfilActivity extends AppCompatActivity {
 
     private EditText mNameProfil, mPhoneProfil, mDescriptionProfil;
 
-    private TextView mBrithProfil, mRadiusProfil, mCityProfil;
+    private TextView mBrithProfil, mRadiusProfil, mCityProfil, mSexUserProfil;
 
     private Button mConfirmProfil, mBackProfil;
-
-    private RadioGroup mRadioGroupProfil;
-
-    private RadioButton mFemaleProfil, mMaleProfil;
 
     private ImageView mImageProfil;
 
@@ -81,6 +77,7 @@ public class ProfilActivity extends AppCompatActivity {
         mBrithProfil = (TextView)findViewById(R.id.brithProfil);
         mRadiusProfil = (TextView)findViewById(R.id.radiusProfil);
         mCityProfil = (TextView)findViewById(R.id.cityProfil);
+        mSexUserProfil = (TextView)findViewById(R.id.sexUserProfil);
 
         //Button
         mConfirmProfil = (Button)findViewById(R.id.confirmProfil);
@@ -89,12 +86,7 @@ public class ProfilActivity extends AppCompatActivity {
         //ImageView
         mImageProfil = (ImageView)findViewById(R.id.imageProfil);
 
-        //RadioGroup
-//        mRadioGroupProfil = (RadioGroup)findViewById(R.id.radioGroupProfil);
 
-        //RadioButton
-//        mFemaleProfil = (RadioButton)findViewById(R.id.rbFemaleProfil);
-//        mMaleProfil = (RadioButton)findViewById(R.id.rbMaleProfil);
 
         //SeekBar
         mRadiusSeekBarProfil = (SeekBar)findViewById(R.id.radiusseekBarProfil);
@@ -193,20 +185,18 @@ public class ProfilActivity extends AppCompatActivity {
                         mDescriptionProfil.setText(userDescription);
                     }
 
-//                    if(map.get("sex")!=null){
-//                        userSex = map.get("sex").toString();
-//                        switch (userSex){
-//                            case "Male":
-//                                mMaleProfil.setChecked(true);
-//                                mFemaleProfil.setChecked(false);
-//                                break;
-//                            case "Female":
-//                                mMaleProfil.setChecked(false);
-//                                mFemaleProfil.setChecked(true);
-//                                break;
-//                        }
-//
-//                    }
+                    if(map.get("sex")!=null){
+                        userSex = map.get("sex").toString();
+                        switch (userSex){
+                            case "Male":
+                                mSexUserProfil.setText("Mężczyzna");
+                                break;
+                            case "Female":
+                                mSexUserProfil.setText("Kobieta");
+                                break;
+                        }
+
+                    }
                     if(map.get("city")!=null){
                         userCity = map.get("city").toString();
                         mCityProfil.setText(userCity);
@@ -246,7 +236,6 @@ public class ProfilActivity extends AppCompatActivity {
         //Przypisanie wartosci z "okienek" do zmiennych
         username = mNameProfil.getText().toString();
         userphone = mPhoneProfil.getText().toString();
-//        userSex = radioButton.getText().toString();
         userbrith = mBrithProfil.getText().toString();
         userDescription = mDescriptionProfil.getText().toString();
         userRadius = mRadiusProfil.getText().toString();
@@ -257,12 +246,6 @@ public class ProfilActivity extends AppCompatActivity {
         userInfo.put("phone", userphone);
         userInfo.put("description", userDescription);
         userInfo.put("radius", userRadius);
-        //Sprawdzenie ktory radiobutton jest wybrany
-//        if (mMaleProfil.isChecked()){
-//            userInfo.put("sex", "Male");
-//        }else{
-//            userInfo.put("sex", "Female");
-//        }
         userInfo.put("brith", userbrith);
 
         //Metoda wywoluje zapis do bazy

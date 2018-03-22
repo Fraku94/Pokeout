@@ -254,7 +254,7 @@ android:id="@+id/sexl"
                     android:textColor="@color/orange"
                     android:textAlignment="center"/>
                 <TextView
-                    android:id="@+id/sexUserDescryption"
+                    android:id="@+id/sexUserProfil"
                     android:text="Gender"
                     android:layout_weight="2"
                     android:layout_width="0dp"

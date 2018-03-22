@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:minHeight="@dimen/list_item_height"
     android:background="@color/white"
-    android:id="@+id/Gointo"
     >
 
 <RelativeLayout
@@ -97,9 +96,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:gravity="center"
+        android:layout_centerHorizontal="true"
         android:paddingRight="80px"
         android:layout_alignParentRight="true"
-         android:weightSum="2"
         android:orientation="vertical">
 
         <!--<ImageView-->
@@ -113,11 +112,12 @@
 
 
         <ImageView
-            android:layout_weight="0.5"
+
             android:id="@+id/bestFollow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/like"/>
+
 
     </LinearLayout>
 

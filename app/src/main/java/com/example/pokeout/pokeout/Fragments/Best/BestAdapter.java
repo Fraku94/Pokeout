@@ -126,23 +126,7 @@ public class BestAdapter extends RecyclerView.Adapter<BestViewHolder>{
             Glide.with(context).load(bestObjectsList.get(position).getImageUrl()).into(holder.mBestImage);
         }
 
-        //Klikniecie w ikone idz do szczegolow kategorii
-        holder.mBestImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                //Przekazanie danych potzrebnych do opisania szczegolow kategorii
-                Intent intent = new Intent(v.getContext(), CategoryDescryptionActivity.class);
-                Bundle b = new Bundle();
-                b.putString("Id", bestObjectsList.get(position).getId());
-                b.putString("Name", bestObjectsList.get(position).getName());
-                b.putString("ImageUrl", bestObjectsList.get(position).getImageUrl());
-                b.putString("Descryption", bestObjectsList.get(position).getCatDescryption());
-                intent.putExtras(b);
-                v.getContext().startActivity(intent);
-
-            }
-        });
 
 
 

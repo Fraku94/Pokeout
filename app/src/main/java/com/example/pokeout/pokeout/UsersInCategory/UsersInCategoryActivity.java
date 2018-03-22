@@ -199,7 +199,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
 
                             float distance = Loc1.distanceTo(Loc2)/1000;
                             formattedDistanceString = String.format("%.1f", distance);
-                           Log.e("tag", "formattedDistanceString :         " + formattedDistanceString + "     "+ Loc1 + "" +Loc2);
+
                         }
 
                         @Override
@@ -275,7 +275,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                             City = dataSnapshot.child("city").getValue().toString();
                         }
                         Log.e("tag", "Distance :         " + Distance );
-
+                        Log.e("tag", "formattedDistanceString :         " + Distance + "     "+ Loc1 + "" );
                         //przypisanie do obiektu zmiennych
                         UsersInCategoryObject item = new UsersInCategoryObject(Id, Name, ImageUrl, Description, Brith, Sex, Phone,Distance,City);
                         resoultUsersInCategory.add(item);

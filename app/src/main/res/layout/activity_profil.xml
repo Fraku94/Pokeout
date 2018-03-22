@@ -16,7 +16,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingRight="10pt">
+            >
 
             <ImageView
                 android:id="@+id/imageProfil"
@@ -58,46 +58,38 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:id="@+id/About"
-    android:layout_below="@id/imageProfil">
+    android:layout_below="@id/imageProfil"
+android:paddingTop="15px"
+    android:weightSum="2"
+   >
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="left">
+
         <TextView
+           android:textAlignment="textStart"
+            android:layout_weight="1"
 
+            android:paddingLeft="20pt"
             android:text="@string/Description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="5pt"
-            android:paddingLeft="10pt"
             android:textSize="15dp"
             android:textColor="@color/orange"
-            android:textAlignment="center"
+               />
 
 
-            />
-    </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:paddingRight="25dp">
+
         <TextView
+            android:paddingRight="200px"
+            android:textAlignment="textEnd"
+            android:layout_weight="1"
             android:id="@+id/cityProfil"
             android:text="@string/City"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="5pt"
-            android:paddingLeft="10pt"
-
             android:textSize="15dp"
+android:layout_marginRight="30dp"
             android:textColor="@color/orange"
-            android:textAlignment="center"
-            android:layout_below="@id/imageProfil"
-
             />
-    </LinearLayout>
 
 
 
@@ -109,14 +101,16 @@
 
             <EditText
                 android:id="@+id/descriptionProfil"
-                android:paddingTop="5pt"
                 android:layout_width="wrap_content"
-                android:layout_height="230px"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/About"
-                android:paddingLeft="10pt"
-                android:text="@string/Description"
+                android:textSize="15dp"
+                android:paddingLeft="20pt"
+                android:text="About me"
                 android:textAlignment="center"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+
+                />
 
 
             <LinearLayout
@@ -241,7 +235,6 @@
                 android:layout_below="@id/datel"
                 >
 
-
                 <TextView
                     android:text="@string/Sex"
                     android:layout_weight="1"
@@ -261,22 +254,68 @@
                     android:textSize="15dp"
                     android:textColor="@color/black"
                     android:textAlignment="center"/>
-
             </LinearLayout>
 
+
+
             <LinearLayout
+                android:id="@+id/seek"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/sexl"
+                android:weightSum="3"
+                >
+
+                    <TextView
+                        android:layout_weight="0.5"
+                        android:hint="@string/Sex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Radius"
+                        android:textSize="15dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/orange"/>
+
+                    <SeekBar
+                        android:layout_weight="2"
+                        android:id="@+id/radiusseekBarProfil"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:progressTint="@color/orange"
+                        android:thumbTint="@color/orange"
+                        />
+
+                    <TextView
+                        android:layout_weight="0.5"
+                        android:id="@+id/radiusProfil"
+                        android:hint="@string/Sex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Radius"
+                        android:textSize="15dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/orange"/>
+                </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_centerHorizontal="true"
                 android:id="@+id/buttonl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_gravity="center"
-                android:layout_below="@id/sexl"
+                android:layout_below="@id/seek"
                 >
+
 
 
                 <Button
                     android:id="@+id/confirmProfil"
-                    android:hint="@string/Sex"
+                    android:hint="@string/Confirm"
                     android:layout_margin="10dp"
                     android:layout_height="100px"
                     android:layout_width="250px"
@@ -287,7 +326,7 @@
                     android:textColor="@color/white"/>
                 <Button
                     android:id="@+id/backProfil"
-                    android:hint="@string/Sex"
+                    android:hint="@string/Back"
                     android:layout_margin="10dp"
                     android:layout_height="100px"
                     android:layout_width="250px"
@@ -298,61 +337,6 @@
                     android:textColor="@color/white"/>
 
             </LinearLayout>
-
-
-            <LinearLayout
-
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="3"
-                android:layout_below="@id/buttonl"
-                >
-
-
-                <TextView
-                    android:hint="@string/Sex"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-
-                    android:text="Radius"
-
-                    android:textSize="15dp"
-
-                    android:textAlignment="center"
-                    android:textColor="@color/orange"/>
-
-                <SeekBar
-                    android:id="@+id/radiusseekBarProfil"
-                    android:layout_marginRight="30pt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:progressTint="@color/orange"
-                    android:thumbTint="@color/orange"
-                    />
-
-                <TextView
-                    android:id="@+id/radiusProfil"
-                    android:hint="@string/Sex"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-
-                    android:text="Radius"
-
-                    android:textSize="15dp"
-
-                    android:textAlignment="center"
-                    android:textColor="@color/orange"/>
-            </LinearLayout>
-
-
-
-
-
 
         </RelativeLayout>
 

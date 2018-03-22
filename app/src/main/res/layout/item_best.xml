@@ -9,7 +9,14 @@
     android:id="@+id/Gointo"
     >
 
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    android:minHeight="@dimen/list_item_height"
+    android:background="@color/white"
+    android:id="@+id/bestGointo">
 
+</RelativeLayout>
 
 
 

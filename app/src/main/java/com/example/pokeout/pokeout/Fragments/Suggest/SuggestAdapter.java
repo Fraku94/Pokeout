@@ -64,11 +64,11 @@ public void onBindViewHolder(final SuggestViewHolder holder, final int position)
 
         //Sprawdzenie i ustawienie czy kategorie mamy juz dodana czy nie (odpowiednia zmiana ikon)
         if(CategoryInformation.listFollowingCategory.contains(suggestObjectsList.get(position).getId())){
-        holder.mSuggestFollow.setImageResource(R.mipmap.ic_remove_user);
-        holder.mSuggestGo.setVisibility(View.VISIBLE);
+        holder.mSuggestFollow.setImageResource(R.drawable.unffalow);
+//        holder.mSuggestGo.setVisibility(View.VISIBLE);
         }else {
-        holder.mSuggestFollow.setImageResource(R.mipmap.ic_add_grup);
-        holder.mSuggestGo.setVisibility(View.INVISIBLE);
+        holder.mSuggestFollow.setImageResource(R.drawable.like2);
+//        holder.mSuggestGo.setVisibility(View.INVISIBLE);
         }
 
         //Klikniecie w ikone dodawania kategori do obserwowanych
@@ -81,16 +81,16 @@ public void onClick(View v) {
 
         //Jesli w "categoryInformation" nie ma id kategorii to ma ja doda i zmienic odpowiednio ikony
         if(!CategoryInformation.listFollowingCategory.contains(suggestObjectsList.get(position).getId())){
-        holder.mSuggestFollow.setImageResource(R.mipmap.ic_remove_user);
-        holder.mSuggestGo.setVisibility(View.VISIBLE);
+        holder.mSuggestFollow.setImageResource(R.drawable.unffalow);
+//        holder.mSuggestGo.setVisibility(View.VISIBLE);
         FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("category").child(suggestObjectsList.get(position).getId()).setValue(true);
         FirebaseDatabase.getInstance().getReference().child("Category").child(suggestObjectsList.get(position).getId()).child("users").child(userId).setValue(true);
         }
 
         //Jesli w "categoryInformation" jest id kategorii to ma ja usunac i zmienic odpowiednio ikony
         else{
-        holder.mSuggestFollow.setImageResource(R.mipmap.ic_add_grup);
-        holder.mSuggestGo.setVisibility(View.INVISIBLE);
+        holder.mSuggestFollow.setImageResource(R.drawable.like2);
+//        holder.mSuggestGo.setVisibility(View.INVISIBLE);
         FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("category").child(suggestObjectsList.get(position).getId()).removeValue();
         FirebaseDatabase.getInstance().getReference().child("Category").child(suggestObjectsList.get(position).getId()).child("users").child(userId).removeValue();
         }
@@ -121,18 +121,18 @@ public void onClick(View v) {
         });
 
         //Klikniecie w ikone idz do uzytkownikow z kategporii
-        holder.mSuggestGo.setOnClickListener(new View.OnClickListener() {
-@Override
-public void onClick(View v) {
-
-        Intent intent = new Intent(v.getContext(), UsersInCategoryActivity.class);
-        Bundle b = new Bundle();
-        b.putString("CategoryId", suggestObjectsList.get(position).getId());
-        intent.putExtras(b);
-        v.getContext().startActivity(intent);
-
-        }
-        });
+//        holder.mSuggestGo.setOnClickListener(new View.OnClickListener() {
+//@Override
+//public void onClick(View v) {
+//
+//        Intent intent = new Intent(v.getContext(), UsersInCategoryActivity.class);
+//        Bundle b = new Bundle();
+//        b.putString("CategoryId", suggestObjectsList.get(position).getId());
+//        intent.putExtras(b);
+//        v.getContext().startActivity(intent);
+//
+//        }
+//        });
         }
 
 

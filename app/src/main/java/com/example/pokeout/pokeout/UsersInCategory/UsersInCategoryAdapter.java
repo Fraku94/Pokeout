@@ -32,35 +32,35 @@ import java.util.List;
 
 public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategoryViewHolder>{
 
-        private List<UsersInCategoryObject> usersInCategoryObjectsList;
+    private List<UsersInCategoryObject> usersInCategoryObjectsList;
 
-        private Context context;
+    private Context context;
 
-        //Przypisanie Obiektów do adaptera
-        public UsersInCategoryAdapter(List<UsersInCategoryObject> usersInCategoryObjectsList, Context context){
-            this.usersInCategoryObjectsList = usersInCategoryObjectsList;
-            this.context = context;
+    //Przypisanie Obiektów do adaptera
+    public UsersInCategoryAdapter(List<UsersInCategoryObject> usersInCategoryObjectsList, Context context){
+        this.usersInCategoryObjectsList = usersInCategoryObjectsList;
+        this.context = context;
 
-        }
+    }
 
-        //Tworzenie wyglądu i przypisanie ViewHoldera do adaptera
-        @Override
-        public UsersInCategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    //Tworzenie wyglądu i przypisanie ViewHoldera do adaptera
+    @Override
+    public UsersInCategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
 
 
-            //Przypisanie wygladu okna do adaptera
-            View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_users_in_category, null,false);
+        //Przypisanie wygladu okna do adaptera
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_users_in_category, null,false);
 
-            //Ustawienie RecycleView
-            RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutView.setLayoutParams(lp);
+        //Ustawienie RecycleView
+        RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutView.setLayoutParams(lp);
 
-            //Podpienie i zwrocenie wygladu
-            UsersInCategoryViewHolder rcv = new UsersInCategoryViewHolder((layoutView));
+        //Podpienie i zwrocenie wygladu
+        UsersInCategoryViewHolder rcv = new UsersInCategoryViewHolder((layoutView));
 
-            return rcv;
-        }
+        return rcv;
+    }
     final private DatabaseReference usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
 
 
@@ -71,54 +71,54 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
 
 
         final String OtherUserID = usersInCategoryObjectsList.get(position).getId();
+        Log.e("City", "City :    ffffffffff     "  );
         //Ustawienie tekstu dla imienia
         holder.mUserInCatName.setText(usersInCategoryObjectsList.get(position).getName());
 
         holder.mUserDistance.setText(usersInCategoryObjectsList.get(position).getDistance());
+        Log.e("City", "position :         " + usersInCategoryObjectsList.get(position).getDistance()  );
 //        holder.mUsersInCategoryMessage.setVisibility(View.INVISIBLE);
         holder.mCityUser.setText(usersInCategoryObjectsList.get(position).getCity());
 
         //Sprawdzenie i ustawienie czy uzytkwonika mamy juz dodanego czy nie (odpowiednia zmiana ikon)
         if(UserInformation.listFollowingUsers.contains(usersInCategoryObjectsList.get(position).getId())) {
-
-            holder.mUserInCatYes.setBackgroundColor(0xFF471A);
+            holder.mUserInCatYes.setVisibility(View.VISIBLE);
             holder.mUserInCatNo.setVisibility(View.INVISIBLE);
+            holder.mUserInCatYes.setImageResource(R.drawable.like2);
+
 
         }else if (UserInformation.listNotFollowingUsers.contains(usersInCategoryObjectsList.get(position).getId())){
 
-            holder.mUserInCatNo.setBackgroundColor(0xFF471A);
             holder.mUserInCatYes.setVisibility(View.INVISIBLE);
+            holder.mUserInCatNo.setVisibility(View.VISIBLE);
+            holder.mUserInCatNo.setImageResource(R.drawable.unlike);
 
         }else if (UserInformation.listIsConnectUsers.contains(usersInCategoryObjectsList.get(position).getId())) {
 
-//            holder.mUsersInCategoryMessage.setVisibility(View.VISIBLE);
-            holder.mUserInCatNo.setVisibility(View.INVISIBLE);
             holder.mUserInCatYes.setVisibility(View.INVISIBLE);
+            holder.mUserInCatNo.setVisibility(View.INVISIBLE);
         }else{
 
             holder.mUserInCatYes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    holder.mUserInCatYes.setBackgroundColor(0xFF471A);
+                    holder.mUserInCatYes.setVisibility(View.VISIBLE);
                     holder.mUserInCatNo.setVisibility(View.INVISIBLE);
+                    holder.mUserInCatYes.setImageResource(R.drawable.like2);
+
                     usersDb.child(OtherUserID).child("follow").child("yes").child(CurrentUserID).setValue(true);
                     usersDb.child(CurrentUserID).child("follow").child("following").child("yes").child(OtherUserID).setValue(true);
-                    usersDb.child(OtherUserID).child("follow").child("no").child(CurrentUserID).removeValue();
-                    usersDb.child(CurrentUserID).child("follow").child("following").child("no").child(OtherUserID).removeValue();
                     isConnectionMatch(OtherUserID,holder);
                 }
             });
             holder.mUserInCatNo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    holder.mUserInCatNo.setBackgroundColor(0xFF471A);
                     holder.mUserInCatYes.setVisibility(View.INVISIBLE);
+                    holder.mUserInCatNo.setVisibility(View.VISIBLE);
+                    holder.mUserInCatNo.setImageResource(R.drawable.unlike);
                     usersDb.child(OtherUserID).child("follow").child("no").child(CurrentUserID).setValue(true);
-                    usersDb.child(CurrentUserID).child("follow").child("following").child("no").child(OtherUserID).setValue(true);
-                    usersDb.child(OtherUserID).child("follow").child("yes").child(CurrentUserID).removeValue();
-                    usersDb.child(CurrentUserID).child("follow").child("following").child("yes").child(OtherUserID).removeValue();
+                    usersDb.child(CurrentUserID).child("follow").child("following").child("no").child(OtherUserID).removeValue();
                 }
             });
 
@@ -151,7 +151,7 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
             }
         });}
 
-        //Klikniecie w ikone idz do czatu z uzytkownikiem
+    //Klikniecie w ikone idz do czatu z uzytkownikiem
 //        holder.mUsersInCategoryMessage.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -188,9 +188,9 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
             }
         });
     }
-        //Liczba prawdobodobnie ilości tych okien do załadowania
-        @Override
-        public int getItemCount() {
-            return this.usersInCategoryObjectsList.size();
-        }
+    //Liczba prawdobodobnie ilości tych okien do załadowania
+    @Override
+    public int getItemCount() {
+        return this.usersInCategoryObjectsList.size();
+    }
 }

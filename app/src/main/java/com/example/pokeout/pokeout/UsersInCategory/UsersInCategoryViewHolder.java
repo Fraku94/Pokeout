@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,8 @@ public class UsersInCategoryViewHolder extends RecyclerView.ViewHolder{
     public ImageView mUserInCatImage;
     public ImageView mUserInCatYes,mUserInCatNo, mUsersInCategoryMessage;
 
+
+
     public UsersInCategoryViewHolder(View itemView) {
         super(itemView);
 
@@ -28,6 +31,7 @@ public class UsersInCategoryViewHolder extends RecyclerView.ViewHolder{
         mUserInCatNo = (ImageView) itemView.findViewById(R.id.usersInCategoryNo);
         mCityUser = (TextView) itemView.findViewById(R.id.cityUser);
         mUserDistance = (TextView) itemView.findViewById(R.id.UserDistance);
+
 //        mUsersInCategoryMessage = (ImageView) itemView.findViewById(R.id.usersInCategoryMessage);
 
     }

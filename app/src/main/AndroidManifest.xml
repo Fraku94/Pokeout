@@ -32,9 +32,12 @@
             </intent-filter>
         </service>
         <activity android:name=".MainActivity" />
-        <activity android:name=".LoginRegister.RegisterActivity" />
-        <activity android:name=".Profil.ProfilActivity" />
-        <activity android:name=".CategoryAdd.CategoryAddActivity" />
+        <activity android:name=".LoginRegister.RegisterActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".Profil.ProfilActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".CategoryAdd.CategoryAddActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".UsersInCategory.UsersInCategoryActivity" />
         <activity android:name=".UserDescryption.UserDescryptionActivity" />
         <activity android:name=".Chat.ChatActivity" />

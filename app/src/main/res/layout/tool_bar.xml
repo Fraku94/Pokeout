@@ -13,7 +13,7 @@
 
 
     <ImageButton
-        android:src="@drawable/ic_exit_to_app_black_24dp"
+        android:src="@drawable/logout"
         android:title="logout"
         android:id="@+id/menu_logout"
         android:layout_width="48dp"

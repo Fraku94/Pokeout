@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pokeout.pokeout.R;
+import com.jackandphantom.androidlikebutton.AndroidLikeButton;
 
 /**
  * Created by Z710 on 2018-02-27.
@@ -14,8 +15,9 @@ import com.example.pokeout.pokeout.R;
 
 public class BestViewHolder extends RecyclerView.ViewHolder  {
     public TextView mBestName, mBestCount;
-    public ImageView mBestImage, mBestFollow;
-    public RelativeLayout mGointo;
+    public ImageView mBestImage,mBestFollow;
+
+    public RelativeLayout mbestGointo;
 
 
 
@@ -28,7 +30,7 @@ public class BestViewHolder extends RecyclerView.ViewHolder  {
         mBestImage = (ImageView) itemView.findViewById(R.id.bestImage);
         mBestFollow = (ImageView) itemView.findViewById(R.id.bestFollow);
 
-        mGointo = (RelativeLayout) itemView.findViewById(R.id.Gointo);
+        mbestGointo = (RelativeLayout) itemView.findViewById(R.id.bestGointo);
 
 
     }

@@ -23,7 +23,7 @@ public class SuggestViewHolder extends RecyclerView.ViewHolder  {
         mSuggestCount = (TextView) itemView.findViewById(R.id.suggestCount);
         mSuggestName = (TextView) itemView.findViewById(R.id.suggestName);
         mSuggestImage = (ImageView) itemView.findViewById(R.id.suggestImage);
-        mSuggestGo = (ImageView) itemView.findViewById(R.id.suggestGo);
+//        mSuggestGo = (ImageView) itemView.findViewById(R.id.suggestGo);
         mSuggestFollow = (ImageView) itemView.findViewById(R.id.suggestFollow);
 
 

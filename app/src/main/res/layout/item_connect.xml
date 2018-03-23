@@ -1,34 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:padding="20sp">
+    android:layout_height="@dimen/image"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:minHeight="@dimen/list_item_height"
+    android:background="@color/white">
+
+
+
+
+
+
     <ImageView
-        android:layout_width="50sp"
-        android:layout_height="50sp"
-        android:src="@mipmap/ic_launcher"
-        android:id="@+id/ConnectImage"/>
+        android:id="@+id/ConnectImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:fitsSystemWindows="true"
+        android:scaleType="centerCrop"
+
+        />
+
+
     <LinearLayout
-        android:paddingLeft="20sp"
+        android:id="@+id/text_container"
+        android:gravity="fill"
+        android:weightSum="2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/ConnectImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/list_item_height"
+        android:layout_centerVertical="true"
         android:orientation="vertical"
-        android:layout_gravity="center">
+        android:paddingLeft="10dp"
+        android:paddingTop="14dp"
+        tools:background="@color/white"
+
+
+
+        >
+
         <TextView
-            android:paddingBottom="20sp"
-            android:layout_width="match_parent"
+            android:id="@+id/ConnectName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Match's Name"
-            android:id="@+id/ConnectName"/>
-        <TextView
-            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="Best Category"
+            android:textStyle="bold"
+            android:textAppearance="?android:textAppearanceListItemSmall"
+            android:textColor="@android:color/black"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Match's ID"
-            android:layout_gravity="center"
-            android:id="@+id/Connectid"/>
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1">
+
+            <!--<ImageView-->
+
+                <!--android:id="@+id/bestCountIcon"-->
+                <!--android:layout_width="24dp"-->
+                <!--android:layout_height="24dp"-->
+                <!--android:layout_marginBottom="40px"-->
+                <!--android:layout_toRightOf="@+id/bestImage"-->
+                <!--android:src="@drawable/group" />-->
+
+
+            <TextView
+                android:id="@+id/Connectid"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20px"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:textAppearance="?android:textAppearanceListItemSmall"
+                android:textColor="@android:color/black"
+                tools:text="one" />
+
+
+        </LinearLayout>
+
     </LinearLayout>
 
 
-</LinearLayout>
+
+</RelativeLayout>

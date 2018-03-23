@@ -34,15 +34,11 @@
         android:id="@+id/text_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_item_height"
+        android:layout_centerVertical="true"
         android:orientation="vertical"
-
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_toRightOf="@+id/bestImage"
         android:paddingLeft="10dp"
-        android:paddingTop="30dp"
+        android:paddingTop="14dp"
         tools:background="@color/white"
         android:weightSum="2">
 
@@ -92,11 +88,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:gravity="center"
-        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:paddingRight="80px"
         android:layout_alignParentRight="true"
         android:orientation="vertical">
@@ -112,11 +104,10 @@
 
 
         <ImageView
-
             android:id="@+id/bestFollow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/like"/>
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/like2"/>
 
 
     </LinearLayout>

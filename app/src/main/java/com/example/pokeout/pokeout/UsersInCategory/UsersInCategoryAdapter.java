@@ -129,7 +129,7 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
                     String OtherUserID = usersInCategoryObjectsList.get(position).getId();
 
                     usersDb.child(OtherUserID).child("follow").child("no").child(CurrentUserID).setValue(true);
-                    usersDb.child(CurrentUserID).child("follow").child("following").child("no").child(OtherUserID).setValue(true);
+                    usersDb.child(CurrentUserID).child("follow").child("following").child("no").child(OtherUserID).removeValue();
 
                     removeItem(Position);
                 }

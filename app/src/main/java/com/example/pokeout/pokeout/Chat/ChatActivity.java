@@ -133,9 +133,9 @@ public class ChatActivity extends AppCompatActivity {
                         resultsChat.add(newMessage);
                         mChatAdapter.notifyDataSetChanged();
                     }
-                    Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE );
-                    Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), alarmSound);
-                    r.play();
+//                    Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE );
+//                    Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), alarmSound);
+//                    r.play();
                 }
 
             }

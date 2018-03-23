@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 
 import com.example.pokeout.pokeout.Adapter.SampleFragmentPagerAdapter;
+import com.example.pokeout.pokeout.CategoryAdd.CategoryAddActivity;
 import com.example.pokeout.pokeout.Connect.ConnectActivity;
 import com.example.pokeout.pokeout.Adapter.ZoomOutPageTransformer;
 import com.example.pokeout.pokeout.Adapter.ZoomOutPageTransformer;
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         mAuth = FirebaseAuth.getInstance();
         //Wywoolanie obiektu  buttona do layotu do wylogowania
         logout = (ImageButton) findViewById(R.id.menu_logout);
-        locationTxt = (TextView) findViewById(R.id.locationTxt);
+    
         //Sprawdzenie obserwaowanych kategorii
         CategoryInformation categoryInformationListner = new CategoryInformation();
         categoryInformationListner.startFetching();
@@ -178,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 addresses = geocoder.getFromLocation(latitude, longitude, 1);
                 if (addresses != null && addresses.size() > 0) {
                     city = addresses.get(0).getLocality();
-                    locationTxt.setText(mLocation.getLatitude() + " " + city + " " + mLocation.getLongitude());
+//                    locationTxt.setText(mLocation.getLatitude() + " " + city + " " + mLocation.getLongitude());
                     mAuth = FirebaseAuth.getInstance();
 
                     //Przypisanie id Uzytkownika
@@ -361,6 +362,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 Toast.makeText(getApplicationContext(), "You clicked profile", Toast.LENGTH_SHORT).show();
                 Intent search = new Intent(MainActivity.this, ConnectActivity.class);
                 startActivity(search);
+                break;
+            case R.id.add:
+                Toast.makeText(getApplicationContext(), "You clicked profile", Toast.LENGTH_SHORT).show();
+                Intent add = new Intent(MainActivity.this, CategoryAddActivity.class);
+                startActivity(add);
                 break;
         }
         return super.onOptionsItemSelected(item);

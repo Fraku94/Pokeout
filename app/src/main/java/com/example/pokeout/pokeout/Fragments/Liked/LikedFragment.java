@@ -54,7 +54,7 @@ public class LikedFragment extends Fragment {
         Context context = getActivity();
 
         //Przypisanie buttona dodawania kategorii
-        FloatingActionButton floatingActionButton = rootView.findViewById(R.id.fab);
+
 
         //Pobranie ID obecnego uzytkownika
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -70,15 +70,7 @@ public class LikedFragment extends Fragment {
         mLikedAdapter = new LikedAdapter(getDataSetLiked(),context);
         mRecyclerView.setAdapter(mLikedAdapter);
 
-        //Dodawanie kategorii
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), CategoryAddActivity.class);
-                startActivity(intent);
-                return;
-            }
-        });
+
 
         //Przypisanie funkicji odswiezania
         swipeRefreshLayout = rootView.findViewById(R.id.swipeContainerLiked);

@@ -66,7 +66,7 @@ public class BestAdapter extends RecyclerView.Adapter<BestViewHolder>{
 
         //Sprawdzenie i ustawienie czy kategorie mamy juz dodana czy nie (odpowiednia zmiana ikon)
         if(CategoryInformation.listFollowingCategory.contains(bestObjectsList.get(position).getId())){
-            holder.mBestFollow.setImageResource(R.drawable.like);
+            holder.mBestFollow.setImageResource(R.drawable.like2);
             holder.mbestGointo.setVisibility(View.VISIBLE);
         }else if (!CategoryInformation.listFollowingCategory.contains(bestObjectsList.get(position).getId())){
             holder.mBestFollow.setImageResource(R.drawable.unffalow);
@@ -83,7 +83,7 @@ public class BestAdapter extends RecyclerView.Adapter<BestViewHolder>{
 
                 //Jesli w "categoryInformation" nie ma id kategorii to ma ja doda i zmienic odpowiednio ikony
                 if(!CategoryInformation.listFollowingCategory.contains(bestObjectsList.get(position).getId())){
-                    holder.mBestFollow.setImageResource(R.drawable.like);
+                    holder.mBestFollow.setImageResource(R.drawable.like2);
                     holder.mbestGointo.setVisibility(View.VISIBLE);
                     FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("category").child(bestObjectsList.get(position).getId()).setValue(true);
                     FirebaseDatabase.getInstance().getReference().child("Category").child(bestObjectsList.get(position).getId()).child("users").child(userId).setValue(true);

@@ -23,11 +23,7 @@
 
    //Dodany viepager i tablayout
 
-    <TextView
-        android:id="@+id/locationTxt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+
 
     <android.support.design.widget.TabLayout
         android:id="@+id/sliding_tabs"

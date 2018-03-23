@@ -17,7 +17,7 @@ public class BestViewHolder extends RecyclerView.ViewHolder  {
     public TextView mBestName, mBestCount;
     public ImageView mBestImage,mBestFollow;
 
-    public RelativeLayout mbestGointo;
+    public RelativeLayout mGointo;
 
 
 
@@ -30,7 +30,7 @@ public class BestViewHolder extends RecyclerView.ViewHolder  {
         mBestImage = (ImageView) itemView.findViewById(R.id.bestImage);
         mBestFollow = (ImageView) itemView.findViewById(R.id.bestFollow);
 
-        mbestGointo = (RelativeLayout) itemView.findViewById(R.id.bestGointo);
+        mGointo = (RelativeLayout) itemView.findViewById(R.id.Gointo);
 
 
     }

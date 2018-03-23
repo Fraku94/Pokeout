@@ -64,76 +64,76 @@ public void onBindViewHolder(final SuggestViewHolder holder, final int position)
 
         //Sprawdzenie i ustawienie czy kategorie mamy juz dodana czy nie (odpowiednia zmiana ikon)
         if(CategoryInformation.listFollowingCategory.contains(suggestObjectsList.get(position).getId())){
-        holder.mSuggestFollow.setImageResource(R.drawable.unffalow);
-//        holder.mSuggestGo.setVisibility(View.VISIBLE);
-        }else {
-        holder.mSuggestFollow.setImageResource(R.drawable.like2);
-//        holder.mSuggestGo.setVisibility(View.INVISIBLE);
+                holder.mSuggestFollow.setImageResource(R.drawable.like2);
+                holder.mGointo.setVisibility(View.VISIBLE);
+        }else if (!CategoryInformation.listFollowingCategory.contains(suggestObjectsList.get(position).getId())){
+                holder.mSuggestFollow.setImageResource(R.drawable.unffalow);
+                holder.mGointo.setVisibility(View.INVISIBLE);
         }
 
         //Klikniecie w ikone dodawania kategori do obserwowanych
         holder.mSuggestFollow.setOnClickListener(new View.OnClickListener() {
-@Override
-public void onClick(View v) {
+                @Override
+                public void onClick(View v) {
 
-        //Przypisanie ID obecnego uzytkwonika
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        //Przypisanie ID obecnego uzytkwonika
+                        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        //Jesli w "categoryInformation" nie ma id kategorii to ma ja doda i zmienic odpowiednio ikony
-        if(!CategoryInformation.listFollowingCategory.contains(suggestObjectsList.get(position).getId())){
-        holder.mSuggestFollow.setImageResource(R.drawable.unffalow);
-//        holder.mSuggestGo.setVisibility(View.VISIBLE);
-        FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("category").child(suggestObjectsList.get(position).getId()).setValue(true);
-        FirebaseDatabase.getInstance().getReference().child("Category").child(suggestObjectsList.get(position).getId()).child("users").child(userId).setValue(true);
-        }
+                        //Jesli w "categoryInformation" nie ma id kategorii to ma ja doda i zmienic odpowiednio ikony
+                        if(!CategoryInformation.listFollowingCategory.contains(suggestObjectsList.get(position).getId())){
+                                holder.mSuggestFollow.setImageResource(R.drawable.like2);
+                                holder.mGointo.setVisibility(View.VISIBLE);
+                                FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("category").child(suggestObjectsList.get(position).getId()).setValue(true);
+                                FirebaseDatabase.getInstance().getReference().child("Category").child(suggestObjectsList.get(position).getId()).child("users").child(userId).setValue(true);
+                        }
 
-        //Jesli w "categoryInformation" jest id kategorii to ma ja usunac i zmienic odpowiednio ikony
-        else{
-        holder.mSuggestFollow.setImageResource(R.drawable.like2);
-//        holder.mSuggestGo.setVisibility(View.INVISIBLE);
-        FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("category").child(suggestObjectsList.get(position).getId()).removeValue();
-        FirebaseDatabase.getInstance().getReference().child("Category").child(suggestObjectsList.get(position).getId()).child("users").child(userId).removeValue();
-        }
-        }
+                        //Jesli w "categoryInformation" jest id kategorii to ma ja usunac i zmienic odpowiednio ikony
+                        else{
+                                holder.mSuggestFollow.setImageResource(R.drawable.unffalow);
+                                holder.mGointo.setVisibility(View.INVISIBLE);
+                                FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("category").child(suggestObjectsList.get(position).getId()).removeValue();
+                                FirebaseDatabase.getInstance().getReference().child("Category").child(suggestObjectsList.get(position).getId()).child("users").child(userId).removeValue();
+                        }
+                }
         });
 
         //Sprawdzenie czy wartosc linku to "default" jesli nie ma załadować link i podpiac zdjecie ImageView
         if(!suggestObjectsList.get(position).getImageUrl().equals("default")){
-        Glide.with(context).load(suggestObjectsList.get(position).getImageUrl()).into(holder.mSuggestImage);
+                Glide.with(context).load(suggestObjectsList.get(position).getImageUrl()).into(holder.mSuggestImage);
         }
 
         //Klikniecie w ikone idz do szczegolow kategorii
         holder.mSuggestImage.setOnClickListener(new View.OnClickListener() {
-@Override
-public void onClick(View v) {
+                @Override
+                public void onClick(View v) {
 
-        //Przekazanie danych potzrebnych do opisania szczegolow kategorii
-        Intent intent = new Intent(v.getContext(), CategoryDescryptionActivity.class);
-        Bundle b = new Bundle();
-        b.putString("Id", suggestObjectsList.get(position).getId());
-        b.putString("Name", suggestObjectsList.get(position).getName());
-        b.putString("ImageUrl", suggestObjectsList.get(position).getImageUrl());
-        b.putString("Descryption", suggestObjectsList.get(position).getCatDescryption());
-        intent.putExtras(b);
-        v.getContext().startActivity(intent);
+                        //Przekazanie danych potzrebnych do opisania szczegolow kategorii
+                        Intent intent = new Intent(v.getContext(), CategoryDescryptionActivity.class);
+                        Bundle b = new Bundle();
+                        b.putString("Id", suggestObjectsList.get(position).getId());
+                        b.putString("Name", suggestObjectsList.get(position).getName());
+                        b.putString("ImageUrl", suggestObjectsList.get(position).getImageUrl());
+                        b.putString("Descryption", suggestObjectsList.get(position).getCatDescryption());
+                        intent.putExtras(b);
+                        v.getContext().startActivity(intent);
 
-        }
+                }
         });
 
         //Klikniecie w ikone idz do uzytkownikow z kategporii
-//        holder.mSuggestGo.setOnClickListener(new View.OnClickListener() {
-//@Override
-//public void onClick(View v) {
-//
-//        Intent intent = new Intent(v.getContext(), UsersInCategoryActivity.class);
-//        Bundle b = new Bundle();
-//        b.putString("CategoryId", suggestObjectsList.get(position).getId());
-//        intent.putExtras(b);
-//        v.getContext().startActivity(intent);
-//
-//        }
-//        });
-        }
+        holder.mGointo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                        Intent intent = new Intent(v.getContext(), UsersInCategoryActivity.class);
+                        Bundle b = new Bundle();
+                        b.putString("CategoryId", suggestObjectsList.get(position).getId());
+                        intent.putExtras(b);
+                        v.getContext().startActivity(intent);
+
+                }
+        });
+}
 
 
 //Liczba prawdobodobnie ilości tych okien do załadowania

@@ -177,6 +177,7 @@ public class LikedFragment extends Fragment {
                     String categoryId = dataSnapshot.getKey();
                     String name = "";
                     String categoryImageUrl = "";
+                    String descryption = "";
                     String Count = Long.toString(count);
 
 
@@ -190,9 +191,13 @@ public class LikedFragment extends Fragment {
                         categoryImageUrl = dataSnapshot.child("categoryImageUrl").getValue().toString();
                     }
 
+                    //Pobranie warosci linku zdjecia jesli nie jest pusty i przypisanie do zmiennej
+                    if (dataSnapshot.child("description").getValue() != null) {
+                        descryption = dataSnapshot.child("description").getValue().toString();
+                    }
 
                     //Dodanie zmeinnych do Obiektu (nazwy musza byc takie same jak w Objekcie
-                    LikedObject object = new LikedObject(categoryId, name, categoryImageUrl,Count);
+                    LikedObject object = new LikedObject(categoryId, name, categoryImageUrl,descryption, Count);
 
                     //Metoda dodawania do Objektu
                     resoultLiked.add(object);

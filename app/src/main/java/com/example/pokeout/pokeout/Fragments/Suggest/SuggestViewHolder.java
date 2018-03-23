@@ -3,6 +3,7 @@ package com.example.pokeout.pokeout.Fragments.Suggest;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pokeout.pokeout.R;
@@ -14,7 +15,7 @@ import com.example.pokeout.pokeout.R;
 public class SuggestViewHolder extends RecyclerView.ViewHolder  {
     public TextView mSuggestName, mSuggestCount;
     public ImageView mSuggestImage, mSuggestGo, mSuggestFollow;
-
+    public RelativeLayout mGointo;
 
     public SuggestViewHolder(View itemView) {
         super(itemView);
@@ -26,7 +27,7 @@ public class SuggestViewHolder extends RecyclerView.ViewHolder  {
 //        mSuggestGo = (ImageView) itemView.findViewById(R.id.suggestGo);
         mSuggestFollow = (ImageView) itemView.findViewById(R.id.suggestFollow);
 
-
+        mGointo = (RelativeLayout) itemView.findViewById(R.id.Gointo);
     }
 
 }

@@ -9,12 +9,14 @@ public class LikedObject {
     private String categoryId;
     private String name;
     private String categoryImageUrl;
+    private String catDescryption;
     private String count;
 
-    public LikedObject (String categoryId, String name, String categoryImageUrl, String count){
+    public LikedObject (String categoryId, String name, String categoryImageUrl,String catDescryption, String count){
         this.categoryId = categoryId;
         this.name = name;
         this.categoryImageUrl = categoryImageUrl;
+        this.catDescryption = catDescryption;
         this.count = count;
     }
 
@@ -37,6 +39,12 @@ public class LikedObject {
     }
     public void setCategoryImageUrl(String categoryImageUrl) {
         this.categoryImageUrl = categoryImageUrl;
+    }
+    public String getCatDescryption() {
+        return catDescryption;
+    }
+    public void setCatDescryption(String catDescryption) {
+        catDescryption = catDescryption;
     }
 
     public String getCount() {

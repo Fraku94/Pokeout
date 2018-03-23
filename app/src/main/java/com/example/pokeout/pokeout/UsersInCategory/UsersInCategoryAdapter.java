@@ -70,7 +70,7 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
     public void onBindViewHolder(final UsersInCategoryViewHolder holder, final int position) {
 
 
-        final String OtherUserID = usersInCategoryObjectsList.get(position).getId();
+
         Log.e("City", "City :    ffffffffff     "  );
         //Ustawienie tekstu dla imienia
         holder.mUserInCatName.setText(usersInCategoryObjectsList.get(position).getName());
@@ -106,9 +106,16 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
                     holder.mUserInCatNo.setVisibility(View.INVISIBLE);
                     holder.mUserInCatYes.setImageResource(R.drawable.like2);
 
+                    int Position = holder.getAdapterPosition();
+                    String OtherUserID = usersInCategoryObjectsList.get(position).getId();
+
                     usersDb.child(OtherUserID).child("follow").child("yes").child(CurrentUserID).setValue(true);
                     usersDb.child(CurrentUserID).child("follow").child("following").child("yes").child(OtherUserID).setValue(true);
+
                     isConnectionMatch(OtherUserID,holder);
+
+
+                    removeItem(Position);
                 }
             });
             holder.mUserInCatNo.setOnClickListener(new View.OnClickListener() {
@@ -117,8 +124,14 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
                     holder.mUserInCatYes.setVisibility(View.INVISIBLE);
                     holder.mUserInCatNo.setVisibility(View.VISIBLE);
                     holder.mUserInCatNo.setImageResource(R.drawable.unlike);
+
+                    int Position = holder.getAdapterPosition();
+                    String OtherUserID = usersInCategoryObjectsList.get(position).getId();
+
                     usersDb.child(OtherUserID).child("follow").child("no").child(CurrentUserID).setValue(true);
-                    usersDb.child(CurrentUserID).child("follow").child("following").child("no").child(OtherUserID).removeValue();
+                    usersDb.child(CurrentUserID).child("follow").child("following").child("no").child(OtherUserID).setValue(true);
+
+                    removeItem(Position);
                 }
             });
 
@@ -192,5 +205,14 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
     @Override
     public int getItemCount() {
         return this.usersInCategoryObjectsList.size();
+    }
+
+    public void removeItem(int position) {
+        usersInCategoryObjectsList.remove(position);
+
+        // notify the item removed by position
+        // to perform recycler view delete animations
+        // NOTE: don't call notifyDataSetChanged()
+        notifyItemRemoved(position);
     }
 }

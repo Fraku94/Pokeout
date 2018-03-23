@@ -114,7 +114,6 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
 
                     isConnectionMatch(OtherUserID,holder);
 
-
                     removeItem(Position);
                 }
             });

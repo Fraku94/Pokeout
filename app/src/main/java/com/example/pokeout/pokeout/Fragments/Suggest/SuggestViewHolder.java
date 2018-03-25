@@ -7,6 +7,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pokeout.pokeout.R;
+import com.sackcentury.shinebuttonlib.ShineButton;
+import com.varunest.sparkbutton.SparkButton;
 
 /**
  * Created by Z710 on 2018-02-27.
@@ -14,9 +16,10 @@ import com.example.pokeout.pokeout.R;
 
 public class SuggestViewHolder extends RecyclerView.ViewHolder  {
     public TextView mSuggestName, mSuggestCount;
-    public ImageView mSuggestImage, mSuggestGo, mSuggestFollow;
+    public ImageView mSuggestImage, mSuggestGo;
     public RelativeLayout mGointo;
-
+    public  ShineButton mSuggestFollow;
+//public SparkButton mSuggestFollow;
     public SuggestViewHolder(View itemView) {
         super(itemView);
 
@@ -25,7 +28,8 @@ public class SuggestViewHolder extends RecyclerView.ViewHolder  {
         mSuggestName = (TextView) itemView.findViewById(R.id.suggestName);
         mSuggestImage = (ImageView) itemView.findViewById(R.id.suggestImage);
 //        mSuggestGo = (ImageView) itemView.findViewById(R.id.suggestGo);
-        mSuggestFollow = (ImageView) itemView.findViewById(R.id.suggestFollow);
+        mSuggestFollow = (ShineButton) itemView.findViewById(R.id.suggestFollow);
+//        mSuggestUnfollow = (ShineButton) itemView.findViewById(R.id.suggestFollow);
 
         mGointo = (RelativeLayout) itemView.findViewById(R.id.Gointo);
     }

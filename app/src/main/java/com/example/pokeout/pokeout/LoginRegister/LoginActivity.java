@@ -1,23 +1,17 @@
 package com.example.pokeout.pokeout.LoginRegister;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 
 import com.example.pokeout.pokeout.MainActivity;
 import com.example.pokeout.pokeout.R;
@@ -34,8 +28,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private Button blogin;
-    private TextView tvregister;
-    ProgressDialog progressDialog;
+    private TextView tvregister,tvForgotPassword;
+    ProgressBar progressBar;
     private EditText etEmail, etPassword;
 
     private FirebaseAuth auth;
@@ -72,25 +66,25 @@ public class LoginActivity extends AppCompatActivity {
 
 
         blogin = (Button) findViewById(R.id.bLogin);
-      final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
+        final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
         tvregister = (TextView) findViewById(R.id.tvSign);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
-
+        tvForgotPassword = (TextView) findViewById(R.id.tvForgotPassword);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         //** po kliknieciiu zaloguj  **//
+
         blogin.setOnClickListener(new View.OnClickListener() {
 
 
             @Override
             public void onClick(View v) {
                 v.startAnimation(buttonClick);
-
                 Log.d("tag", "Login");
-
                 if (!validate()) {
                     Toast.makeText(LoginActivity.this, "Fill empty ", Toast.LENGTH_SHORT).show();
-
                 }else {
+                    progressBar.setVisibility(View.VISIBLE);
                     final String email = etEmail.getText().toString();
                     final String password = etPassword.getText().toString();
                     auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -99,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, "login error", Toast.LENGTH_SHORT).show();
                             }
+                            progressBar.setVisibility(View.GONE);
                         }
                     });
                 }
@@ -106,14 +101,21 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-        //** po kliknieciiu przejdz do actyvity   rjestracji  **//
-        tvregister.setOnClickListener(new View.OnClickListener() {
-
-
+        tvForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent linkresetinintent = new Intent(LoginActivity.this, ResetPassword.class);
+                startActivity(linkresetinintent);
+                finish();
+                return;
+            }
+        });
 
 
+        //** po kliknieciiu przejdz do actyvity   rjestracji  **//
+        tvregister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent linkloginintent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(linkloginintent);
                 finish();
@@ -161,11 +163,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-}
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -178,9 +175,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-            if(progressDialog!=null){
-                progressDialog.dismiss();
-            }
         auth.removeAuthStateListener(firebaseAuthListener);
     }
 }

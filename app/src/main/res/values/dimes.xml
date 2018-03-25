@@ -13,6 +13,10 @@
         <!-- Height of each list item -->
         <dimen name="list_item_height">88dp</dimen>
     <dimen name="image">130dp</dimen>
-        <!-- Default screen margins, per the Android Design guidelines. -->
+        <!-- Default screen margins, per the Android Design guidelines. -->MorphingButton.Params circle = MorphingButton.Params.create()
+
+    <dimen name="mb_height_56">56dp</dimen>
+
+
 
 </resources>

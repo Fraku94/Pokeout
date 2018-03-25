@@ -101,13 +101,22 @@
         <!--android:layout_height="24dp"-->
         <!--android:src="@drawable/unffalow" />-->
 
-
-
-        <ImageView
+        <com.sackcentury.shinebuttonlib.ShineButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:src="@color/orange"
             android:id="@+id/likedFollow"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/like2"/>
+            app:btn_color="@color/orange"
+            app:btn_fill_color="@color/orange"
+            app:allow_random_color="false"
+            app:siShape="@raw/delete"/>
+
+        <!--<ImageView-->
+            <!--android:id="@+id/likedFollow"-->
+            <!--android:layout_width="35dp"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:src="@drawable/like2"/>-->
 
 
     </LinearLayout>

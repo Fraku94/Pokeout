@@ -22,8 +22,8 @@
                 android:id="@+id/imageProfil"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scaleType="center"
-                android:src="@drawable/login"
+                android:scaleType="fitCenter"
+                android:src="@drawable/picture"
                 android:gravity="fill"
                 />
 
@@ -377,7 +377,23 @@ android:paddingTop="15px"
                     android:textAlignment="center"
                     android:textColor="@color/white"/>
 
+
             </LinearLayout>
+
+            <Button
+                android:layout_below="@id/buttonl"
+                android:id="@+id/delete"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/Back"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:layout_height="100px"
+                android:layout_width="250px"
+                android:text="Delete"
+                android:background="@drawable/shapebuttonprofile"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"/>
 
         </RelativeLayout>
 

@@ -6,25 +6,28 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.pokeout.pokeout.LoginRegister.RegisterActivity;
 import com.example.pokeout.pokeout.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,7 +49,7 @@ public class ProfilActivity extends AppCompatActivity {
 
     private TextView mBrithProfil, mRadiusProfil, mCityProfil, mSexUserProfil;
 
-    private Button mConfirmProfil, mBackProfil;
+    private Button mConfirmProfil, mBackProfil,mdelete;
 
     private ImageView mImageProfil;
 
@@ -82,6 +85,8 @@ public class ProfilActivity extends AppCompatActivity {
         //Button
         mConfirmProfil = (Button)findViewById(R.id.confirmProfil);
         mBackProfil = (Button)findViewById(R.id.backProfil);
+        mdelete = (Button)findViewById(R.id.delete);
+
 
         //ImageView
         mImageProfil = (ImageView)findViewById(R.id.imageProfil);
@@ -126,6 +131,19 @@ public class ProfilActivity extends AppCompatActivity {
         monthx = calendar.get(Calendar.MONTH);
         dayx = calendar.get(Calendar.DAY_OF_MONTH);
 
+
+  mdelete.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+          deleteAccount();
+      }
+  });
+
+
+
+
+
+
         //Usatwienie Daty
         ShowDialogOnButtonClick();
 
@@ -148,6 +166,10 @@ public class ProfilActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+
         //Button Back
         mBackProfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,7 +180,23 @@ public class ProfilActivity extends AppCompatActivity {
         });
     }
 
-
+    private void deleteAccount() {
+        Log.d("dek", "ingreso a deleteAccount");
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        currentUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Log.d("dek","OK! Works fine!");
+                    startActivity(new Intent(ProfilActivity.this, RegisterActivity.class));
+                    finish();
+                } else {
+                    Log.w("dek","Something is wrong!");
+                }
+            }
+        });
+    }
 
     private void getUserInfo() {
 

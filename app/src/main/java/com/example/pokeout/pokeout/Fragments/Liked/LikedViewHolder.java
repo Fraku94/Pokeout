@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.pokeout.pokeout.R;
 import com.example.pokeout.pokeout.UserInCategory.UserInCategoryActivity;
 import com.example.pokeout.pokeout.UsersInCategory.UsersInCategoryActivity;
+import com.sackcentury.shinebuttonlib.ShineButton;
 
 /**
  * Created by Z710 on 2018-02-22.
@@ -18,9 +19,10 @@ import com.example.pokeout.pokeout.UsersInCategory.UsersInCategoryActivity;
 
 public class LikedViewHolder extends RecyclerView.ViewHolder {
     public TextView mCategoryName, mCategoryCount;
-    public ImageView mCategoryImage, mLikedFollow;
+    public ImageView mCategoryImage;
     public String mCategoryId;
     public RelativeLayout mGointo;
+    public ShineButton mLikedFollow;
 
 
     public LikedViewHolder(View itemView) {
@@ -32,7 +34,7 @@ public class LikedViewHolder extends RecyclerView.ViewHolder {
         mCategoryImage = (ImageView) itemView.findViewById(R.id.categoryImage);
         mGointo = (RelativeLayout) itemView.findViewById(R.id.Gointo);
 
-        mLikedFollow = (ImageView) itemView.findViewById(R.id.likedFollow);
+        mLikedFollow = (ShineButton) itemView.findViewById(R.id.likedFollow);
     }
 
 

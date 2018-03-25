@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Ustawienie toolbara jako action bar
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // Wywoołanie ViePagera i ustawienie na nim PageAdaptera co pozwala na wyświetlanie treści

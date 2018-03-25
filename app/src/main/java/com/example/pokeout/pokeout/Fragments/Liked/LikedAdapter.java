@@ -6,12 +6,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 
 import com.bumptech.glide.Glide;
 import com.example.pokeout.pokeout.CategoryDescryption.CategoryDescryptionActivity;
@@ -21,12 +18,12 @@ import com.example.pokeout.pokeout.UsersInCategory.UsersInCategoryActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Z710 on 2018-02-22.
  */
+
 
 public class LikedAdapter extends RecyclerView.Adapter<LikedViewHolder>{
 
@@ -78,7 +75,7 @@ public class LikedAdapter extends RecyclerView.Adapter<LikedViewHolder>{
             @Override
             public void onClick(View v) {
 
-
+                holder.mLikedFollow.showAnim();
                 final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 final int Position = holder.getAdapterPosition();
                 final LikedObject deletedItem = likedList.get(Position);
@@ -201,3 +198,4 @@ public class LikedAdapter extends RecyclerView.Adapter<LikedViewHolder>{
 //        };
 //    }
 }
+

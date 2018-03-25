@@ -28,4 +28,11 @@
     <string name="navigation_drawer_close">close</string>
     <string name="Distance">Odległość</string>
     <string name="City">Miasto</string>
+    <string name="forgot_password_msg">To reset password, enter your email, press the button and check mail to follow instruction. </string>
+    <string name="lbl_forgot_password">Forgot your password?</string>
+    <string name="btn_reset_password">Reset Password</string>
+    <string name="hint_email">Your email</string>
+    <string name="btn_back">Back</string>
+
+
 </resources>

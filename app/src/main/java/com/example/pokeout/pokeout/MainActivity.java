@@ -314,7 +314,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         String CurrentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String CurrentUserToken = FirebaseInstanceId.getInstance().getToken();
 
-        UserDb.child(CurrentUserId).child("deviceToken").child(CurrentUserToken).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+        UserDb.child(CurrentUserId).child("deviceToken").removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 mAuth.signOut();

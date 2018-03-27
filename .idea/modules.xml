@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://D:\androidprogramy\Pokeoutnew\Pokeout.iml" filepath="D:\androidprogramy\Pokeoutnew\Pokeout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Pokeout.iml" filepath="$PROJECT_DIR$/Pokeout.iml" />
       <module fileurl="file://E:\androidprogramy\Pokeout\.idea\Pokeout.iml" filepath="E:\androidprogramy\Pokeout\.idea\Pokeout.iml" />
+      <module fileurl="file://D:\androidprogramy\Pokeoutnew\Pokeout.iml" filepath="D:\androidprogramy\Pokeoutnew\Pokeout.iml" />
       <module fileurl="file://A:\Pokeout\Pokeout\.idea\Pokeout.iml" filepath="A:\Pokeout\Pokeout\.idea\Pokeout.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Pokeoutnew.iml" filepath="$PROJECT_DIR$/Pokeoutnew.iml" />
+      <module fileurl="file://A:\Pokeout\Pokeout\Pokeoutnew.iml" filepath="A:\Pokeout\Pokeout\Pokeoutnew.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

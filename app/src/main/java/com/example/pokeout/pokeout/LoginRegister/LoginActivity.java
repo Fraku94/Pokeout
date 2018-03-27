@@ -1,6 +1,7 @@
 package com.example.pokeout.pokeout.LoginRegister;
 
 import android.content.Intent;
+import android.graphics.DashPathEffect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -15,12 +16,17 @@ import android.widget.Toast;
 
 import com.example.pokeout.pokeout.MainActivity;
 import com.example.pokeout.pokeout.R;
+import com.example.pokeout.pokeout.Services.MyFirebaseIdService;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.FirebaseInstanceIdService;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -32,8 +38,10 @@ public class LoginActivity extends AppCompatActivity {
     ProgressBar progressBar;
     private EditText etEmail, etPassword;
 
-    private FirebaseAuth auth;
+    private DatabaseReference UserDb;
+    private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
+
 
     public LoginActivity() {
     }
@@ -45,9 +53,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
+        UserDb = FirebaseDatabase.getInstance().getReference().child("Users");
+        mAuth = FirebaseAuth.getInstance();
 
 
-        auth = FirebaseAuth.getInstance();
         firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
 
             @Override
@@ -56,10 +65,21 @@ public class LoginActivity extends AppCompatActivity {
                 //**Jezeli uzytkownik nie istnieje w bazie to stworz i zaloguj do okna glownego **//
 
                 if (user != null) {
-                    Intent mainintent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(mainintent);
-                    finish();
-                    return;
+
+                    String CurrentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    String CurrentUserToken = FirebaseInstanceId.getInstance().getToken();
+
+                    UserDb.child(CurrentUserId).child("deviceToken").setValue(CurrentUserToken).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+
+                            Intent mainintent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(mainintent);
+                            finish();
+                            return;
+
+                        }
+                    });
                 }
             }
         };
@@ -87,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
                     final String email = etEmail.getText().toString();
                     final String password = etPassword.getText().toString();
-                    auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
@@ -166,7 +186,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        auth.addAuthStateListener(firebaseAuthListener);
+        mAuth.addAuthStateListener(firebaseAuthListener);
 
     }
 
@@ -175,6 +195,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        auth.removeAuthStateListener(firebaseAuthListener);
+        mAuth.removeAuthStateListener(firebaseAuthListener);
     }
 }

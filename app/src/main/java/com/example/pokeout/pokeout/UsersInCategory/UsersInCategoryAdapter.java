@@ -24,7 +24,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Z710 on 2018-02-26.
@@ -71,13 +73,12 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
 
 
 
-        Log.e("City", "City :    ffffffffff     "  );
+      //  Log.e("City", "City :    ffffffffff     "  );
         //Ustawienie tekstu dla imienia
         holder.mUserInCatName.setText(usersInCategoryObjectsList.get(position).getName());
 
         holder.mUserDistance.setText(usersInCategoryObjectsList.get(position).getDistance());
-        Log.e("City", "position :         " + usersInCategoryObjectsList.get(position).getDistance()  );
-//        holder.mUsersInCategoryMessage.setVisibility(View.INVISIBLE);
+     //   Log.e("City", "position :         " + usersInCategoryObjectsList.get(position).getDistance()  );
         holder.mCityUser.setText(usersInCategoryObjectsList.get(position).getCity());
 
         //Sprawdzenie i ustawienie czy uzytkwonika mamy juz dodanego czy nie (odpowiednia zmiana ikon)
@@ -107,14 +108,15 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
                     holder.mUserInCatYes.setImageResource(R.drawable.like2);
 
                     int Position = holder.getAdapterPosition();
-                    String OtherUserID = usersInCategoryObjectsList.get(position).getId();
+                    String OtherUserID = usersInCategoryObjectsList.get(Position).getId();
 
                     usersDb.child(OtherUserID).child("follow").child("yes").child(CurrentUserID).setValue(true);
                     usersDb.child(CurrentUserID).child("follow").child("following").child("yes").child(OtherUserID).setValue(true);
 
-                    isConnectionMatch(OtherUserID,holder);
 
-                    removeItem(Position);
+                    isConnectionMatch(OtherUserID);
+
+                    removeItem(holder.getAdapterPosition());
                 }
             });
             holder.mUserInCatNo.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +127,7 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
                     holder.mUserInCatNo.setImageResource(R.drawable.unlike);
 
                     int Position = holder.getAdapterPosition();
-                    String OtherUserID = usersInCategoryObjectsList.get(position).getId();
+                    String OtherUserID = usersInCategoryObjectsList.get(Position).getId();
 
                     usersDb.child(OtherUserID).child("follow").child("no").child(CurrentUserID).setValue(true);
                     usersDb.child(CurrentUserID).child("follow").child("following").child("no").child(OtherUserID).removeValue();
@@ -175,21 +177,26 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
 //        });
 //    }
     //Sprawdzanie czy uzytkownicy sie połączyli jesli tak to wyswietla sie toast
-    private void isConnectionMatch(String OtherUserID, final UsersInCategoryViewHolder holder) {
+    private void isConnectionMatch(final String OtherUserID) {
         DatabaseReference currentUserConnectionsDb = usersDb.child(CurrentUserID).child("follow").child("yes").child(OtherUserID);
         currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
 
-                    String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey();
+                    String chatKey = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey();
 
-                    usersDb.child(dataSnapshot.getKey()).child("follow").child("connect").child(CurrentUserID).child("ChatId").setValue(key);
-                    usersDb.child(CurrentUserID).child("follow").child("connect").child(dataSnapshot.getKey()).child("ChatId").setValue(key);
+                    usersDb.child(dataSnapshot.getKey()).child("follow").child("connect").child(CurrentUserID).child("ChatId").setValue(chatKey);
+                    usersDb.child(CurrentUserID).child("follow").child("connect").child(dataSnapshot.getKey()).child("ChatId").setValue(chatKey);
                     Toast.makeText(context, "Is Conenct", Toast.LENGTH_SHORT).show();
-                    Log.e("tag", "commect get");
 
-//                    holder.mUsersInCategoryMessage.setVisibility(View.VISIBLE);
+                    DatabaseReference NotificationDb = FirebaseDatabase.getInstance().getReference().child("Notification").child(OtherUserID);
+                    DatabaseReference newNotificationDb = NotificationDb.push();
+                    Map newNotification = new HashMap();
+                    newNotification.put("createdByUser", CurrentUserID);
+                    newNotification.put("type", "Connect");
+
+                    newNotificationDb.setValue(newNotification);
 
                 }
             }

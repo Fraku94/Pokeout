@@ -65,6 +65,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.io.IOException;
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     TextView locationTxt;
     String userId;
     private FirebaseAuth mAuth;
+    private DatabaseReference UserDb;
     private LatLng pickupLocation;
     String city;
 
@@ -112,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         mFusedLocationClient = getFusedLocationProviderClient(this);
 
         mAuth = FirebaseAuth.getInstance();
+        UserDb = FirebaseDatabase.getInstance().getReference().child("Users");
         //Wywoolanie obiektu  buttona do layotu do wylogowania
         logout = (ImageButton) findViewById(R.id.menu_logout);
     
@@ -308,10 +311,19 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     public void Logout(View view) {
 
-            mAuth.signOut();
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
+        String CurrentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String CurrentUserToken = FirebaseInstanceId.getInstance().getToken();
+
+        UserDb.child(CurrentUserId).child("deviceToken").removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                mAuth.signOut();
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
 
     }

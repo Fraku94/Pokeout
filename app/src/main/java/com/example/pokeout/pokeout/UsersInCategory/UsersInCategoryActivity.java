@@ -200,6 +200,8 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                             float distance = Loc1.distanceTo(Loc2)/1000;
                             formattedDistanceString = String.format("%.1f", distance);
 
+
+                            FetchUsersInCategoryInformation(key,formattedDistanceString);
                         }
 
                         @Override
@@ -208,7 +210,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                         }
                     });
 
-                    FetchUsersInCategoryInformation(key,formattedDistanceString);
+
 
                 }
 
@@ -274,8 +276,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                         if (dataSnapshot.child("city").getValue() != null) {
                             City = dataSnapshot.child("city").getValue().toString();
                         }
-                        Log.e("tag", "Distance :         " + Distance );
-                        Log.e("tag", "formattedDistanceString :         " + Distance + "     "+ Loc1 + "" );
+
                         //przypisanie do obiektu zmiennych
                         UsersInCategoryObject item = new UsersInCategoryObject(Id, Name, ImageUrl, Description, Brith, Sex, Phone,Distance,City);
                         resoultUsersInCategory.add(item);

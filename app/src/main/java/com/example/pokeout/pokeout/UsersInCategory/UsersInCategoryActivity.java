@@ -49,7 +49,8 @@ public class UsersInCategoryActivity extends AppCompatActivity {
     private int intRadius;
 
     private String radius;
-    private String CurrentUserId, categoryID;
+    private String CurrentUserId, categoryID, formattedDistanceString;
+    private int i=0;
 
     private DatabaseReference usersDb, mUserDatabase, userLocationRef, closeLocationRef, userLocation;
 
@@ -93,6 +94,8 @@ public class UsersInCategoryActivity extends AppCompatActivity {
 
         //Metoda pobiera promień. Start Activity
         getUserdRadius();
+
+
         }
 
         //Metoda pobiera promien uzytkownika
@@ -160,7 +163,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
             });
 
         }
-   private String formattedDistanceString;
+
         //Metoda pobiera uzytkownikow znajdujacych sie w promienu
         public void getClosestUsers() {
 
@@ -276,18 +279,27 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                         if (dataSnapshot.child("city").getValue() != null) {
                             City = dataSnapshot.child("city").getValue().toString();
                         }
-
+                        i=1;
                         //przypisanie do obiektu zmiennych
                         UsersInCategoryObject item = new UsersInCategoryObject(Id, Name, ImageUrl, Description, Brith, Sex, Phone,Distance,City);
                         resoultUsersInCategory.add(item);
                         mUsersInCategoryAdapter.notifyDataSetChanged();
                     }
                 }
+
+
+                if (i == 0){
+                    i=1;
+                    Toast.makeText(getApplicationContext(),"Nie ma wiecej propozycji",Toast.LENGTH_SHORT).show();
+                }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
+
         }
 
         private List<UsersInCategoryObject> getDataSetUsersInCategory() {

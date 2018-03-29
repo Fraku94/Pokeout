@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                     String CurrentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     String CurrentUserToken = FirebaseInstanceId.getInstance().getToken();
 
-                    UserDb.child(CurrentUserId).child("deviceToken").setValue(CurrentUserToken).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    UserDb.child(CurrentUserId).child("deviceToken").child(CurrentUserToken).setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
 

@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 
 import java.util.HashMap;
@@ -116,7 +117,13 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
 
                     isConnectionMatch(OtherUserID);
 
-                    removeItem(holder.getAdapterPosition());
+                    removeItem(Position);
+
+
+                    if (usersInCategoryObjectsList.size() == 0){
+                        Toast.makeText(context,"Nie ma wiecej propozycji",Toast.LENGTH_LONG).show();
+
+                    }
                 }
             });
             holder.mUserInCatNo.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +140,12 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
                     usersDb.child(CurrentUserID).child("follow").child("following").child("no").child(OtherUserID).removeValue();
 
                     removeItem(Position);
+
+
+                    if (usersInCategoryObjectsList.size() == 0){
+                        Toast.makeText(context,"Nie ma wiecej propozycji",Toast.LENGTH_LONG).show();
+
+                    }
                 }
             });
 
@@ -163,7 +176,9 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
                 v.getContext().startActivity(intent);
 
             }
-        });}
+        });
+
+    }
 
     //Klikniecie w ikone idz do czatu z uzytkownikiem
 //        holder.mUsersInCategoryMessage.setOnClickListener(new View.OnClickListener() {
@@ -190,10 +205,15 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
                     usersDb.child(CurrentUserID).child("follow").child("connect").child(dataSnapshot.getKey()).child("ChatId").setValue(chatKey);
                     Toast.makeText(context, "Is Conenct", Toast.LENGTH_SHORT).show();
 
+
+                    String CurrentUserToken = FirebaseInstanceId.getInstance().getToken();
+
+
                     DatabaseReference NotificationDb = FirebaseDatabase.getInstance().getReference().child("Notification").child(OtherUserID);
                     DatabaseReference newNotificationDb = NotificationDb.push();
                     Map newNotification = new HashMap();
                     newNotification.put("createdByUser", CurrentUserID);
+                    newNotification.put("token", CurrentUserToken);
                     newNotification.put("type", "Connect");
 
                     newNotificationDb.setValue(newNotification);

@@ -6,7 +6,11 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -50,7 +54,7 @@ public class LikedFragment extends Fragment {
         Context context = getActivity();
 
         //Przypisanie buttona dodawania kategorii
-        FloatingActionButton floatingActionButton = rootView.findViewById(R.id.fab);
+
 
         //Pobranie ID obecnego uzytkownika
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -66,15 +70,7 @@ public class LikedFragment extends Fragment {
         mLikedAdapter = new LikedAdapter(getDataSetLiked(),context);
         mRecyclerView.setAdapter(mLikedAdapter);
 
-        //Dodawanie kategorii
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), CategoryAddActivity.class);
-                startActivity(intent);
-                return;
-            }
-        });
+
 
         //Przypisanie funkicji odswiezania
         swipeRefreshLayout = rootView.findViewById(R.id.swipeContainerLiked);
@@ -115,17 +111,13 @@ public class LikedFragment extends Fragment {
     private ArrayList<LikedObject> resoultLiked = new ArrayList<LikedObject>();
 
     private List<LikedObject> getDataSetLiked() {
-
         //Tu Startuje fragment
         getCategoryId();
-
         return resoultLiked;
-
     }
 
 
     private void getCategoryId() {
-
         //Referencja do bazy Users>>userID>>category
         DatabaseReference likeddb = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId).child("category");
         likeddb.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -185,10 +177,11 @@ public class LikedFragment extends Fragment {
                     String categoryId = dataSnapshot.getKey();
                     String name = "";
                     String categoryImageUrl = "";
+                    String descryption = "";
                     String Count = Long.toString(count);
 
 
-                    //Pobranie warosci name jesli nie jest pusta i przypisanie do zmiennej
+                    //Pobranie warosc name jesli nie jest pusta i przypisanie do zmiennej
                     if (dataSnapshot.child("name").getValue() != null) {
                         name = dataSnapshot.child("name").getValue().toString();
                     }
@@ -198,9 +191,13 @@ public class LikedFragment extends Fragment {
                         categoryImageUrl = dataSnapshot.child("categoryImageUrl").getValue().toString();
                     }
 
+                    //Pobranie warosci linku zdjecia jesli nie jest pusty i przypisanie do zmiennej
+                    if (dataSnapshot.child("description").getValue() != null) {
+                        descryption = dataSnapshot.child("description").getValue().toString();
+                    }
 
                     //Dodanie zmeinnych do Obiektu (nazwy musza byc takie same jak w Objekcie
-                    LikedObject object = new LikedObject(categoryId, name, categoryImageUrl,Count);
+                    LikedObject object = new LikedObject(categoryId, name, categoryImageUrl,descryption, Count);
 
                     //Metoda dodawania do Objektu
                     resoultLiked.add(object);
@@ -220,7 +217,6 @@ public class LikedFragment extends Fragment {
             }
         });
     }
-
 
 
 

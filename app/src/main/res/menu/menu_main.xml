@@ -9,17 +9,35 @@
 
 
     <item
+        android:id="@+id/add"
+        android:icon="@drawable/add"
+
+        android:title="Logout"
+        android:layout_width="128px"
+        android:orderInCategory="200"
+        android:layout_height="128px"
+        android:layout_gravity="right"
+
+        app:showAsAction="always" />
+
+
+
+    <item
         android:id="@+id/menuSearch"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:orderInCategory="100"
+        android:icon="@drawable/chat2"
+
         android:title="Search"
-        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:layout_width="wrap_content"
+        android:orderInCategory="200"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+
         app:showAsAction="always" />
 
         <item
             android:title="profile"
             android:id="@+id/menu_profile"
-            android:icon="@drawable/ic_account_circle_black_24dp"
+            android:icon="@drawable/profile"
             android:layout_width="wrap_content"
             android:orderInCategory="200"
             android:layout_height="wrap_content"

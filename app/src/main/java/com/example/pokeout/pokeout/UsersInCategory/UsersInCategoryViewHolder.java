@@ -4,19 +4,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pokeout.pokeout.R;
 
 /**
- * Created by Z710 on 2018-02-26.
+ * Created by Z710 on 2018-03-16.
  */
 
 public class UsersInCategoryViewHolder extends RecyclerView.ViewHolder{
-    public TextView mUserInCatName;
+    public TextView mUserInCatName,mCityUser,mUserDistance;
     public ImageView mUserInCatImage;
-    public ImageView mUserInCatBFollow, mUsersInCategoryMessage;
+    public ImageView mUserInCatYes,mUserInCatNo, mUsersInCategoryMessage;
+
+
 
     public UsersInCategoryViewHolder(View itemView) {
         super(itemView);
@@ -24,8 +27,12 @@ public class UsersInCategoryViewHolder extends RecyclerView.ViewHolder{
         //Tu wpisujesz wszystkie TextView,ImageView,itp jakie dodajesz w item_....xml (tutaj item_liked.xml)
         mUserInCatName = (TextView) itemView.findViewById(R.id.usersInCategoryName);
         mUserInCatImage = (ImageView) itemView.findViewById(R.id.usersInCategoryImage);
-        mUserInCatBFollow = (ImageView) itemView.findViewById(R.id.usersInCategoryfollow);
-        mUsersInCategoryMessage = (ImageView) itemView.findViewById(R.id.usersInCategoryMessage);
+        mUserInCatYes = (ImageView) itemView.findViewById(R.id.usersInCategoryYes);
+        mUserInCatNo = (ImageView) itemView.findViewById(R.id.usersInCategoryNo);
+        mCityUser = (TextView) itemView.findViewById(R.id.cityUser);
+        mUserDistance = (TextView) itemView.findViewById(R.id.UserDistance);
+
+//        mUsersInCategoryMessage = (ImageView) itemView.findViewById(R.id.usersInCategoryMessage);
 
     }
 

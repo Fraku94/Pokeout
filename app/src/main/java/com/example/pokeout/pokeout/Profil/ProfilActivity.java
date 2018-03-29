@@ -6,24 +6,28 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.pokeout.pokeout.LoginRegister.RegisterActivity;
 import com.example.pokeout.pokeout.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,20 +47,18 @@ public class ProfilActivity extends AppCompatActivity {
 
     private EditText mNameProfil, mPhoneProfil, mDescriptionProfil;
 
-    private TextView mBrithProfil;
+    private TextView mBrithProfil, mRadiusProfil, mCityProfil, mSexUserProfil;
 
-    private Button mConfirmProfil, mBackProfil;
-
-    private RadioGroup mRadioGroupProfil;
-
-    private RadioButton mFemaleProfil, mMaleProfil;
+    private Button mConfirmProfil, mBackProfil,mdelete;
 
     private ImageView mImageProfil;
+
+    private SeekBar mRadiusSeekBarProfil;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mUserDatabase;
 
-    private String userId, username, userphone, userprofileImageUrl, userSex, userbrith, userDescription;
+    private String userId, username, userphone, userprofileImageUrl, userSex, userbrith, userDescription, userRadius, userCity;
 
     private Uri resultUri;
 
@@ -76,21 +78,41 @@ public class ProfilActivity extends AppCompatActivity {
 
         //TextView
         mBrithProfil = (TextView)findViewById(R.id.brithProfil);
+        mRadiusProfil = (TextView)findViewById(R.id.radiusProfil);
+        mCityProfil = (TextView)findViewById(R.id.cityProfil);
+        mSexUserProfil = (TextView)findViewById(R.id.sexUserProfil);
 
         //Button
         mConfirmProfil = (Button)findViewById(R.id.confirmProfil);
         mBackProfil = (Button)findViewById(R.id.backProfil);
+        mdelete = (Button)findViewById(R.id.delete);
+
 
         //ImageView
         mImageProfil = (ImageView)findViewById(R.id.imageProfil);
 
-        //RadioGroup
-        mRadioGroupProfil = (RadioGroup)findViewById(R.id.radioGroupProfil);
 
-        //RadioButton
-        mFemaleProfil = (RadioButton)findViewById(R.id.rbFemaleProfil);
-        mMaleProfil = (RadioButton)findViewById(R.id.rbMaleProfil);
 
+        //SeekBar
+        mRadiusSeekBarProfil = (SeekBar)findViewById(R.id.radiusseekBarProfil);
+
+        mRadiusSeekBarProfil.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                userRadius= String.valueOf(progress);
+                mRadiusProfil.setText(String.valueOf(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
         //FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
 
@@ -108,6 +130,19 @@ public class ProfilActivity extends AppCompatActivity {
         yearx = (calendar.get(Calendar.YEAR))-18;
         monthx = calendar.get(Calendar.MONTH);
         dayx = calendar.get(Calendar.DAY_OF_MONTH);
+
+
+  mdelete.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+          deleteAccount();
+      }
+  });
+
+
+
+
+
 
         //Usatwienie Daty
         ShowDialogOnButtonClick();
@@ -131,6 +166,10 @@ public class ProfilActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+
         //Button Back
         mBackProfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +180,23 @@ public class ProfilActivity extends AppCompatActivity {
         });
     }
 
-
+    private void deleteAccount() {
+        Log.d("dek", "ingreso a deleteAccount");
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        currentUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Log.d("dek","OK! Works fine!");
+                    startActivity(new Intent(ProfilActivity.this, RegisterActivity.class));
+                    finish();
+                } else {
+                    Log.w("dek","Something is wrong!");
+                }
+            }
+        });
+    }
 
     private void getUserInfo() {
 
@@ -167,20 +222,29 @@ public class ProfilActivity extends AppCompatActivity {
                         userDescription = map.get("description").toString();
                         mDescriptionProfil.setText(userDescription);
                     }
+
                     if(map.get("sex")!=null){
                         userSex = map.get("sex").toString();
                         switch (userSex){
                             case "Male":
-                                mMaleProfil.setChecked(true);
-                                mFemaleProfil.setChecked(false);
+                                mSexUserProfil.setText("Mężczyzna");
                                 break;
                             case "Female":
-                                mMaleProfil.setChecked(false);
-                                mFemaleProfil.setChecked(true);
+                                mSexUserProfil.setText("Kobieta");
                                 break;
                         }
 
                     }
+                    if(map.get("city")!=null){
+                        userCity = map.get("city").toString();
+                        mCityProfil.setText(userCity);
+                    }
+                    if(map.get("radius")!=null){
+                        userRadius = map.get("radius").toString();
+                        mRadiusProfil.setText(userRadius);
+                        mRadiusSeekBarProfil.setProgress(Integer.parseInt(userRadius));
+                    }
+
                     //Załadowanie zdjecia
                     Glide.clear(mImageProfil);
                     if(map.get("profileImageUrl")!=null){
@@ -210,22 +274,16 @@ public class ProfilActivity extends AppCompatActivity {
         //Przypisanie wartosci z "okienek" do zmiennych
         username = mNameProfil.getText().toString();
         userphone = mPhoneProfil.getText().toString();
-//        userSex = radioButton.getText().toString();
         userbrith = mBrithProfil.getText().toString();
         userDescription = mDescriptionProfil.getText().toString();
+        userRadius = mRadiusProfil.getText().toString();
 
         //Map dodaje do bazy Firebase
         Map userInfo = new HashMap();
         userInfo.put("name", username);
         userInfo.put("phone", userphone);
         userInfo.put("description", userDescription);
-
-        //Sprawdzenie ktory radiobutton jest wybrany
-        if (mMaleProfil.isChecked()){
-            userInfo.put("sex", "Male");
-        }else{
-            userInfo.put("sex", "Female");
-        }
+        userInfo.put("radius", userRadius);
         userInfo.put("brith", userbrith);
 
         //Metoda wywoluje zapis do bazy

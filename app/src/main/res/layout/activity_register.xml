@@ -1,9 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:orientation="vertical"
-android:background="@drawable/register"
+    android:background="@drawable/register"
     android:layout_height="match_parent"
-    tools:context="com.example.pokeout.pokeout.LoginRegister.RegisterActivity">
+    tools:context="com.example.pokeout.pokeout.LoginRegister.RegisterActivity"
+    android:fitsSystemWindows="true"
+    android:scaleType="centerCrop">
 
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,7 +17,7 @@ android:background="@drawable/register"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="56dp"
+            android:paddingTop="120dp"
             android:paddingLeft="24dp"
             android:paddingRight="24dp">
 
@@ -29,8 +31,11 @@ android:background="@drawable/register"
                 <EditText android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:hint="name" />
+                    android:inputType="textCapWords"
+                    android:hint="name"
+                    android:textColorHint="@color/black"
+
+                    android:textColor="@color/black"/>
             </android.support.design.widget.TextInputLayout>
 
 
@@ -44,12 +49,18 @@ android:background="@drawable/register"
 
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Male"/>
+                    android:text="Male"
+
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black" />
                 <RadioButton
 
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Female"/>
+                    android:text="Female"
+                    android:textColorHint="@color/black"
+
+                    android:textColor="@color/black"/>
 
 
             </RadioGroup>
@@ -64,7 +75,10 @@ android:background="@drawable/register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:hint="Email" />
+                    android:hint="Email"
+                    android:textColorHint="@color/black"
+
+                    android:textColor="@color/black"/>
             </android.support.design.widget.TextInputLayout>
 
 
@@ -78,19 +92,24 @@ android:background="@drawable/register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:hint="Password"/>
+                    android:hint="Password"
+                    android:textColorHint="@color/black"
+
+                    android:textColor="@color/black"/>
             </android.support.design.widget.TextInputLayout>
 
 
 
             <!-- Register Button -->
             <android.support.v7.widget.AppCompatButton
+                android:background="@drawable/shapebutton"
                 android:id="@+id/bRegister"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
                 android:padding="12dp"
+                android:textColor="@color/white"
                 android:text="Create Account"/>
 
             <TextView android:id="@+id/linkLogin"
@@ -99,7 +118,10 @@ android:background="@drawable/register"
                 android:layout_marginBottom="24dp"
                 android:text="Already a member? Login"
                 android:gravity="center"
-                android:textSize="16dip"/>
+                android:textSize="18dip"
+                android:textColorHint="#FFF"
+
+                android:textColor="#FFF"/>
 
         </LinearLayout>
     </ScrollView>

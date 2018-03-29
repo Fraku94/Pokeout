@@ -1,61 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context="com.example.pokeout.pokeout.CategoryAdd.CategoryAddActivity">
+
+    android:background="@color/white"
+    tools:context="com.example.pokeout.pokeout.UserDescryption.UserDescryptionActivity">
 
 
-    <LinearLayout
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@mipmap/ic_default"
-            android:id="@+id/imageCategoryAdd" />
-        <EditText
+            android:id="@+id/imageCategoryAdd"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:hint="@string/Description"
-            android:layout_margin="10dp"
-            android:id="@+id/descriptionCategoryAdd"
-            android:textAlignment="center"/>
-    </LinearLayout>
+            android:layout_height="300dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/picture"
+            android:gravity="fill"
+            />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/CategoryName"
-        android:layout_margin="10dp"
-        android:id="@+id/nameCategoryAdd"
-        android:textAlignment="center"/>
+        <!--<ImageButton-->
+        <!--android:id="@+id/imageUserDescryption"-->
+        <!--android:layout_width="120dp"-->
+        <!--android:layout_height="120dp"-->
+        <!--android:layout_below="@+id/header_cover_image"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="-60dp"-->
+        <!--android:background="@drawable/ic_password"-->
+        <!--android:elevation="5dp"-->
+        <!--android:padding="20dp"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--android:src="@mipmap/ic_default" />-->
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:layout_margin="25dp">
 
-        <Button
+
+
+
+
+        <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="300px"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:src="@mipmap/ic_default"-->
+        <!--android:id="@+id/imageUserDescryption" />-->
+
+
+
+
+
+
+
+        <LinearLayout
+            android:id="@+id/namel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="30dp"
+            android:layout_weight="3"
+            android:layout_below="@id/imageCategoryAdd"
+            >
+
+
+            <TextView
+                android:text="CategoryName"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="15dp"
+                android:textColor="@color/orange"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/nameCategoryAdd"
+                android:text="Name"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="15dp"
+                android:textColor="@color/black"
+                android:textAlignment="center"/>
+
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/CategDes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="3"
+            android:layout_below="@id/namel"
+            >
+
+            <TextView
+                android:id="@+id/AboutCategory"
+                android:text="About Category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="13dp"
+                android:textSize="15dp"
+                android:textColor="@color/orange"
+                android:textAlignment="center"
+                android:layout_below="@id/imageCategoryDescryption"
+
+                />
+
+
+
+            <EditText
+                android:id="@+id/descriptionCategoryAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/AboutCategory"
+                android:layout_margin="13dp"
+                android:text="About me"
+                android:textAlignment="center"
+                android:textColor="@color/black" />
+
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_centerHorizontal="true"
+            android:id="@+id/buttonl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Confirm"
-            android:id="@+id/confirmCategoryAdd" />
+            android:orientation="horizontal"
+            android:layout_below="@id/CategDes"
+            >
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:text="@string/Back"
-            android:id="@+id/backCategoryAdd" />
 
-    </LinearLayout>
 
-</LinearLayout>
+            <Button
+                android:id="@+id/confirmCategoryAdd"
+                android:hint="@string/Confirm"
+                android:layout_margin="10dp"
+                android:layout_height="100px"
+                android:layout_width="250px"
+                android:text="Confirm"
+                android:background="@drawable/shapebuttonprofile"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/backCategoryAdd"
+                android:hint="@string/Back"
+                android:layout_margin="10dp"
+                android:layout_height="100px"
+                android:layout_width="250px"
+                android:text="Back"
+                android:background="@drawable/shapebuttonprofile"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+
+</ScrollView>
+
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <!--</android.support.v7.widget.RecyclerView>-->
+
+
+

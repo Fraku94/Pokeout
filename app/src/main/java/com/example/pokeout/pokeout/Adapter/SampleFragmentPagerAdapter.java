@@ -3,17 +3,15 @@ package com.example.pokeout.pokeout.Adapter;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.pokeout.pokeout.Fragments.Best.BestFragment;
-import com.example.pokeout.pokeout.Fragments.Blank.BlankFragment;
 import com.example.pokeout.pokeout.Fragments.Liked.LikedFragment;
 import com.example.pokeout.pokeout.Fragments.Suggest.SuggestFragment;
 import com.example.pokeout.pokeout.R;
 
 
-
-public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
+public class SampleFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     private Context mContext;
 
@@ -29,17 +27,29 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
             return new LikedFragment();
         } else if (position == 1){
             return new BestFragment();
-        } else if (position == 2){
-            return new SuggestFragment();
         } else {
-            return new BlankFragment();
+            return new SuggestFragment();
         }
+//        else {
+//            return new BlankFragment();
+//        }
     }
 
+//    public int getItemPosition(Object object) {
+//        GeoHashQuery.Utils.DummyItem dummyItem = (GeoHashQuery.Utils.DummyItem) ((View) object).getTag();
+//        int position = mDummyItems.indexOf(dummyItem);
+//        if (position >= 0) {
+//            // The current data matches the data in this active fragment, so let it be as it is.
+//            return position;
+//        } else {
+//            // Returning POSITION_NONE means the current data does not matches the data this fragment is showing right now.  Returning POSITION_NONE constant will force the fragment to redraw its view layout all over again and show new data.
+//            return POSITION_NONE;
+//        }
+//    }
     // Liczba wyswietlanych tab
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 
     // Przypisanie nazw do tablayot tam na góre
@@ -53,8 +63,8 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
                 return mContext.getString(R.string.categoryBest);
             case 2:
                 return mContext.getString(R.string.categorySuggest);
-            case 3:
-                return mContext.getString(R.string.categoryBlank);
+//            case 3:
+//                return mContext.getString(R.string.categoryBlank);
             default:
                 return null;
         }

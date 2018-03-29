@@ -1,11 +1,17 @@
 package com.example.pokeout.pokeout.Fragments.Best;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pokeout.pokeout.R;
+import com.jackandphantom.androidlikebutton.AndroidLikeButton;
+import com.sackcentury.shinebuttonlib.ShineButton;
+import com.varunest.sparkbutton.SparkButton;
+import com.varunest.sparkbutton.SparkButtonBuilder;
 
 /**
  * Created by Z710 on 2018-02-27.
@@ -13,7 +19,11 @@ import com.example.pokeout.pokeout.R;
 
 public class BestViewHolder extends RecyclerView.ViewHolder  {
     public TextView mBestName, mBestCount;
-    public ImageView mBestImage, mBestGo, mBestFollow;
+    public ImageView mBestImage;
+//public SparkButton mBestFollow;
+    public RelativeLayout mGointo;
+    public ShineButton mBestFollow;
+
 
 
     public BestViewHolder(View itemView) {
@@ -23,8 +33,10 @@ public class BestViewHolder extends RecyclerView.ViewHolder  {
         mBestCount = (TextView) itemView.findViewById(R.id.bestCount);
         mBestName = (TextView) itemView.findViewById(R.id.bestName);
         mBestImage = (ImageView) itemView.findViewById(R.id.bestImage);
-        mBestGo = (ImageView) itemView.findViewById(R.id.bestGo);
-        mBestFollow = (ImageView) itemView.findViewById(R.id.bestFollow);
+        mBestFollow = (ShineButton) itemView.findViewById(R.id.bestFollow);
+
+
+        mGointo = (RelativeLayout) itemView.findViewById(R.id.Gointo);
 
 
     }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -78,9 +79,17 @@ public class RegisterActivity extends AppCompatActivity {
 
                 final RadioButton radioButton = (RadioButton) findViewById(selectId);
 
-                if(radioButton.getText() == null){
-                    return;
-                }
+
+
+
+                if (!validate()) {
+                    Toast.makeText(RegisterActivity.this, "Fill empty ", Toast.LENGTH_SHORT).show();
+
+                }else {
+
+
+                Log.d("tag", "Register");
+
 
                 final String email = etEmail.getText().toString();
                 final String password = etPassword.getText().toString();
@@ -101,6 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 });
+                }
             }
         });
 
@@ -114,6 +124,51 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
         });
+    }
+
+
+
+    public void onSignupFailed() {
+        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+
+    }
+
+
+
+    public boolean validate() {
+        boolean valid = true;
+
+        String name = etName.getText().toString();
+        String email = etEmail.getText().toString();
+        String password = etPassword.getText().toString();
+
+        if (name.isEmpty() || name.length() < 3) {
+            etName.setError("at least 3 characters");
+            valid = false;
+        } else {
+            etName.setError(null);
+        }
+
+        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            etEmail.setError("enter a valid email address");
+            valid = false;
+        } else {
+            etEmail.setError(null);
+        }
+
+        if (password.isEmpty() || password.length() < 6 || password.length() > 10) {
+            etPassword.setError("between 6 and 10 alphanumeric characters");
+            valid = false;
+        } else {
+            etPassword.setError(null);
+        }
+        if (radioGroup.getCheckedRadioButtonId() == -1)
+        {
+            Toast.makeText(RegisterActivity.this, "Select your gender ", Toast.LENGTH_SHORT).show();
+            valid = false;
+        }
+
+        return valid;
     }
 
 

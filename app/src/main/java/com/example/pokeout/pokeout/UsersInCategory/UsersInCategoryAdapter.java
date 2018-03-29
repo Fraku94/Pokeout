@@ -7,11 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.pokeout.pokeout.MainActivity;
 import com.example.pokeout.pokeout.R;
 import com.example.pokeout.pokeout.UserDescryption.UserDescryptionActivity;
 import com.example.pokeout.pokeout.UserInformation;
@@ -21,7 +19,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.HashMap;
 import java.util.List;

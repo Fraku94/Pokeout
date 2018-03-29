@@ -1,18 +1,11 @@
 package com.example.pokeout.pokeout.UsersInCategory;
 
-import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.pokeout.pokeout.MainActivity;
 import com.example.pokeout.pokeout.R;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
@@ -201,6 +194,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
 
                             float distance = Loc1.distanceTo(Loc2)/1000;
                             formattedDistanceString = String.format("%.1f", distance);
+
 
                             FetchUsersInCategoryInformation(key,formattedDistanceString);
                         }

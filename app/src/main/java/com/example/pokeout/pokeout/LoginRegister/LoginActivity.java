@@ -1,7 +1,6 @@
 package com.example.pokeout.pokeout.LoginRegister;
 
 import android.content.Intent;
-import android.graphics.DashPathEffect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 
 import com.example.pokeout.pokeout.MainActivity;
 import com.example.pokeout.pokeout.R;
-import com.example.pokeout.pokeout.Services.MyFirebaseIdService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -26,7 +24,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.FirebaseInstanceIdService;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -51,11 +48,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        Bundle extras = getIntent().getExtras();
 
         UserDb = FirebaseDatabase.getInstance().getReference().child("Users");
         mAuth = FirebaseAuth.getInstance();
-
 
         firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
 
@@ -69,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                     String CurrentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     String CurrentUserToken = FirebaseInstanceId.getInstance().getToken();
 
-                    UserDb.child(CurrentUserId).child("deviceToken").setValue(CurrentUserToken).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    UserDb.child(CurrentUserId).child("deviceToken").child(CurrentUserToken).setValue(true).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
 
@@ -92,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = (EditText) findViewById(R.id.etPassword);
         tvForgotPassword = (TextView) findViewById(R.id.tvForgotPassword);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
         //** po kliknieciiu zaloguj  **//
 
         blogin.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +96,8 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                v.startAnimation(buttonClick);
+                blogin.startAnimation(buttonClick);
+
                 Log.d("tag", "Login");
                 if (!validate()) {
                     Toast.makeText(LoginActivity.this, "Fill empty ", Toast.LENGTH_SHORT).show();
@@ -189,7 +187,6 @@ public class LoginActivity extends AppCompatActivity {
         mAuth.addAuthStateListener(firebaseAuthListener);
 
     }
-
 
 
     @Override

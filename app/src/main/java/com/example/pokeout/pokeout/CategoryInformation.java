@@ -15,13 +15,13 @@ import java.util.ArrayList;
 
 public class CategoryInformation {
 
+
     public static ArrayList<String> listFollowingCategory = new ArrayList<>();
 
         public void startFetching(){
             listFollowingCategory.clear();
             getCategoryFollowing();
         }
-
 
         private void getCategoryFollowing() {
 

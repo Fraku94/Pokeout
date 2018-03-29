@@ -2,8 +2,6 @@ package com.example.pokeout.pokeout;
 
 
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -13,14 +11,10 @@ import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -28,25 +22,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.example.pokeout.pokeout.Adapter.SampleFragmentPagerAdapter;
+import com.example.pokeout.pokeout.Adapter.ZoomOutPageTransformer;
 import com.example.pokeout.pokeout.CategoryAdd.CategoryAddActivity;
 import com.example.pokeout.pokeout.Connect.ConnectActivity;
-import com.example.pokeout.pokeout.Adapter.ZoomOutPageTransformer;
-import com.example.pokeout.pokeout.Adapter.ZoomOutPageTransformer;
-import com.example.pokeout.pokeout.Fragments.Liked.LikedAdapter;
 import com.example.pokeout.pokeout.LoginRegister.LoginActivity;
 import com.example.pokeout.pokeout.Profil.ProfilActivity;
-import com.example.pokeout.pokeout.UsersInCategory.UsersInCategoryObject;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
-
-import com.firebase.geofire.GeoQuery;
-import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -58,13 +45,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.UserInfo;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -101,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private MaterialSearchView searchView;
     private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
-
+    ProgressBar load;
     public MainActivity() {
     }
 
@@ -153,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         //  1.aktualizuje gdy jest przysuwanie
         //  2.aktualizuje gdy jest wyswietlane
         //  3.Ustawia nazwy tablayout z viepager adapter
+        load = (ProgressBar) findViewById(R.id.progressBar);
         tabLayout.setupWithViewPager(viewPager);
         getLastLocation();
         startLocationUpdates();
@@ -166,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onLocationChanged(Location location) {
-
+        load.setVisibility(View.VISIBLE);
         latitude = location.getLatitude();
         longitude = location.getLongitude();
         mLocation = location;
@@ -196,6 +180,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
                     geoFire.setLocation(userId, new GeoLocation(mLocation.getLatitude(), mLocation.getLongitude()));
                     saveUserCity();
+                    load.setVisibility(View.GONE);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -372,12 +357,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 startActivity(profil);
                 break;
             case R.id.menuSearch:
-                Toast.makeText(getApplicationContext(), "You clicked profile", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You clicked search", Toast.LENGTH_SHORT).show();
                 Intent search = new Intent(MainActivity.this, ConnectActivity.class);
                 startActivity(search);
                 break;
             case R.id.add:
-                Toast.makeText(getApplicationContext(), "You clicked profile", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You clicked add category", Toast.LENGTH_SHORT).show();
                 Intent add = new Intent(MainActivity.this, CategoryAddActivity.class);
                 startActivity(add);
                 break;

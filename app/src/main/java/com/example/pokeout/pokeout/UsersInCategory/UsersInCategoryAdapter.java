@@ -4,15 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.pokeout.pokeout.Chat.ChatActivity;
-import com.example.pokeout.pokeout.Connect.ConnectActivity;
 import com.example.pokeout.pokeout.R;
 import com.example.pokeout.pokeout.UserDescryption.UserDescryptionActivity;
 import com.example.pokeout.pokeout.UserInformation;
@@ -22,7 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.HashMap;
 import java.util.List;
@@ -71,13 +69,17 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
     @Override
     public void onBindViewHolder(final UsersInCategoryViewHolder holder, final int position) {
 
+        final AlphaAnimation buttonClick = new AlphaAnimation(0.2f, 1.0f);
+        buttonClick.setDuration(1000);
+        buttonClick.setStartOffset(5000);
+        buttonClick.setFillAfter(true);
 
 
       //  Log.e("City", "City :    ffffffffff     "  );
         //Ustawienie tekstu dla imienia
         holder.mUserInCatName.setText(usersInCategoryObjectsList.get(position).getName());
 
-        holder.mUserDistance.setText(usersInCategoryObjectsList.get(position).getDistance());
+        holder.mUserDistance.setText(usersInCategoryObjectsList.get(position).getDistance() + "km");
      //   Log.e("City", "position :         " + usersInCategoryObjectsList.get(position).getDistance()  );
         holder.mCityUser.setText(usersInCategoryObjectsList.get(position).getCity());
 
@@ -103,6 +105,8 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
             holder.mUserInCatYes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    holder.mUserInCatYes.startAnimation(buttonClick);
+//                    v.startAnimation(buttonClick);
                     holder.mUserInCatYes.setVisibility(View.VISIBLE);
                     holder.mUserInCatNo.setVisibility(View.INVISIBLE);
                     holder.mUserInCatYes.setImageResource(R.drawable.like2);
@@ -116,7 +120,13 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
 
                     isConnectionMatch(OtherUserID);
 
-                    removeItem(holder.getAdapterPosition());
+                    removeItem(Position);
+
+
+                    if (usersInCategoryObjectsList.size() == 0){
+                        Toast.makeText(context,"Nie ma wiecej propozycji",Toast.LENGTH_LONG).show();
+
+                    }
                 }
             });
             holder.mUserInCatNo.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +143,12 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
                     usersDb.child(CurrentUserID).child("follow").child("following").child("no").child(OtherUserID).removeValue();
 
                     removeItem(Position);
+
+
+                    if (usersInCategoryObjectsList.size() == 0){
+                        Toast.makeText(context,"Nie ma wiecej propozycji",Toast.LENGTH_LONG).show();
+
+                    }
                 }
             });
 
@@ -163,7 +179,9 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
                 v.getContext().startActivity(intent);
 
             }
-        });}
+        });
+
+    }
 
     //Klikniecie w ikone idz do czatu z uzytkownikiem
 //        holder.mUsersInCategoryMessage.setOnClickListener(new View.OnClickListener() {
@@ -190,10 +208,15 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
                     usersDb.child(CurrentUserID).child("follow").child("connect").child(dataSnapshot.getKey()).child("ChatId").setValue(chatKey);
                     Toast.makeText(context, "Is Conenct", Toast.LENGTH_SHORT).show();
 
+
+                    String CurrentUserToken = FirebaseInstanceId.getInstance().getToken();
+
+
                     DatabaseReference NotificationDb = FirebaseDatabase.getInstance().getReference().child("Notification").child(OtherUserID);
                     DatabaseReference newNotificationDb = NotificationDb.push();
                     Map newNotification = new HashMap();
                     newNotification.put("createdByUser", CurrentUserID);
+                    newNotification.put("token", CurrentUserToken);
                     newNotification.put("type", "Connect");
 
                     newNotificationDb.setValue(newNotification);

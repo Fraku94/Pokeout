@@ -13,21 +13,18 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.pokeout.pokeout.R;
-import com.example.pokeout.pokeout.UsersInCategory.UsersInCategoryViewHolder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class UserInCategoryActivity extends AppCompatActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener{
 
@@ -36,7 +33,7 @@ public class UserInCategoryActivity extends AppCompatActivity implements Recycle
     private List<UserInCategoryObject> UserInCategoryList;
     private UserInCategoryAdapter mAdapter;
     private CoordinatorLayout coordinatorLayout;
-
+    ProgressBar load;
     private String currentUserId, categoryID;
 
     List<UserInCategoryObject> rowItems;
@@ -55,7 +52,7 @@ public class UserInCategoryActivity extends AppCompatActivity implements Recycle
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(true);
-
+        load = (ProgressBar) findViewById(R.id.progressBar1);
         coordinatorLayout = findViewById(R.id.coordinator_layout);
 
         rowItems = new ArrayList<>();
@@ -96,6 +93,7 @@ public class UserInCategoryActivity extends AppCompatActivity implements Recycle
 
     private void getUsersId()
     {
+        load.setVisibility(View.VISIBLE);
         final String adminId = "UYjTdbeg7zXSwXFhN72eDPseU1R2";
         DatabaseReference usersInCategorydb = FirebaseDatabase.getInstance().getReference().child("Category").child(categoryID).child("users");
         usersInCategorydb.addListenerForSingleValueEvent(new ValueEventListener()

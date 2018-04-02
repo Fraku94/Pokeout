@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/image"
     android:minHeight="@dimen/list_item_height"
+    android:elevation="10dp"
     android:background="@color/white">
 
     <RelativeLayout
@@ -11,9 +12,9 @@
         android:layout_height="130dp"
         android:minHeight="@dimen/list_item_height"
         android:background="@color/white"
-        android:id="@+id/bestGointo">
+        android:id="@+id/bestGointo"
+        android:elevation="10dp">
 
-    </RelativeLayout>
 
 
 
@@ -116,13 +117,14 @@
             android:id="@+id/usersInCategoryYes"
             android:layout_width="35dp"
             android:layout_height="35dp"
-
+            android:elevation="7dp"
             android:src="@drawable/like2" />
 
         <ImageView
             android:id="@+id/usersInCategoryNo"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:elevation="7dp"
             android:src="@drawable/unffalow" />
 
 
@@ -130,5 +132,7 @@
 
 
     </LinearLayout>
+
+</RelativeLayout>
 
 </RelativeLayout>

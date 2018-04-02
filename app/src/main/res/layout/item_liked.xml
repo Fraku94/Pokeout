@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:minHeight="@dimen/list_item_height"
-        android:background="@color/white"
-        android:id="@+id/Gointo">
+        android:id="@+id/Gointo"
+        android:elevation="10dp">
 
     </RelativeLayout>
 
@@ -104,6 +104,7 @@
         <com.sackcentury.shinebuttonlib.ShineButton
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:elevation="2dp"
             android:layout_centerInParent="true"
             android:src="@color/orange"
             android:id="@+id/likedFollow"

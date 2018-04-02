@@ -1,27 +1,21 @@
 package com.example.pokeout.pokeout.UsersInCategory;
 
 import android.location.Location;
-import android.support.v7.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pokeout.pokeout.Connect.ConnectActivity;
 import com.example.pokeout.pokeout.R;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
-import com.firebase.geofire.GeoQueryEventListener;
-
 import com.firebase.geofire.GeoQuery;
-
-import com.google.android.gms.maps.model.LatLng;
+import com.firebase.geofire.GeoQueryEventListener;
 import com.google.firebase.auth.FirebaseAuth;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,14 +34,14 @@ public class UsersInCategoryActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mUsersInCategoryLayoutMenager;
 
     private ArrayList<UsersInCategoryObject> resoultUsersInCategory = new ArrayList<UsersInCategoryObject>();
-
+TextView tvnomore;
     private FirebaseAuth mAuth;
     GeoQuery geoQuery;
     double locationLat1,locationLat2;
     double locationLng1, locationLng2;
     public Location Loc1;
     private int intRadius;
-
+ProgressBar load;
     private String radius;
     private String CurrentUserId, categoryID, formattedDistanceString;
     private int i=0;
@@ -80,17 +74,18 @@ public class UsersInCategoryActivity extends AppCompatActivity {
 
         //ID kliknietej kategorii
         categoryID = getIntent().getExtras().getString("CategoryId");
-
+tvnomore=(TextView)findViewById(R.id.tvNoMore) ;
         //Ustawienie RecyclerView
         mRecyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
-
+        load =(ProgressBar) findViewById(R.id.load);
         //Podpiecie LayoutMenagera
         mUsersInCategoryLayoutMenager = new LinearLayoutManager(UsersInCategoryActivity.this);
         mRecyclerView.setLayoutManager(mUsersInCategoryLayoutMenager);
         mUsersInCategoryAdapter = new UsersInCategoryAdapter(getDataSetUsersInCategory(), UsersInCategoryActivity.this);
         mRecyclerView.setAdapter(mUsersInCategoryAdapter);
+
 
         //Metoda pobiera promień. Start Activity
         getUserdRadius();
@@ -242,7 +237,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
         }
 
         private void FetchUsersInCategoryInformation(final String key, final String Distance) {
-
+            load.setVisibility(View.VISIBLE);
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
         usersDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -280,6 +275,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                             City = dataSnapshot.child("city").getValue().toString();
                         }
                         i=1;
+                        load.setVisibility(View.GONE);
                         //przypisanie do obiektu zmiennych
                         UsersInCategoryObject item = new UsersInCategoryObject(Id, Name, ImageUrl, Description, Brith, Sex, Phone,Distance,City);
                         resoultUsersInCategory.add(item);
@@ -290,6 +286,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
 
                 if (i == 0){
                     i=1;
+                    tvnomore.setVisibility(View.VISIBLE);
                     Toast.makeText(getApplicationContext(),"Nie ma wiecej propozycji",Toast.LENGTH_SHORT).show();
                 }
             }
@@ -303,7 +300,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
         }
 
         private List<UsersInCategoryObject> getDataSetUsersInCategory() {
-
+            setContentView(R.layout.no_more);
             return resoultUsersInCategory;
         }
 }

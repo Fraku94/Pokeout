@@ -30,14 +30,15 @@ import java.util.Map;
  * Created by Z710 on 2018-02-26.
  */
 
-public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategoryViewHolder>{
+public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategoryViewHolder> {
 
     private List<UsersInCategoryObject> usersInCategoryObjectsList;
 
     private Context context;
+    private static final int EMPTY_VIEW = 10;
 
     //Przypisanie Obiektów do adaptera
-    public UsersInCategoryAdapter(List<UsersInCategoryObject> usersInCategoryObjectsList, Context context){
+    public UsersInCategoryAdapter(List<UsersInCategoryObject> usersInCategoryObjectsList, Context context) {
         this.usersInCategoryObjectsList = usersInCategoryObjectsList;
         this.context = context;
 
@@ -46,7 +47,6 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
     //Tworzenie wyglądu i przypisanie ViewHoldera do adaptera
     @Override
     public UsersInCategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
 
 
         //Przypisanie wygladu okna do adaptera
@@ -60,8 +60,10 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
         UsersInCategoryViewHolder rcv = new UsersInCategoryViewHolder((layoutView));
 
         return rcv;
+
     }
     final private DatabaseReference usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
+
 
 
     final private String CurrentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -79,7 +81,7 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
         //Ustawienie tekstu dla imienia
         holder.mUserInCatName.setText(usersInCategoryObjectsList.get(position).getName());
 
-        holder.mUserDistance.setText(usersInCategoryObjectsList.get(position).getDistance() + "km");
+        holder.mUserDistance.setText(usersInCategoryObjectsList.get(position).getName() + "km");
      //   Log.e("City", "position :         " + usersInCategoryObjectsList.get(position).getDistance()  );
         holder.mCityUser.setText(usersInCategoryObjectsList.get(position).getCity());
 

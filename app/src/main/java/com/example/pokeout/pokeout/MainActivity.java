@@ -1,7 +1,6 @@
 package com.example.pokeout.pokeout;
 
 
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -60,7 +59,7 @@ import java.util.Map;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 
-public class MainActivity extends AppCompatActivity implements LocationListener  {
+public class MainActivity extends AppCompatActivity implements LocationListener {
 
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -85,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
     ProgressBar load;
+    ViewPager viewPager;
+
     public MainActivity() {
     }
 
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         UserDb = FirebaseDatabase.getInstance().getReference().child("Users");
         //Wywoolanie obiektu  buttona do layotu do wylogowania
         logout = (ImageButton) findViewById(R.id.menu_logout);
-    
+
         //Sprawdzenie obserwaowanych kategorii
         CategoryInformation categoryInformationListner = new CategoryInformation();
         categoryInformationListner.startFetching();
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         // Wywoołanie ViePagera i ustawienie na nim PageAdaptera co pozwala na wyświetlanie treści
         //Znajduje viepager i pozwala uzytkownikowi na przesuwanie
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
 
         //Tworzenie adaptera rozpoznajacego,który fragment ma się pojawić i usttawienie adatera w ViePagerze
         SampleFragmentPagerAdapter adapter = new SampleFragmentPagerAdapter(this, getSupportFragmentManager());
@@ -128,7 +129,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         //Odwołanie do klasy Transformer (Przejscai miedzy fragmentami)
         ZoomOutPageTransformer transformer = new ZoomOutPageTransformer();
-        viewPager.setPageTransformer(true,transformer);
+        viewPager.setPageTransformer(true, transformer);
+
 
         // Znajdowanie Tablayout ,który pokaże napisy
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
@@ -136,14 +138,26 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         //  1.aktualizuje gdy jest przysuwanie
         //  2.aktualizuje gdy jest wyswietlane
         //  3.Ustawia nazwy tablayout z viepager adapter
-        load = (ProgressBar) findViewById(R.id.progressBar);
+
         tabLayout.setupWithViewPager(viewPager);
         getLastLocation();
         startLocationUpdates();
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
 
+            @Override
+            public void onPageSelected(int position) {
+                viewPager.getAdapter().notifyDataSetChanged();
+            }
 
+            @Override
+            public void onPageScrollStateChanged(int state) {
 
+            }
+        });
 
 
     }
@@ -189,7 +203,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
 
-
     @Override
     public void onStatusChanged(String s, int i, Bundle bundle) {
 
@@ -217,6 +230,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public void getLastLocation() {
         // Get last known recent location using new Google Play Services SDK (v11+)
         FusedLocationProviderClient locationClient = getFusedLocationProviderClient(this);
+
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -268,6 +282,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         settingsClient.checkLocationSettings(locationSettingsRequest);
 
         // new Google API SDK v11 uses getFusedLocationProviderClient(this)
+
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling

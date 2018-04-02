@@ -25,6 +25,8 @@ public class SampleFragmentPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         if (position == 0) {
             return new LikedFragment();
+
+
         } else if (position == 1){
             return new BestFragment();
         } else {
@@ -33,6 +35,11 @@ public class SampleFragmentPagerAdapter extends FragmentStatePagerAdapter {
 //        else {
 //            return new BlankFragment();
 //        }
+    }
+    @Override
+    public int getItemPosition(Object object) {
+// POSITION_NONE makes it possible to reload the PagerAdapter
+        return POSITION_NONE;
     }
 
 //    public int getItemPosition(Object object) {

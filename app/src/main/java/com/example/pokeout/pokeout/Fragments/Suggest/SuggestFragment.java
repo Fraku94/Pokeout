@@ -3,7 +3,9 @@ package com.example.pokeout.pokeout.Fragments.Suggest;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -56,7 +58,12 @@ public class SuggestFragment extends Fragment {
         mRecyclerView.setLayoutManager(mSuggestLayoutMenager);
         mSuggestAdapter = new SuggestAdapter(getDataSetSuggest(),context);
         mRecyclerView.setAdapter(mSuggestAdapter);
-
+        DividerItemDecoration divider = new
+                DividerItemDecoration(mRecyclerView.getContext(),
+                DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(getActivity(),
+                R.drawable.shape_border));
+        mRecyclerView.addItemDecoration(divider);
         //Przypisanie funkicji odswiezania
         swipeRefreshLayout = rootView.findViewById(R.id.swipeContainerSuggest);
 

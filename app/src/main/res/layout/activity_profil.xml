@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.example.pokeout.pokeout.UserDescryption.UserDescryptionActivity">
 
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-
-        android:background="@color/white"
-        tools:context="com.example.pokeout.pokeout.UserDescryption.UserDescryptionActivity">
-
-
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+        android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/imageProfil"
@@ -24,69 +18,29 @@
                 android:layout_height="200dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/picture"
-                android:gravity="fill"
-                />
+                android:gravity="fill" />
 
-            <!--<ImageButton-->
-            <!--android:id="@+id/imageUserDescryption"-->
-            <!--android:layout_width="120dp"-->
-            <!--android:layout_height="120dp"-->
-            <!--android:layout_below="@+id/header_cover_image"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:layout_marginTop="-60dp"-->
-            <!--android:background="@drawable/ic_password"-->
-            <!--android:elevation="5dp"-->
-            <!--android:padding="20dp"-->
-            <!--android:scaleType="centerCrop"-->
-            <!--android:src="@mipmap/ic_default" />-->
-
-
-
-
-
-
-            <!--<ImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="300px"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:src="@mipmap/ic_default"-->
-            <!--android:id="@+id/imageUserDescryption" />-->
-
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:id="@+id/About"
-    android:layout_below="@id/imageProfil"
-android:paddingTop="15px"
-    android:weightSum="2"
-   >
-
-
-        <TextView
-           android:textAlignment="textStart"
-            android:layout_weight="1"
-
-            android:paddingLeft="20pt"
-            android:text="@string/Description"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:textColor="@color/orange"
-               />
+            android:orientation="horizontal"
+            android:id="@+id/About"
+            android:layout_below="@id/imageProfil"
+            android:paddingTop="15px"
+            android:weightSum="2">
 
 
+            <TextView
+                android:textAlignment="textStart"
+                android:layout_weight="1"
+                android:paddingLeft="20pt"
+                android:text="@string/Description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:textColor="@color/orange"/>
 
-
-
-
-
-</LinearLayout>
-
-
-
-
+        </LinearLayout>
 
             <EditText
                 android:id="@+id/descriptionProfil"
@@ -95,253 +49,201 @@ android:paddingTop="15px"
                 android:layout_below="@id/About"
                 android:textSize="15dp"
                 android:paddingLeft="20pt"
-                android:text="About me"
+                android:text="@string/Description"
+                android:textColor="@color/black"/>
 
+        <LinearLayout
+            android:id="@+id/city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="3"
+            android:layout_below="@id/descriptionProfil">
 
+            <TextView
+                android:text="@string/City"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="15dp"
+                android:textColor="@color/orange"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/cityProfil"
+                android:hint="@string/City"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="15dp"
                 android:textColor="@color/black"
+                android:textAlignment="center"/>
 
+        </LinearLayout>
 
-                />
+        <LinearLayout
+            android:id="@+id/namel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="3"
+            android:layout_below="@id/city">
 
-
-
-
-
-            <LinearLayout
-                android:id="@+id/city"
-                android:layout_width="match_parent"
+            <TextView
+                android:text="@string/Name"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="3"
-                android:layout_below="@id/descriptionProfil"
+                android:layout_margin="10dp"
+                android:textSize="15dp"
+                android:textColor="@color/orange"
+                android:textAlignment="center" />
 
-                >
-
-
-
-
-
-                <TextView
-                    android:text="@string/City"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:textSize="15dp"
-                    android:textColor="@color/orange"
-                    android:textAlignment="center" />
-
-                <EditText
-                    android:id="@+id/cityProfil"
-                    android:text="@string/City"
-                    android:layout_weight="2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:textSize="15dp"
-                    android:textColor="@color/black"
-                    android:textAlignment="center"/>
-
-
-
-
-            </LinearLayout>
-
-
-
-
-
-            <LinearLayout
-                android:id="@+id/namel"
-                android:layout_width="match_parent"
+            <EditText
+                android:id="@+id/nameProfil"
+                android:hint="@string/Name"
+                android:layout_weight="2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="3"
-                android:layout_below="@id/city"
+                android:layout_margin="10dp"
+                android:textSize="15dp"
+                android:textColor="@color/black"
+                android:textAlignment="center"/>
 
-                >
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/phonel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="3"
+            android:layout_below="@id/namel">
 
-
-
-
-                <TextView
-                    android:text="@string/Name"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:textSize="15dp"
-                    android:textColor="@color/orange"
-                    android:textAlignment="center" />
-
-                <EditText
-                    android:id="@+id/nameProfil"
-                    android:text="@string/Name"
-                    android:layout_weight="2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:textSize="15dp"
-                    android:textColor="@color/black"
-                    android:textAlignment="center"/>
-
-
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/phonel"
-                android:layout_width="match_parent"
+            <TextView
+                android:text="@string/Phone"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="3"
-                android:layout_below="@id/namel"
-                >
+                android:layout_margin="10dp"
+                android:textSize="15dp"
+                android:textColor="@color/orange"
+                android:textAlignment="center" />
 
-                <TextView
-                    android:text="@string/Phone"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:textSize="15dp"
-                    android:textColor="@color/orange"
-                    android:textAlignment="center" />
-
-
-
-                <EditText
-                    android:id="@+id/phoneProfil"
-                    android:text="@string/Phone"
-                    android:layout_weight="2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:textSize="15dp"
-                    android:textColor="@color/black"
-                    android:textAlignment="center" />
-
-
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/datel"
-                android:layout_width="match_parent"
+            <EditText
+                android:id="@+id/phoneProfil"
+                android:hint="@string/Phone"
+                android:layout_weight="2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_below="@id/phonel"
-                android:layout_weight="3"
-                >
+                android:layout_margin="10dp"
+                android:textSize="15dp"
+                android:textColor="@color/black"
+                android:textAlignment="center" />
 
+        </LinearLayout>
 
-                <TextView
-                    android:text="@string/Brith"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:textSize="15dp"
-                    android:textColor="@color/orange"
-                    android:textAlignment="center"/>
-                <TextView
-                    android:id="@+id/brithProfil"
+        <LinearLayout
+            android:id="@+id/datel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/phonel"
+            android:layout_weight="3">
 
-                    android:text="@string/Brith"
-                    android:layout_weight="2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:textSize="15dp"
-                    android:textColor="@color/black"
-                    android:textAlignment="center" />
-
-            </LinearLayout>
-
-
-
-
-
-            <LinearLayout
-                android:id="@+id/sexl"
-                android:layout_width="match_parent"
+            <TextView
+                android:text="@string/Brith"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="3"
-                android:layout_below="@id/datel"
-                >
+                android:layout_margin="10dp"
+                android:textSize="15dp"
+                android:textColor="@color/orange"
+                android:textAlignment="center"/>
 
-                <TextView
-                    android:text="@string/Sex"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:textSize="15dp"
-                    android:textColor="@color/orange"
-                    android:textAlignment="center"/>
-                <TextView
-                    android:id="@+id/sexUserProfil"
-                    android:text="@string/Sex"
-                    android:layout_weight="2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:textSize="15dp"
-                    android:textColor="@color/black"
-                    android:textAlignment="center"/>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/brithProfil"
+                android:hint="@string/Brith"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="15dp"
+                android:textColor="@color/black"
+                android:textAlignment="center" />
 
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/sexl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="3"
+            android:layout_below="@id/datel">
 
-            <LinearLayout
+            <TextView
+                android:text="@string/Sex"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="15dp"
+                android:textColor="@color/orange"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/sexUserProfil"
+                android:hint="@string/Sex"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="15dp"
+                android:textColor="@color/black"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
                 android:id="@+id/seek"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_centerHorizontal="true"
-
                 android:layout_below="@id/sexl"
-                android:weightSum="3"
-                >
+                android:weightSum="3">
 
-                    <TextView
-                        android:layout_weight="0.5"
-                        android:hint="@string/Sex"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Radius"
-                        android:textSize="15dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/orange"/>
+                <TextView
+                    android:layout_weight="0.5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Radius"
+                    android:textSize="15dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/orange"/>
 
-                    <SeekBar
-                        android:layout_weight="2"
-                        android:id="@+id/radiusseekBarProfil"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:progressTint="@color/orange"
-                        android:thumbTint="@color/orange"
-                        />
+                <SeekBar
+                    android:layout_weight="2"
+                    android:id="@+id/radiusseekBarProfil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:progressTint="@color/orange"
+                    android:thumbTint="@color/orange" />
 
-                    <TextView
-                        android:layout_weight="0.5"
-                        android:id="@+id/radiusProfil"
-                        android:hint="@string/Sex"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Radius"
-                        android:textSize="15dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/orange"/>
-                </LinearLayout>
+                <TextView
+                    android:layout_weight="0.5"
+                    android:id="@+id/radiusProfil"
+                    android:hint="@string/Radius"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/orange"/>
 
-
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_centerHorizontal="true"
@@ -349,34 +251,29 @@ android:paddingTop="15px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_below="@id/seek"
-                >
-
-
+                android:layout_below="@id/seek">
 
                 <Button
                     android:id="@+id/confirmProfil"
-                    android:hint="@string/Confirm"
                     android:layout_margin="10dp"
                     android:layout_height="100px"
                     android:layout_width="250px"
-                    android:text="Confirm"
-                    android:background="@drawable/shapebuttonprofile"
-                    android:textSize="15dp"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"/>
-                <Button
-                    android:id="@+id/backProfil"
-                    android:hint="@string/Back"
-                    android:layout_margin="10dp"
-                    android:layout_height="100px"
-                    android:layout_width="250px"
-                    android:text="Back"
+                    android:text="@string/Confirm"
                     android:background="@drawable/shapebuttonprofile"
                     android:textSize="15dp"
                     android:textAlignment="center"
                     android:textColor="@color/white"/>
 
+                <Button
+                    android:id="@+id/backProfil"
+                    android:layout_margin="10dp"
+                    android:layout_height="100px"
+                    android:layout_width="250px"
+                    android:text="@string/Back"
+                    android:background="@drawable/shapebuttonprofile"
+                    android:textSize="15dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"/>
 
             </LinearLayout>
 
@@ -384,46 +281,20 @@ android:paddingTop="15px"
                 android:layout_below="@id/buttonl"
                 android:id="@+id/delete"
                 android:layout_centerHorizontal="true"
-                android:hint="@string/Back"
                 android:gravity="center"
                 android:layout_margin="10dp"
                 android:layout_height="100px"
                 android:layout_width="250px"
-                android:text="Delete"
+                android:text="@string/Delete"
                 android:background="@drawable/shapebuttonprofile"
                 android:textSize="15dp"
                 android:textAlignment="center"
                 android:textColor="@color/white"/>
 
-        </RelativeLayout>
+    </RelativeLayout>
 
+</ScrollView>
 
-
-
-    </ScrollView>
-
-
-    <!--<android.support.v7.widget.RecyclerView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content">-->
-
-    <!--</android.support.v7.widget.RecyclerView>-->
-
-
-
-
-
-
-
-
-
-
-
-    <!--<android.support.v7.widget.RecyclerView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content">-->
-
-    <!--</android.support.v7.widget.RecyclerView>-->
 
 
 

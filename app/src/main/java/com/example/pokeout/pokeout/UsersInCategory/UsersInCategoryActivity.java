@@ -1,14 +1,18 @@
 package com.example.pokeout.pokeout.UsersInCategory;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pokeout.pokeout.MainActivity;
 import com.example.pokeout.pokeout.R;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
@@ -33,14 +37,13 @@ public class UsersInCategoryActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mUsersInCategoryLayoutMenager;
 
     private ArrayList<UsersInCategoryObject> resoultUsersInCategory = new ArrayList<UsersInCategoryObject>();
-TextView tvnomore;
+    TextView tvnomore;
     private FirebaseAuth mAuth;
     GeoQuery geoQuery;
     double locationLat1,locationLat2;
     double locationLng1, locationLng2;
     public Location Loc1;
     private int intRadius;
-//ProgressBar load;
     private String radius;
     private String CurrentUserId, categoryID, formattedDistanceString;
     private int i=0;
@@ -73,12 +76,14 @@ TextView tvnomore;
 
         //ID kliknietej kategorii
         categoryID = getIntent().getExtras().getString("CategoryId");
+
         tvnomore=(TextView)findViewById(R.id.tvNoMore) ;
+
         //Ustawienie RecyclerView
         mRecyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
-//        load =(ProgressBar) findViewById(R.id.load);
+
         //Podpiecie LayoutMenagera
         mUsersInCategoryLayoutMenager = new LinearLayoutManager(UsersInCategoryActivity.this);
         mRecyclerView.setLayoutManager(mUsersInCategoryLayoutMenager);
@@ -197,7 +202,6 @@ TextView tvnomore;
                             float distance = Loc1.distanceTo(Loc2)/1000;
                             formattedDistanceString = String.format("%.1f", distance);
 
-
                             FetchUsersInCategoryInformation(key,formattedDistanceString);
                         }
 
@@ -236,7 +240,7 @@ TextView tvnomore;
         }
 
         private void FetchUsersInCategoryInformation(final String key, final String Distance) {
-//            load.setVisibility(View.VISIBLE);
+
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
         usersDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -274,34 +278,38 @@ TextView tvnomore;
                             City = dataSnapshot.child("city").getValue().toString();
                         }
                         i=1;
-//                        load.setVisibility(View.GONE);
+
                         //przypisanie do obiektu zmiennych
                         UsersInCategoryObject item = new UsersInCategoryObject(Id, Name, ImageUrl, Description, Brith, Sex, Phone,Distance,City);
                         resoultUsersInCategory.add(item);
                         mUsersInCategoryAdapter.notifyDataSetChanged();
+
+
+                    }
+                    if (i == 0){
+                        i=1;
+
+                        tvnomore.setVisibility(View.VISIBLE);
+
+                    }else if(i == 1){
+                        i=2;
+
+                        tvnomore.setVisibility(View.INVISIBLE);
                     }
                 }
 
 
-                if (i == 0){
-                    i=1;
-                    tvnomore.setVisibility(View.VISIBLE);
-//                    setContentView(R.layout.no_more);
-                    Toast.makeText(getApplicationContext(),"Nie ma wiecej propozycji",Toast.LENGTH_SHORT).show();
 
-                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
-        });
-
+            });
 
         }
 
         private List<UsersInCategoryObject> getDataSetUsersInCategory() {
-//            setContentView(R.layout.no_more);
             return resoultUsersInCategory;
         }
 }

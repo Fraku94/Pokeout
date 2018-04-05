@@ -102,7 +102,7 @@ public class ProfilActivity extends AppCompatActivity {
         mConfirmProfil = findViewById(R.id.confirmProfil);
         mBackProfil = findViewById(R.id.backProfil);
         mdelete = findViewById(R.id.delete);
-//        reauth = findViewById(R.id.aut);
+        //reauth = findViewById(R.id.aut);
 
         //ImageView
         mImageProfil = findViewById(R.id.imageProfil);
@@ -331,24 +331,19 @@ public class ProfilActivity extends AppCompatActivity {
                 try {
                     Thread.sleep(10000);
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    Log.w("tag", "User start .");
-                    user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Log.w("tag", "User account deleted.");
-                                        //sprawdzalem pobiera dobre id
-                                        Log.w("tag", "User account deleted." + userId);
-                                        mUserDatabase.removeValue(null);
-                                        Log.w("tag", "start actyvity.");
-                                        Intent mainintent = new Intent(ProfilActivity.this, LoginActivity.class);
-                                        startActivity(mainintent);
-                                        finish();
-                                        return;
-                                    }
-                                    Log.w("tag", "User dupa .");
-                                }
-                            });
+
+                    mUserDatabase.removeValue();
+
+
+                    user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Intent mainintent = new Intent(ProfilActivity.this, LoginActivity.class);
+                            startActivity(mainintent);
+                            finish();
+                            return;
+                        }
+                    });
                 } catch (Exception e) {
                     progressDialog.setMessage("Error Account not delete ");
                     Toast.makeText(ProfilActivity.this, "Error Account not delete ", Toast.LENGTH_SHORT).show();

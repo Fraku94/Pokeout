@@ -1,30 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <!--<LinearLayout-->
-        <!--android:id="@+id/container"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:padding="20sp"-->
-        <!--android:layout_gravity="right">-->
-        <!--<TextView-->
-        <!--android:paddingBottom="20sp"-->
-
-        <!--android:text=""-->
-        <!--android:background="@drawable/rounded_rectangle_orange"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:maxWidth="240dp"-->
-        <!--android:padding="8dp"-->
-        <!--android:textColor="#ffffff"-->
-        <!--android:layout_marginTop="4dp"-->
-        <!--android:layout_marginLeft="8dp"-->
-        <!--android:id="@+id/message"-->
-        <!--/>-->
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,6 +11,7 @@
         android:id="@+id/container"
         android:orientation="vertical"
         android:gravity="right">
+
         <TextView
             android:id="@+id/message"
             android:layout_width="wrap_content"
@@ -42,29 +22,16 @@
             android:maxWidth="240dp"
             android:padding="8dp"
             android:paddingBottom="20sp"
-            android:text="Text"
+            android:hint="@string/Message"
             android:textColor="#ffffff" />
 
         <TextView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Data"
+            android:hint="@string/Data"
             android:layout_marginTop="4dp"/>
+
     </LinearLayout>
-
-
-
-
-    <!--<TextView-->
-        <!--android:paddingBottom="20sp"-->
-
-        <!--android:text=""-->
-        <!--android:background="@drawable/rounded_rectangle_green"-->
-
-
-        <!--/>-->
-
-    <!--</LinearLayout>-->
 
 </LinearLayout>

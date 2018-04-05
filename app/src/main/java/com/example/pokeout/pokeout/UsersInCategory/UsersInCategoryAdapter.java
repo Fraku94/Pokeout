@@ -11,6 +11,7 @@ import android.view.animation.AlphaAnimation;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.pokeout.pokeout.MainActivity;
 import com.example.pokeout.pokeout.R;
 import com.example.pokeout.pokeout.UserDescryption.UserDescryptionActivity;
 import com.example.pokeout.pokeout.UserInformation;
@@ -126,8 +127,11 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
 
 
                     if (usersInCategoryObjectsList.size() == 0){
+
                         Toast.makeText(context,"Nie ma wiecej propozycji",Toast.LENGTH_LONG).show();
 
+                        Intent intent = new Intent(context, MainActivity.class);
+                        context.startActivity(intent);
                     }
                 }
             });
@@ -148,7 +152,11 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
 
 
                     if (usersInCategoryObjectsList.size() == 0){
+
                         Toast.makeText(context,"Nie ma wiecej propozycji",Toast.LENGTH_LONG).show();
+
+                        Intent intent = new Intent(context, MainActivity.class);
+                        context.startActivity(intent);
 
                     }
                 }
@@ -190,8 +198,7 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
 //            @Override
 //            public void onClick(View v) {
 //
-//                Intent intent = new Intent(v.getContext(), ConnectActivity.class);
-//                v.getContext().startActivity(intent);
+//
 //
 //            }
 //        });

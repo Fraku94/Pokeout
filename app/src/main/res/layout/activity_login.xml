@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/login"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="40dp"
     android:fitsSystemWindows="true"
     android:scaleType="centerCrop">
-
-
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -24,16 +22,12 @@
             android:backgroundTint="@color/black"
             android:drawableLeft="@drawable/user"
             android:id="@+id/etEmail"
-            android:hint="   Username"
+            android:hint="@string/User_Name"
             android:inputType="textPersonName"
             android:textColor="@color/black"
-            android:textSize="20sp"
-           />
+            android:textSize="20sp" />
 
     </android.support.design.widget.TextInputLayout>
-
-
-
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -47,10 +41,11 @@
             android:drawableLeft="@drawable/ic_password"
             android:backgroundTint="@color/black"
             android:id="@+id/etPassword"
-            android:hint="   Passwoard"
+            android:hint="@string/Password"
             android:inputType="textPassword"
             android:textColor="@color/black"
             android:textSize="20sp" />
+
     </android.support.design.widget.TextInputLayout>
 
     <ProgressBar
@@ -61,17 +56,15 @@
         android:layout_marginBottom="20dp"
         android:visibility="gone" />
 
-
     <TextView
         android:id="@+id/tvForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="35dp"
-        android:text="Forgot Password?"
+        android:text="@string/PasswordForgot"
         android:textColor="@color/white"
         android:textSize="16sp" />
-
 
     <Button
         android:background="@drawable/shapebutton"
@@ -79,26 +72,18 @@
         android:layout_width="100pt"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-            android:textStyle="bold"
-        android:text="Login"
+        android:textStyle="bold"
+        android:text="@string/Login"
         android:textColor="@color/white" />
 
-
-
-
-
     <TextView
-
         android:id="@+id/tvSign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:text="No account yet? Create one"
+        android:text="@string/CreatAccount"
         android:textColor="@color/white"
         android:textSize="18sp" />
-
-
-
 
 </LinearLayout>

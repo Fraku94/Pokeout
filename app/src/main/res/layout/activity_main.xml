@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,7 +8,6 @@
     android:orientation="vertical"
     tools:context="com.example.pokeout.pokeout.MainActivity">
 
-//dodanie do main.xml layotu toolbar
     <include
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar"
@@ -15,24 +15,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"/>
 
-
-
-
-
-
-
-   //Dodany viepager i tablayout
-
-
-
     <android.support.design.widget.TabLayout
         android:id="@+id/sliding_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabMode="fixed"
         app:tabTextColor="@android:color/white"
-        android:background="@color/primaryColor"
-        />
+        android:background="@color/primaryColor" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
@@ -41,7 +30,5 @@
         android:layout_weight="1"
         android:elevation="18dp"
         android:background="@color/white"/>
-
-
 
 </LinearLayout>

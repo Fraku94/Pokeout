@@ -21,7 +21,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private MaterialSearchView searchView;
     private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
-    ProgressBar load;
+//    ProgressBar load;
     ViewPager viewPager;
 
     public MainActivity() {
@@ -164,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onLocationChanged(Location location) {
-        load.setVisibility(View.VISIBLE);
+//        load.setVisibility(View.VISIBLE);
         latitude = location.getLatitude();
         longitude = location.getLongitude();
         mLocation = location;
@@ -194,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
                     geoFire.setLocation(userId, new GeoLocation(mLocation.getLatitude(), mLocation.getLongitude()));
                     saveUserCity();
-                    load.setVisibility(View.GONE);
+//                    load.setVisibility(View.GONE);
                 }
             } catch (IOException e) {
                 e.printStackTrace();

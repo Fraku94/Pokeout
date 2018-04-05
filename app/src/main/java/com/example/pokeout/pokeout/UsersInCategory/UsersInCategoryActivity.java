@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +40,7 @@ TextView tvnomore;
     double locationLng1, locationLng2;
     public Location Loc1;
     private int intRadius;
-ProgressBar load;
+//ProgressBar load;
     private String radius;
     private String CurrentUserId, categoryID, formattedDistanceString;
     private int i=0;
@@ -74,12 +73,12 @@ ProgressBar load;
 
         //ID kliknietej kategorii
         categoryID = getIntent().getExtras().getString("CategoryId");
-tvnomore=(TextView)findViewById(R.id.tvNoMore) ;
+        tvnomore=(TextView)findViewById(R.id.tvNoMore) ;
         //Ustawienie RecyclerView
         mRecyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
-        load =(ProgressBar) findViewById(R.id.load);
+//        load =(ProgressBar) findViewById(R.id.load);
         //Podpiecie LayoutMenagera
         mUsersInCategoryLayoutMenager = new LinearLayoutManager(UsersInCategoryActivity.this);
         mRecyclerView.setLayoutManager(mUsersInCategoryLayoutMenager);
@@ -237,7 +236,7 @@ tvnomore=(TextView)findViewById(R.id.tvNoMore) ;
         }
 
         private void FetchUsersInCategoryInformation(final String key, final String Distance) {
-            load.setVisibility(View.VISIBLE);
+//            load.setVisibility(View.VISIBLE);
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
         usersDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -275,7 +274,7 @@ tvnomore=(TextView)findViewById(R.id.tvNoMore) ;
                             City = dataSnapshot.child("city").getValue().toString();
                         }
                         i=1;
-                        load.setVisibility(View.GONE);
+//                        load.setVisibility(View.GONE);
                         //przypisanie do obiektu zmiennych
                         UsersInCategoryObject item = new UsersInCategoryObject(Id, Name, ImageUrl, Description, Brith, Sex, Phone,Distance,City);
                         resoultUsersInCategory.add(item);
@@ -287,7 +286,9 @@ tvnomore=(TextView)findViewById(R.id.tvNoMore) ;
                 if (i == 0){
                     i=1;
                     tvnomore.setVisibility(View.VISIBLE);
+//                    setContentView(R.layout.no_more);
                     Toast.makeText(getApplicationContext(),"Nie ma wiecej propozycji",Toast.LENGTH_SHORT).show();
+
                 }
             }
 
@@ -300,7 +301,7 @@ tvnomore=(TextView)findViewById(R.id.tvNoMore) ;
         }
 
         private List<UsersInCategoryObject> getDataSetUsersInCategory() {
-            setContentView(R.layout.no_more);
+//            setContentView(R.layout.no_more);
             return resoultUsersInCategory;
         }
 }

@@ -10,10 +10,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/bestRecyclerView"
         android:layout_width="match_parent"
-        android:elevation="7dp"
         android:clipToPadding="false"
         android:stateListAnimator="@null"
-        android:background="@android:color/black"
         android:outlineProvider="bounds"
         android:layout_height="wrap_content" />
 

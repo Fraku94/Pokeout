@@ -81,7 +81,7 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
         //Ustawienie tekstu dla imienia
         holder.mUserInCatName.setText(usersInCategoryObjectsList.get(position).getName());
 
-        holder.mUserDistance.setText(usersInCategoryObjectsList.get(position).getName() + "km");
+        holder.mUserDistance.setText(usersInCategoryObjectsList.get(position).getDistance() + "km");
      //   Log.e("City", "position :         " + usersInCategoryObjectsList.get(position).getDistance()  );
         holder.mCityUser.setText(usersInCategoryObjectsList.get(position).getCity());
 

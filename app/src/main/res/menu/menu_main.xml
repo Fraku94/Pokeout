@@ -12,12 +12,12 @@
         android:id="@+id/add"
         android:icon="@drawable/add"
 
-        android:title="Logout"
+        android:title="Add"
         android:layout_width="128px"
         android:orderInCategory="200"
         android:layout_height="128px"
         android:layout_gravity="right"
-        android:elevation="7dp"
+        android:elevation="2dp"
         app:showAsAction="always" />
 
 
@@ -25,7 +25,7 @@
     <item
         android:id="@+id/menuSearch"
         android:icon="@drawable/chat2"
-        android:elevation="7dp"
+        android:elevation="2dp"
         android:title="Search"
         android:layout_width="wrap_content"
         android:orderInCategory="200"
@@ -42,7 +42,7 @@
             android:orderInCategory="200"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:elevation="7dp"
+            android:elevation="2dp"
 
             app:showAsAction="always"/>
 

@@ -102,7 +102,7 @@ public class ProfilActivity extends AppCompatActivity {
         mConfirmProfil = findViewById(R.id.confirmProfil);
         mBackProfil = findViewById(R.id.backProfil);
         mdelete = findViewById(R.id.delete);
-        reauth = findViewById(R.id.aut);
+//        reauth = findViewById(R.id.aut);
 
         //ImageView
         mImageProfil = findViewById(R.id.imageProfil);
@@ -332,8 +332,7 @@ public class ProfilActivity extends AppCompatActivity {
                     Thread.sleep(10000);
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     Log.w("tag", "User start .");
-                    user.delete()
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {

@@ -110,7 +110,6 @@
             android:layout_centerInParent="true"
             android:src="@color/orange"
             app:btn_color="@color/orange"
-            android:elevation="2dp"
             app:btn_fill_color="@color/orange"
             app:allow_random_color="true"
             app:enable_flashing="true"
@@ -121,8 +120,6 @@
             app:small_shine_offset_angle="20"
             app:small_shine_color="@color/orange"
             app:shine_count="8"
-
-
             app:siShape="@raw/unlike"/>
 
         <!--<com.varunest.sparkbutton.SparkButton-->

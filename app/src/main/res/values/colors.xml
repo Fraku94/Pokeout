@@ -7,5 +7,9 @@
     <color name="white">#ffffff</color>5f82ce
     <color name="blue">#5f82ce</color>
    <color name="black">#000</color>
+    <color name="primaryColor">#f4511e</color>
+    <color name="primaryLightColor">#ff844c</color>
+    <color name="primaryDarkColor">#b91400</color>
+    <color name="primaryTextColor">#000000</color>
 
 </resources>

@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:orientation="vertical"
     android:background="@drawable/register"
@@ -21,24 +22,21 @@
             android:paddingLeft="24dp"
             android:paddingRight="24dp">
 
-
-            <!--  Name Label -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
+
                 <EditText android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
-                    android:hint="name"
+                    android:hint="@string/Name"
                     android:textColorHint="@color/black"
-
                     android:textColor="@color/black"/>
+
             </android.support.design.widget.TextInputLayout>
-
-
 
             <RadioGroup
                 android:layout_width="wrap_content"
@@ -46,61 +44,53 @@
                 android:id="@+id/radioGroup">
 
                 <RadioButton
-
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Male"
-
+                    android:text="@string/Male"
                     android:textColor="@color/black"
                     android:textColorHint="@color/black" />
-                <RadioButton
 
+                <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Female"
+                    android:text="@string/Female"
                     android:textColorHint="@color/black"
-
                     android:textColor="@color/black"/>
-
 
             </RadioGroup>
 
-            <!--  Email Label -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
+
                 <EditText android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:hint="Email"
+                    android:hint="@string/Email"
                     android:textColorHint="@color/black"
-
                     android:textColor="@color/black"/>
+
             </android.support.design.widget.TextInputLayout>
 
-
-            <!-- Password Label -->
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
+
                 <EditText android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:hint="Password"
+                    android:hint="@string/Password"
                     android:textColorHint="@color/black"
-
                     android:textColor="@color/black"/>
+
             </android.support.design.widget.TextInputLayout>
 
-
-
-            <!-- Register Button -->
             <android.support.v7.widget.AppCompatButton
                 android:background="@drawable/shapebutton"
                 android:id="@+id/bRegister"
@@ -110,20 +100,20 @@
                 android:layout_marginBottom="24dp"
                 android:padding="12dp"
                 android:textColor="@color/white"
-                android:text="Create Account"/>
+                android:text="@string/CreatedAccount"/>
 
             <TextView android:id="@+id/linkLogin"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                android:text="Already a member? Login"
+                android:text="@string/ExistAccount"
                 android:gravity="center"
                 android:textSize="18dip"
                 android:textColorHint="#FFF"
-
                 android:textColor="#FFF"/>
 
         </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>

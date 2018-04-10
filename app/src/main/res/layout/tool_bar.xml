@@ -1,29 +1,14 @@
-<FrameLayout android:id="@+id/toolbar_container"
+<FrameLayout
+    android:id="@+id/toolbar_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/orange" >
-
-
-
-
-    <!--<ImageButton-->
-
-        <!--android:src="@drawable/logout"-->
-        <!--android:title="logout"-->
-        <!--android:id="@+id/menu_logout"-->
-        <!--android:layout_width="64dp"-->
-        <!--android:layout_height="64dp"-->
-        <!--android:layout_marginLeft="33px"-->
-        <!--android:background="@color/orange"-->
-        <!--android:onClick="Logout"-->
-        <!--/>-->
+        android:background="@color/primaryColor" >
 
         <ImageButton
             android:id="@+id/menu_logout"
@@ -33,12 +18,7 @@
             android:textColor="@color/white"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:layout_gravity="left"
-            android:onClick="Logout"
-            />
-
-
-
-
+            android:onClick="Logout" />
 
     </android.support.v7.widget.Toolbar>
 

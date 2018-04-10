@@ -1,27 +1,24 @@
 package com.example.pokeout.pokeout.UsersInCategory;
 
+import android.content.Intent;
 import android.location.Location;
-import android.support.v7.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pokeout.pokeout.Connect.ConnectActivity;
+import com.example.pokeout.pokeout.MainActivity;
 import com.example.pokeout.pokeout.R;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
-import com.firebase.geofire.GeoQueryEventListener;
-
 import com.firebase.geofire.GeoQuery;
-
-import com.google.android.gms.maps.model.LatLng;
+import com.firebase.geofire.GeoQueryEventListener;
 import com.google.firebase.auth.FirebaseAuth;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,14 +37,13 @@ public class UsersInCategoryActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mUsersInCategoryLayoutMenager;
 
     private ArrayList<UsersInCategoryObject> resoultUsersInCategory = new ArrayList<UsersInCategoryObject>();
-
+    TextView tvnomore;
     private FirebaseAuth mAuth;
     GeoQuery geoQuery;
     double locationLat1,locationLat2;
     double locationLng1, locationLng2;
     public Location Loc1;
     private int intRadius;
-
     private String radius;
     private String CurrentUserId, categoryID, formattedDistanceString;
     private int i=0;
@@ -81,6 +77,8 @@ public class UsersInCategoryActivity extends AppCompatActivity {
         //ID kliknietej kategorii
         categoryID = getIntent().getExtras().getString("CategoryId");
 
+        tvnomore=(TextView)findViewById(R.id.tvNoMore) ;
+
         //Ustawienie RecyclerView
         mRecyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
@@ -91,6 +89,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mUsersInCategoryLayoutMenager);
         mUsersInCategoryAdapter = new UsersInCategoryAdapter(getDataSetUsersInCategory(), UsersInCategoryActivity.this);
         mRecyclerView.setAdapter(mUsersInCategoryAdapter);
+
 
         //Metoda pobiera promień. Start Activity
         getUserdRadius();
@@ -203,7 +202,6 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                             float distance = Loc1.distanceTo(Loc2)/1000;
                             formattedDistanceString = String.format("%.1f", distance);
 
-
                             FetchUsersInCategoryInformation(key,formattedDistanceString);
                         }
 
@@ -280,30 +278,38 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                             City = dataSnapshot.child("city").getValue().toString();
                         }
                         i=1;
+
                         //przypisanie do obiektu zmiennych
                         UsersInCategoryObject item = new UsersInCategoryObject(Id, Name, ImageUrl, Description, Brith, Sex, Phone,Distance,City);
                         resoultUsersInCategory.add(item);
                         mUsersInCategoryAdapter.notifyDataSetChanged();
+
+
+                    }
+                    if (i == 0){
+                        i=1;
+
+                        tvnomore.setVisibility(View.VISIBLE);
+
+                    }else if(i == 1){
+                        i=2;
+
+                        tvnomore.setVisibility(View.INVISIBLE);
                     }
                 }
 
-
-                if (i == 0){
-                    i=1;
-                    Toast.makeText(getApplicationContext(),"Nie ma wiecej propozycji",Toast.LENGTH_SHORT).show();
-                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
-        });
+       
+            });
 
 
         }
 
         private List<UsersInCategoryObject> getDataSetUsersInCategory() {
-
             return resoultUsersInCategory;
         }
 }

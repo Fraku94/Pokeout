@@ -3,7 +3,9 @@ package com.example.pokeout.pokeout.Fragments.Best;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,6 +33,7 @@ public class BestFragment extends Fragment {
 
     }
 
+    Context mContext;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mBestAdapter;
     private RecyclerView.LayoutManager mBestLayoutMenager;
@@ -39,6 +42,7 @@ public class BestFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup                  container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_best, container, false);
+
 
         //Pobranie Conextu dla fragmentu
         Context context = getActivity();
@@ -51,12 +55,23 @@ public class BestFragment extends Fragment {
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
 
+
         //Ustawienie Adaptera oraz LayoutMenagera. Uzycie Contextu fragmentu
         mBestLayoutMenager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mBestLayoutMenager);
         mBestAdapter = new BestAdapter(getDataSetBest(),context);
         mRecyclerView.setAdapter(mBestAdapter);
+//        DividerItemDecoration itemDecorator = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+//        itemDecorator.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.shape_border));
+//        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
+//                itemDecorator.VERTICAL));
 
+        DividerItemDecoration divider = new
+                DividerItemDecoration(mRecyclerView.getContext(),
+                DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(getActivity(),
+                R.drawable.shape_border));
+        mRecyclerView.addItemDecoration(divider);
         //Przypisanie funkicji odswiezania
         swipeRefreshLayout = rootView.findViewById(R.id.swipeContainerBest);
 

@@ -1,9 +1,6 @@
 package com.example.pokeout.pokeout;
 
 
-
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -13,14 +10,10 @@ import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -28,25 +21,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.example.pokeout.pokeout.Adapter.SampleFragmentPagerAdapter;
+import com.example.pokeout.pokeout.Adapter.ZoomOutPageTransformer;
 import com.example.pokeout.pokeout.CategoryAdd.CategoryAddActivity;
 import com.example.pokeout.pokeout.Connect.ConnectActivity;
-import com.example.pokeout.pokeout.Adapter.ZoomOutPageTransformer;
-import com.example.pokeout.pokeout.Adapter.ZoomOutPageTransformer;
-import com.example.pokeout.pokeout.Fragments.Liked.LikedAdapter;
 import com.example.pokeout.pokeout.LoginRegister.LoginActivity;
 import com.example.pokeout.pokeout.Profil.ProfilActivity;
-import com.example.pokeout.pokeout.UsersInCategory.UsersInCategoryObject;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
-
-import com.firebase.geofire.GeoQuery;
-import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -58,13 +44,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.UserInfo;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -77,7 +59,7 @@ import java.util.Map;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 
-public class MainActivity extends AppCompatActivity implements LocationListener  {
+public class MainActivity extends AppCompatActivity implements LocationListener {
 
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -101,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private MaterialSearchView searchView;
     private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
+//    ProgressBar load;
+    ViewPager viewPager;
 
     public MainActivity() {
     }
@@ -117,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         UserDb = FirebaseDatabase.getInstance().getReference().child("Users");
         //Wywoolanie obiektu  buttona do layotu do wylogowania
         logout = (ImageButton) findViewById(R.id.menu_logout);
-    
+
         //Sprawdzenie obserwaowanych kategorii
         CategoryInformation categoryInformationListner = new CategoryInformation();
         categoryInformationListner.startFetching();
@@ -137,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         // Wywoołanie ViePagera i ustawienie na nim PageAdaptera co pozwala na wyświetlanie treści
         //Znajduje viepager i pozwala uzytkownikowi na przesuwanie
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
 
         //Tworzenie adaptera rozpoznajacego,który fragment ma się pojawić i usttawienie adatera w ViePagerze
         SampleFragmentPagerAdapter adapter = new SampleFragmentPagerAdapter(this, getSupportFragmentManager());
@@ -145,7 +129,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         //Odwołanie do klasy Transformer (Przejscai miedzy fragmentami)
         ZoomOutPageTransformer transformer = new ZoomOutPageTransformer();
-        viewPager.setPageTransformer(true,transformer);
+        viewPager.setPageTransformer(true, transformer);
+
 
         // Znajdowanie Tablayout ,który pokaże napisy
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
@@ -153,20 +138,33 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         //  1.aktualizuje gdy jest przysuwanie
         //  2.aktualizuje gdy jest wyswietlane
         //  3.Ustawia nazwy tablayout z viepager adapter
+
         tabLayout.setupWithViewPager(viewPager);
         getLastLocation();
         startLocationUpdates();
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
 
+            @Override
+            public void onPageSelected(int position) {
+                viewPager.getAdapter().notifyDataSetChanged();
+            }
 
+            @Override
+            public void onPageScrollStateChanged(int state) {
 
+            }
+        });
 
 
     }
 
     @Override
     public void onLocationChanged(Location location) {
-
+//        load.setVisibility(View.VISIBLE);
         latitude = location.getLatitude();
         longitude = location.getLongitude();
         mLocation = location;
@@ -196,13 +194,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
                     geoFire.setLocation(userId, new GeoLocation(mLocation.getLatitude(), mLocation.getLongitude()));
                     saveUserCity();
+//                    load.setVisibility(View.GONE);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-
 
 
     @Override
@@ -232,6 +230,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public void getLastLocation() {
         // Get last known recent location using new Google Play Services SDK (v11+)
         FusedLocationProviderClient locationClient = getFusedLocationProviderClient(this);
+
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -283,6 +282,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         settingsClient.checkLocationSettings(locationSettingsRequest);
 
         // new Google API SDK v11 uses getFusedLocationProviderClient(this)
+
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -372,12 +372,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 startActivity(profil);
                 break;
             case R.id.menuSearch:
-                Toast.makeText(getApplicationContext(), "You clicked profile", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You clicked search", Toast.LENGTH_SHORT).show();
                 Intent search = new Intent(MainActivity.this, ConnectActivity.class);
                 startActivity(search);
                 break;
             case R.id.add:
-                Toast.makeText(getApplicationContext(), "You clicked profile", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You clicked add category", Toast.LENGTH_SHORT).show();
                 Intent add = new Intent(MainActivity.this, CategoryAddActivity.class);
                 startActivity(add);
                 break;

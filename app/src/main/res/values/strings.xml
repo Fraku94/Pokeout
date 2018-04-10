@@ -28,11 +28,23 @@
     <string name="navigation_drawer_close">close</string>
     <string name="Distance">Odległość</string>
     <string name="City">Miasto</string>
-    <string name="forgot_password_msg">To reset password, enter your email, press the button and check mail to follow instruction. </string>
-    <string name="lbl_forgot_password">Forgot your password?</string>
-    <string name="btn_reset_password">Reset Password</string>
-    <string name="hint_email">Your email</string>
-    <string name="btn_back">Back</string>
+    <string name="forgot_password_msg">Aby zresetować hasło, wprowadź swój email, naciśnij przycisk i podążaj dalszymi instrukcjami zawartymi w mailu. </string>
+    <string name="btn_reset_password">Zresetuj hasło</string>
+    <string name="btn_back">Cofnij</string>
+    <string name="Km">Km</string>
+    <string name="Data">Data</string>
+    <string name="DeleteMsg">Czy na pewno chcesz skasować konto?</string>
+    <string name="Email">Email</string>
+    <string name="Password">Hasło</string>
+    <string name="Empty">Nie ma wiecej propozycji :(</string>
+    <string name="PasswordForgot">Zapomniałeś hasła?</string>
+    <string name="Login">Zaloguj</string>
+    <string name="CreatAccount">Nie masz jeszcze konta? Stwórz je</string>
+    <string name="CreatedAccount">Stwórz konto</string>
+    <string name="ExistAccount">Posiadasz juz konto? Zaloguj się</string>
+    <string name="Radius">Zasięg</string>
+    <string name="Delete">Usuń</string>
+    <string name="Send">Wyślij</string>
 
 
 </resources>

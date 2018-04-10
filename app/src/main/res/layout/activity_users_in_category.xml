@@ -1,15 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.pokeout.pokeout.UsersInCategory.UsersInCategoryActivity"
     android:orientation="vertical">
 
+    <!--<ProgressBar-->
+        <!--android:id="@+id/load"-->
+        <!--android:progressBackgroundTint="@color/orange"-->
+        <!--android:progressTint="@color/blue"-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:layout_gravity="center|bottom"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--android:visibility="gone" />-->
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvNoMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_vertical"
+            android:textSize="30dp"
+            android:visibility="gone"
+            android:text="@string/Empty" />
+
+    </RelativeLayout>
 
 </LinearLayout>

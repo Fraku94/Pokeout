@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.example.pokeout.pokeout.CategoryDescryption.CategoryDescryptionActivity;
 import com.example.pokeout.pokeout.CategoryInformation;
-import com.example.pokeout.pokeout.Fragments.Best.BestObject;
-import com.example.pokeout.pokeout.Fragments.Best.BestViewHolder;
 import com.example.pokeout.pokeout.R;
 import com.example.pokeout.pokeout.UsersInCategory.UsersInCategoryActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,8 +46,7 @@ public class BestAdapter extends RecyclerView.Adapter<BestViewHolder>{
         //Ustawienie RecycleView
         RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutView.setLayoutParams(lp);
-
-        //Podpienie i zwrocenie wygladu
+  //Podpienie i zwrocenie wygladu
         BestViewHolder rcv = new BestViewHolder((layoutView));
 
         return rcv;

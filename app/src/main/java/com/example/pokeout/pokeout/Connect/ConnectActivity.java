@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.pokeout.pokeout.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,11 +28,15 @@ public class ConnectActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mConnectLayoutMenager;
 
     private String CurrentUserId, formattedDistanceString;
+
+    private int i=0;
+    TextView tvnomore;
+
     private DatabaseReference LocationRef;
     double locationLat1,locationLat2;
     double locationLng1, locationLng2;
     public Location Loc1, Loc2;
-
+  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +47,10 @@ public class ConnectActivity extends AppCompatActivity {
 
         //ID obecnego Uzytkownika
         CurrentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+        tvnomore=(TextView)findViewById(R.id.tvNoMore) ;
+
 
         //Przypisanie Layoutu
         mConnectLayoutMenager = new LinearLayoutManager(ConnectActivity.this);
@@ -62,12 +72,24 @@ public class ConnectActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    i=1;
                     for (DataSnapshot connect : dataSnapshot.getChildren()) {
                         getDistance(connect.getKey());
                     }
                 }
-            }
+              
+                if (i == 0){
+                    i=1;
 
+                    tvnomore.setVisibility(View.VISIBLE);
+
+                }else if(i == 1){
+                    i=2;
+
+                    tvnomore.setVisibility(View.INVISIBLE);
+
+                }
+            }
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -184,6 +206,7 @@ public class ConnectActivity extends AppCompatActivity {
                     ConnectObject obj = new ConnectObject(Id, Name, ImageUrl, Description, Brith, Sex, Phone,Distance,City);
                     resultsConnect.add(obj);
                     mConnectAdapter.notifyDataSetChanged();
+
                 }
             }
 

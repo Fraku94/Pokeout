@@ -22,7 +22,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -132,6 +131,7 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
 
                         Intent intent = new Intent(context, MainActivity.class);
                         context.startActivity(intent);
+
                     }
                 }
             });
@@ -157,6 +157,7 @@ public class UsersInCategoryAdapter extends RecyclerView.Adapter<UsersInCategory
 
                         Intent intent = new Intent(context, MainActivity.class);
                         context.startActivity(intent);
+
 
                     }
                 }

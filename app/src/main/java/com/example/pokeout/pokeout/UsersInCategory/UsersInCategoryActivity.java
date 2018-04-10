@@ -298,14 +298,14 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                     }
                 }
 
-
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
+       
             });
+
 
         }
 

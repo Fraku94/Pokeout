@@ -28,14 +28,15 @@ public class ConnectActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mConnectLayoutMenager;
 
     private String CurrentUserId, formattedDistanceString;
+
     private int i=0;
     TextView tvnomore;
+
     private DatabaseReference LocationRef;
     double locationLat1,locationLat2;
     double locationLng1, locationLng2;
     public Location Loc1, Loc2;
-
-
+  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +48,9 @@ public class ConnectActivity extends AppCompatActivity {
         //ID obecnego Uzytkownika
         CurrentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+
         tvnomore=(TextView)findViewById(R.id.tvNoMore) ;
+
 
         //Przypisanie Layoutu
         mConnectLayoutMenager = new LinearLayoutManager(ConnectActivity.this);
@@ -61,6 +64,7 @@ public class ConnectActivity extends AppCompatActivity {
 
     //pobieranie id uzytkownika z ktorym dalismy sobei TAK
     private void getUserConnectId() {
+
         DatabaseReference Connectdb = FirebaseDatabase.getInstance().getReference().child("Users").child(CurrentUserId).child("follow").child("connect");
 
 
@@ -73,6 +77,7 @@ public class ConnectActivity extends AppCompatActivity {
                         getDistance(connect.getKey());
                     }
                 }
+              
                 if (i == 0){
                     i=1;
 
@@ -82,9 +87,9 @@ public class ConnectActivity extends AppCompatActivity {
                     i=2;
 
                     tvnomore.setVisibility(View.INVISIBLE);
+
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 

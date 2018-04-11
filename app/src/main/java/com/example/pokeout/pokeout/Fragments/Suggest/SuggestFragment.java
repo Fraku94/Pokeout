@@ -49,7 +49,7 @@ public class SuggestFragment extends Fragment {
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         //Ustawienie RecycleView
-        mRecyclerView = (RecyclerView)rootView.findViewById(R.id.suggestRecyclerView);
+        mRecyclerView = rootView.findViewById(R.id.suggestRecyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
 

@@ -61,7 +61,7 @@ public class ChatActivity extends AppCompatActivity {
         getData();
         getChatId();
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(false);
 //        mRecyclerView.scrollToPosition(resultsChat.size()-1);

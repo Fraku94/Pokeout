@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.pokeout.pokeout.R;
 import com.firebase.geofire.GeoFire;
@@ -195,7 +198,6 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                             float distance = Loc1.distanceTo(Loc2)/1000;
                             formattedDistanceString = String.format("%.1f", distance);
 
-
                             FetchUsersInCategoryInformation(key,formattedDistanceString);
                         }
 
@@ -277,12 +279,12 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                         UsersInCategoryObject item = new UsersInCategoryObject(Id, Name, ImageUrl, Description, Brith, Sex, Phone,Distance,City);
                         resoultUsersInCategory.add(item);
                         mUsersInCategoryAdapter.notifyDataSetChanged();
-
+                        Log.e("traf0", "user id  "+ key);
 
                     }
                     if (i == 0){
                         i=1;
-
+                        Log.e("traf0", "i = 1 ");
                         tvnomore.setVisibility(View.VISIBLE);
 
                     }else if(i == 1){
@@ -292,14 +294,14 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                     }
                 }
 
-
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
+       
             });
+
 
         }
 

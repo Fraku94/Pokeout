@@ -81,13 +81,13 @@ public class LoginActivity extends AppCompatActivity {
         };
 
 
-        blogin = (Button) findViewById(R.id.bLogin);
+        blogin = findViewById(R.id.bLogin);
         final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
-        tvregister = (TextView) findViewById(R.id.tvSign);
-        etEmail = (EditText) findViewById(R.id.etEmail);
-        etPassword = (EditText) findViewById(R.id.etPassword);
-        tvForgotPassword = (TextView) findViewById(R.id.tvForgotPassword);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        tvregister = findViewById(R.id.tvSign);
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
+        tvForgotPassword = findViewById(R.id.tvForgotPassword);
+        progressBar = findViewById(R.id.progressBar);
 
         //** po kliknieciiu zaloguj  **//
 

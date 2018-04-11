@@ -30,13 +30,13 @@ public class BestViewHolder extends RecyclerView.ViewHolder  {
         super(itemView);
 
         //Tu wpisujesz wszystkie TextView,ImageView,itp jakie dodajesz w item_....xml (tutaj item_liked.xml)
-        mBestCount = (TextView) itemView.findViewById(R.id.bestCount);
-        mBestName = (TextView) itemView.findViewById(R.id.bestName);
-        mBestImage = (ImageView) itemView.findViewById(R.id.bestImage);
-        mBestFollow = (ShineButton) itemView.findViewById(R.id.bestFollow);
+        mBestCount = itemView.findViewById(R.id.bestCount);
+        mBestName = itemView.findViewById(R.id.bestName);
+        mBestImage = itemView.findViewById(R.id.bestImage);
+        mBestFollow = itemView.findViewById(R.id.bestFollow);
 
 
-        mGointo = (RelativeLayout) itemView.findViewById(R.id.Gointo);
+        mGointo = itemView.findViewById(R.id.Gointo);
 
 
     }

@@ -21,9 +21,9 @@ public class UserDescryptionViewHolder extends RecyclerView.ViewHolder  {
         super(itemView);
 
         //Tu wpisujesz wszystkie TextView,ImageView,itp jakie dodajesz w item_....xml (tutaj item_liked.xml)
-        mUserDescryptionName = (TextView) itemView.findViewById(R.id.userDescryptionName);
-        mUserDescryptionImage = (ImageView) itemView.findViewById(R.id.userDescryptionImage);
-        mbestGointo = (RelativeLayout) itemView.findViewById(R.id.bestGointo);
+        mUserDescryptionName = itemView.findViewById(R.id.userDescryptionName);
+        mUserDescryptionImage = itemView.findViewById(R.id.userDescryptionImage);
+        mbestGointo = itemView.findViewById(R.id.bestGointo);
 
 
     }

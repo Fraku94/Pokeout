@@ -47,7 +47,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri= RingtoneManager.getActualDefaultRingtoneUri(getApplicationContext(),2);
-        NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setAutoCancel(true)   //Automatically delete the notification
                 .setSmallIcon(R.mipmap.ic_launcher) //Notification icon
                 .setContentIntent(pendingIntent)

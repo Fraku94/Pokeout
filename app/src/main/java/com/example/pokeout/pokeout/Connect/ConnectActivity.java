@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -27,26 +28,25 @@ public class ConnectActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mConnectLayoutMenager;
 
     private String CurrentUserId, formattedDistanceString;
+
     private int i=0;
-    TextView tvnomore;
+    TextView tvNoMore;
+
     private DatabaseReference LocationRef;
     double locationLat1,locationLat2;
     double locationLng1, locationLng2;
     public Location Loc1, Loc2;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connect);
-        mRecyclerview = (RecyclerView) findViewById(R.id.recyclerViewConnect);
+        mRecyclerview = findViewById(R.id.recyclerViewConnect);
         mRecyclerview.setScrollbarFadingEnabled(false);
         mRecyclerview.setHasFixedSize(true);
-
+        tvNoMore= findViewById(R.id.tvNoMoreConnect);
         //ID obecnego Uzytkownika
         CurrentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        tvnomore=(TextView)findViewById(R.id.tvNoMore) ;
 
         //Przypisanie Layoutu
         mConnectLayoutMenager = new LinearLayoutManager(ConnectActivity.this);
@@ -60,6 +60,7 @@ public class ConnectActivity extends AppCompatActivity {
 
     //pobieranie id uzytkownika z ktorym dalismy sobei TAK
     private void getUserConnectId() {
+
         DatabaseReference Connectdb = FirebaseDatabase.getInstance().getReference().child("Users").child(CurrentUserId).child("follow").child("connect");
 
 
@@ -72,18 +73,19 @@ public class ConnectActivity extends AppCompatActivity {
                         getDistance(connect.getKey());
                     }
                 }
+
                 if (i == 0){
                     i=1;
 
-                    tvnomore.setVisibility(View.VISIBLE);
-
+                    tvNoMore.setVisibility(View.VISIBLE);
+                    Log.e("traf0", "i = 0 ");
                 }else if(i == 1){
                     i=2;
+                    Log.e("traf0", "i = 1 ");
+                    tvNoMore.setVisibility(View.INVISIBLE);
 
-                    tvnomore.setVisibility(View.INVISIBLE);
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -154,9 +156,7 @@ public class ConnectActivity extends AppCompatActivity {
 
             }
         });
-
     }
-
 
     //Dodawanie informacji o uzytkowniku co dal nam rowniez tak
     private void FetchConnectInformation(String OtherUserId, final String Distance) {

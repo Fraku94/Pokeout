@@ -30,27 +30,23 @@ public class ConnectActivity extends AppCompatActivity {
     private String CurrentUserId, formattedDistanceString;
 
     private int i=0;
-    TextView tvnomore;
+    TextView tvNoMore;
 
     private DatabaseReference LocationRef;
     double locationLat1,locationLat2;
     double locationLng1, locationLng2;
     public Location Loc1, Loc2;
-  
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connect);
-        mRecyclerview = (RecyclerView) findViewById(R.id.recyclerViewConnect);
+        mRecyclerview = findViewById(R.id.recyclerViewConnect);
         mRecyclerview.setScrollbarFadingEnabled(false);
         mRecyclerview.setHasFixedSize(true);
-
+        tvNoMore= findViewById(R.id.tvNoMoreConnect);
         //ID obecnego Uzytkownika
         CurrentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-
-        tvnomore=(TextView)findViewById(R.id.tvNoMore) ;
-
 
         //Przypisanie Layoutu
         mConnectLayoutMenager = new LinearLayoutManager(ConnectActivity.this);
@@ -77,16 +73,16 @@ public class ConnectActivity extends AppCompatActivity {
                         getDistance(connect.getKey());
                     }
                 }
-              
+
                 if (i == 0){
                     i=1;
 
-                    tvnomore.setVisibility(View.VISIBLE);
-
+                    tvNoMore.setVisibility(View.VISIBLE);
+                    Log.e("traf0", "i = 0 ");
                 }else if(i == 1){
                     i=2;
-
-                    tvnomore.setVisibility(View.INVISIBLE);
+                    Log.e("traf0", "i = 1 ");
+                    tvNoMore.setVisibility(View.INVISIBLE);
 
                 }
             }
@@ -160,9 +156,7 @@ public class ConnectActivity extends AppCompatActivity {
 
             }
         });
-
     }
-
 
     //Dodawanie informacji o uzytkowniku co dal nam rowniez tak
     private void FetchConnectInformation(String OtherUserId, final String Distance) {

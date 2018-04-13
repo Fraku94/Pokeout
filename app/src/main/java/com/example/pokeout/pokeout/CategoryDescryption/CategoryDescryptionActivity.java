@@ -38,12 +38,12 @@ public class CategoryDescryptionActivity extends AppCompatActivity {
 
 
         //TextView
-        mName = (TextView)findViewById(R.id.nameCategoryDescryption);
-        mDescryption = (TextView)findViewById(R.id.descriptionCategoryDescryption);
+        mName = findViewById(R.id.nameCategoryDescryption);
+        mDescryption = findViewById(R.id.descriptionCategoryDescryption);
 
 
         //ImageView
-        mImage = (ImageView)findViewById(R.id.imageCategoryDescryption);
+        mImage = findViewById(R.id.imageCategoryDescryption);
 
         //Pobranie danytch z bundle i przyupisanie wartosci do Textview i ImageView
 
@@ -60,7 +60,7 @@ public class CategoryDescryptionActivity extends AppCompatActivity {
         CategoryID  = getIntent().getExtras().getString("Id");
 
         //Ustawienie RecyclerView
-        mRecyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
 

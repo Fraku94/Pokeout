@@ -2,6 +2,7 @@ package com.example.pokeout.pokeout;
 
 
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -21,7 +22,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,12 +33,16 @@ import com.example.pokeout.pokeout.LoginRegister.LoginActivity;
 import com.example.pokeout.pokeout.Profil.ProfilActivity;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -62,8 +66,9 @@ import static com.google.android.gms.location.LocationServices.getFusedLocationP
 public class MainActivity extends AppCompatActivity implements LocationListener {
 
 
+    private static final int REQUEST_LOCATION_PERMISSION = 1;
     private FusedLocationProviderClient mFusedLocationClient;
-    static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+
     private Toolbar toolbar;
     private FirebaseAuth auth;
     private ImageButton logout;
@@ -83,9 +88,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private MaterialSearchView searchView;
     private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
-//    ProgressBar load;
+    //    ProgressBar load;
     ViewPager viewPager;
-
+    private static final int REQUEST_PERMISSIONS_LOCATION_SETTINGS_REQUEST_CODE = 33;
+    private static final int REQUEST_PERMISSIONS_LAST_LOCATION_REQUEST_CODE = 34;
+    private static final int REQUEST_PERMISSIONS_CURRENT_LOCATION_REQUEST_CODE = 35;
     public MainActivity() {
     }
 
@@ -95,12 +102,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mFusedLocationClient = getFusedLocationProviderClient(this);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         mAuth = FirebaseAuth.getInstance();
         UserDb = FirebaseDatabase.getInstance().getReference().child("Users");
         //Wywoolanie obiektu  buttona do layotu do wylogowania
-        logout = (ImageButton) findViewById(R.id.menu_logout);
+        logout = findViewById(R.id.menu_logout);
 
         //Sprawdzenie obserwaowanych kategorii
         CategoryInformation categoryInformationListner = new CategoryInformation();
@@ -113,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         // Wywołanie  obiektu toolbar i dolaczenie do layotu
         // Attaching the layout to the toolbar object
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         // Ustawienie toolbara jako action bar
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
@@ -121,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         // Wywoołanie ViePagera i ustawienie na nim PageAdaptera co pozwala na wyświetlanie treści
         //Znajduje viepager i pozwala uzytkownikowi na przesuwanie
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = findViewById(R.id.viewpager);
 
         //Tworzenie adaptera rozpoznajacego,który fragment ma się pojawić i usttawienie adatera w ViePagerze
         SampleFragmentPagerAdapter adapter = new SampleFragmentPagerAdapter(this, getSupportFragmentManager());
@@ -133,12 +140,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
 
         // Znajdowanie Tablayout ,który pokaże napisy
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        TabLayout tabLayout = findViewById(R.id.sliding_tabs);
         //Wyświetlanie Tablayout w ViePager
         //  1.aktualizuje gdy jest przysuwanie
         //  2.aktualizuje gdy jest wyswietlane
         //  3.Ustawia nazwy tablayout z viepager adapter
-
+//        checkForLocationRequest();
+//        checkForLocationSettings();
         tabLayout.setupWithViewPager(viewPager);
         getLastLocation();
         startLocationUpdates();
@@ -161,6 +169,82 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
 
     }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//
+//        if (!checkPermissions()) {
+//            requestPermissions();
+//        } else {
+//            getLastLocation();
+//            startLocationUpdates();
+//        }
+//    }
+//Check for location settings. if the location disabled prompt an alert dialog to redirect user.
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_LOCATION_PERMISSION:
+                // If the permission is granted, get the location,
+                // otherwise, show a Toast
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getLastLocation();
+                } else {
+                    Toast.makeText(this,
+                            "Denaid",
+                            Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
+
+
+public void checkForLocationSettings() {
+    try {
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
+        builder.addLocationRequest(mLocationRequest);
+        SettingsClient settingsClient = LocationServices.getSettingsClient(MainActivity.this);
+
+        settingsClient.checkLocationSettings(builder.build())
+                .addOnSuccessListener(MainActivity.this, new OnSuccessListener<LocationSettingsResponse>() {
+                    @Override
+                    public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
+                        //Setting is success...
+                        Toast.makeText(MainActivity.this, "Enabled the Location successfully. Now you can press the buttons..", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(MainActivity.this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+
+                        int statusCode = ((ApiException) e).getStatusCode();
+                        switch (statusCode) {
+                            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+
+                                try {
+                                    // Show the dialog by calling startResolutionForResult(), and check the
+                                    // result in onActivityResult().
+                                    ResolvableApiException rae = (ResolvableApiException) e;
+                                    rae.startResolutionForResult(MainActivity.this, REQUEST_PERMISSIONS_LOCATION_SETTINGS_REQUEST_CODE);
+                                } catch (IntentSender.SendIntentException sie) {
+                                    sie.printStackTrace();
+                                }
+                                break;
+                            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                                Toast.makeText(MainActivity.this, "Setting change is not available.Try in another device.", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                });
+
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    }
+}
 
     @Override
     public void onLocationChanged(Location location) {
@@ -231,16 +315,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         // Get last known recent location using new Google Play Services SDK (v11+)
         FusedLocationProviderClient locationClient = getFusedLocationProviderClient(this);
 
-
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+        if (ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]
+                            {android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_LOCATION_PERMISSION);
         }
         locationClient.getLastLocation()
                 .addOnSuccessListener(new OnSuccessListener<Location>() {
@@ -250,6 +330,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         // GPS location can be null if GPS is switched off
                         if (location != null) {
                             onLocationChanged(location);
+//                            startLocationUpdates();
                         }
                     }
                 })
@@ -284,7 +365,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         // new Google API SDK v11 uses getFusedLocationProviderClient(this)
 
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (
+                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                ) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -292,7 +376,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            return;
+
         }
         getFusedLocationProviderClient(this).requestLocationUpdates(mLocationRequest, new LocationCallback() {
                     @Override
@@ -372,7 +456,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 startActivity(profil);
                 break;
             case R.id.menuSearch:
-                Toast.makeText(getApplicationContext(), "You clicked search", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "You clicked chat", Toast.LENGTH_SHORT).show();
                 Intent search = new Intent(MainActivity.this, ConnectActivity.class);
                 startActivity(search);
                 break;

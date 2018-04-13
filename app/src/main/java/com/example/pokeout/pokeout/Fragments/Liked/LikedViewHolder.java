@@ -22,12 +22,12 @@ public class LikedViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         //Tu wpisujesz wszystkie TextView,ImageView,itp jakie dodajesz w item_....xml (tutaj item_liked.xml)
-        mCategoryCount = (TextView) itemView.findViewById(R.id.categoryCount);
-        mCategoryName = (TextView) itemView.findViewById(R.id.categoryName);
-        mCategoryImage = (ImageView) itemView.findViewById(R.id.categoryImage);
-        mGointo = (RelativeLayout) itemView.findViewById(R.id.Gointo);
+        mCategoryCount = itemView.findViewById(R.id.categoryCount);
+        mCategoryName = itemView.findViewById(R.id.categoryName);
+        mCategoryImage = itemView.findViewById(R.id.categoryImage);
+        mGointo = itemView.findViewById(R.id.Gointo);
 
-        mLikedFollow = (ShineButton) itemView.findViewById(R.id.likedFollow);
+        mLikedFollow = itemView.findViewById(R.id.likedFollow);
     }
 
 

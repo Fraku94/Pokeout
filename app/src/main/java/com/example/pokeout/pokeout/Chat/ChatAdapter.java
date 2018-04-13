@@ -79,7 +79,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder>{
         }else{
             holder.mContainer.setGravity(Gravity.LEFT);
 
-            holder.mMessage.setBackgroundResource(R.drawable.rounded_rectangle_orange);;
+            holder.mMessage.setBackgroundResource(R.drawable.rounded_rectangle_orange);
         }
 
     }

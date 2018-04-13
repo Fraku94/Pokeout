@@ -52,7 +52,7 @@ public class LikedFragment extends Fragment {
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         //Ustawienie RecycleView
-        mRecyclerView = (RecyclerView)rootView.findViewById(R.id.recyclerView);
+        mRecyclerView = rootView.findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
         DividerItemDecoration divider = new

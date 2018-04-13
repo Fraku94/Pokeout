@@ -44,15 +44,15 @@ public class UserDescryptionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_descryption);
 
         //TextView
-        mName = (TextView)findViewById(R.id.nameUserDescryption);
-        mDescryption = (TextView)findViewById(R.id.descriptionUserDescryption);
-        mBrith = (TextView)findViewById(R.id.brithUserDescryption);
-        mSex = (TextView)findViewById(R.id.sexUserDescryption);
-        mPhone = (TextView)findViewById(R.id.phoneUserDescryption);
+        mName = findViewById(R.id.nameUserDescryption);
+        mDescryption = findViewById(R.id.descriptionUserDescryption);
+        mBrith = findViewById(R.id.brithUserDescryption);
+        mSex = findViewById(R.id.sexUserDescryption);
+        mPhone = findViewById(R.id.phoneUserDescryption);
         //mCity = (TextView)findViewById(R.id.cityUserDescryption);
 
         //ImageView
-        mImage = (ImageView)findViewById(R.id.imageUserDescryption);
+        mImage = findViewById(R.id.imageUserDescryption);
 
         //Pobranie danytch z bundle i przyupisanie wartosci do Textview i ImageView
 
@@ -72,7 +72,7 @@ public class UserDescryptionActivity extends AppCompatActivity {
         }
 
         //Ustawienie RecyclerView
-        mRecyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
 

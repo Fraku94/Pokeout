@@ -24,14 +24,14 @@ public class SuggestViewHolder extends RecyclerView.ViewHolder  {
         super(itemView);
 
         //Tu wpisujesz wszystkie TextView,ImageView,itp jakie dodajesz w item_....xml (tutaj item_liked.xml)
-        mSuggestCount = (TextView) itemView.findViewById(R.id.suggestCount);
-        mSuggestName = (TextView) itemView.findViewById(R.id.suggestName);
-        mSuggestImage = (ImageView) itemView.findViewById(R.id.suggestImage);
+        mSuggestCount = itemView.findViewById(R.id.suggestCount);
+        mSuggestName = itemView.findViewById(R.id.suggestName);
+        mSuggestImage = itemView.findViewById(R.id.suggestImage);
 //        mSuggestGo = (ImageView) itemView.findViewById(R.id.suggestGo);
-        mSuggestFollow = (ShineButton) itemView.findViewById(R.id.suggestFollow);
+        mSuggestFollow = itemView.findViewById(R.id.suggestFollow);
 //        mSuggestUnfollow = (ShineButton) itemView.findViewById(R.id.suggestFollow);
 
-        mGointo = (RelativeLayout) itemView.findViewById(R.id.Gointo);
+        mGointo = itemView.findViewById(R.id.Gointo);
     }
 
 }

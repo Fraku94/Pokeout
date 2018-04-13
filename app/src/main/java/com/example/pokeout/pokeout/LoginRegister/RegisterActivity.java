@@ -61,13 +61,13 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
-        bregister =(Button) findViewById(R.id.bRegister);
-        linklogin=(TextView)findViewById(R.id.linkLogin);
-        etEmail= (EditText) findViewById(R.id.etEmail);
-        etPassword=(EditText) findViewById(R.id.etPassword);
-        etName=(EditText)findViewById(R.id.etName);
+        bregister = findViewById(R.id.bRegister);
+        linklogin= findViewById(R.id.linkLogin);
+        etEmail= findViewById(R.id.etEmail);
+        etPassword= findViewById(R.id.etPassword);
+        etName= findViewById(R.id.etName);
 
-        radioGroup =(RadioGroup)findViewById(R.id.radioGroup);
+        radioGroup = findViewById(R.id.radioGroup);
 
 
 
@@ -77,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 int selectId = radioGroup.getCheckedRadioButtonId();
 
-                final RadioButton radioButton = (RadioButton) findViewById(selectId);
+                final RadioButton radioButton = findViewById(selectId);
 
 
 

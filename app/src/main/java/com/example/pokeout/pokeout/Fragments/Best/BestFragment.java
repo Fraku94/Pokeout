@@ -51,7 +51,7 @@ public class BestFragment extends Fragment {
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         //Ustawienie RecycleView
-        mRecyclerView = (RecyclerView)rootView.findViewById(R.id.bestRecyclerView);
+        mRecyclerView = rootView.findViewById(R.id.bestRecyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
 

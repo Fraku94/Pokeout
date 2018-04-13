@@ -1,6 +1,5 @@
 package com.example.pokeout.pokeout.UsersInCategory;
 
-import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,11 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.pokeout.pokeout.MainActivity;
 import com.example.pokeout.pokeout.R;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
@@ -163,6 +159,9 @@ public class UsersInCategoryActivity extends AppCompatActivity {
 
         }
 
+
+
+
         //Metoda pobiera uzytkownikow znajdujacych sie w promienu
         public void getClosestUsers() {
 
@@ -202,7 +201,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                             float distance = Loc1.distanceTo(Loc2)/1000;
                             formattedDistanceString = String.format("%.1f", distance);
 
-                            FetchUsersInCategoryInformation(key,formattedDistanceString);
+                            getUsersId(key,formattedDistanceString);
                         }
 
                         @Override
@@ -238,6 +237,39 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                 }
             });
         }
+
+
+    private void getUsersId(final String key, final String formattedDistanceString)
+    {
+        final String adminId = "UYjTdbeg7zXSwXFhN72eDPseU1R2";
+        DatabaseReference usersInCategorydb = FirebaseDatabase.getInstance().getReference().child("Category").child(categoryID).child("users");
+        usersInCategorydb.addListenerForSingleValueEvent(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                //Sprawdzenie czy istnieje
+                if (dataSnapshot.exists()) {
+
+                    //pobranie wartości z "category"
+                    for (DataSnapshot userInCategory : dataSnapshot.getChildren()) {
+
+                        if (!userInCategory.getKey().equals(adminId) && userInCategory.getKey().equals(key)) {
+                            //Wywolanie metody zbierajacej informacje o kategorii z przekazaniem w niej ID danej kategorii
+                            //getKey() pobiera ID kategorii
+                            FetchUsersInCategoryInformation(userInCategory.getKey(),formattedDistanceString);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+
+            }
+        });
+    }
 
         private void FetchUsersInCategoryInformation(final String key, final String Distance) {
 
@@ -283,12 +315,12 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                         UsersInCategoryObject item = new UsersInCategoryObject(Id, Name, ImageUrl, Description, Brith, Sex, Phone,Distance,City);
                         resoultUsersInCategory.add(item);
                         mUsersInCategoryAdapter.notifyDataSetChanged();
-
+                        Log.e("traf0", "user id  "+ key);
 
                     }
                     if (i == 0){
                         i=1;
-
+                        Log.e("traf0", "i = 1 ");
                         tvnomore.setVisibility(View.VISIBLE);
 
                     }else if(i == 1){

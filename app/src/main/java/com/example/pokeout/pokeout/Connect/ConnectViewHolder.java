@@ -28,10 +28,10 @@ public class ConnectViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
 
-        mName = (TextView)itemView.findViewById(R.id.Name);
-        mImage = (ImageView)itemView.findViewById(R.id.Image);
-        mDelete = (ShineButton) itemView.findViewById(R.id.Delete);
-        mGointo = (RelativeLayout) itemView.findViewById(R.id.Gointo);
+        mName = itemView.findViewById(R.id.Name);
+        mImage = itemView.findViewById(R.id.Image);
+        mDelete = itemView.findViewById(R.id.Delete);
+        mGointo = itemView.findViewById(R.id.Gointo);
 
 
     }

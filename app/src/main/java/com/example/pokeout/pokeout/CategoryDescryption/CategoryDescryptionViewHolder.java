@@ -20,8 +20,8 @@ public class CategoryDescryptionViewHolder extends RecyclerView.ViewHolder  {
         super(itemView);
 
         //Tu wpisujesz wszystkie TextView,ImageView,itp jakie dodajesz w item_....xml (tutaj item_liked.xml)
-        mCategoryDescryptionName = (TextView) itemView.findViewById(R.id.categoryDescryptionName);
-        mCategoryDescryptionImage = (ImageView) itemView.findViewById(R.id.categoryDescryptionImage);
+        mCategoryDescryptionName = itemView.findViewById(R.id.categoryDescryptionName);
+        mCategoryDescryptionImage = itemView.findViewById(R.id.categoryDescryptionImage);
 
 
 

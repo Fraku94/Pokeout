@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
     tools:context="com.example.pokeout.pokeout.UserDescryption.UserDescryptionActivity">
@@ -80,11 +80,6 @@
                 android:textAlignment="center"
                 android:textColor="@color/black" />
 
-    <android.support.v7.widget.RecyclerView
-        android:paddingTop="35dp"
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
         </LinearLayout>
 

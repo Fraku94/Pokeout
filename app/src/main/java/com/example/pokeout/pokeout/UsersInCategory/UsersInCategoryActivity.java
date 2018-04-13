@@ -159,6 +159,9 @@ public class UsersInCategoryActivity extends AppCompatActivity {
 
         }
 
+
+
+
         //Metoda pobiera uzytkownikow znajdujacych sie w promienu
         public void getClosestUsers() {
 
@@ -198,7 +201,7 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                             float distance = Loc1.distanceTo(Loc2)/1000;
                             formattedDistanceString = String.format("%.1f", distance);
 
-                            FetchUsersInCategoryInformation(key,formattedDistanceString);
+                            getUsersId(key,formattedDistanceString);
                         }
 
                         @Override
@@ -234,6 +237,39 @@ public class UsersInCategoryActivity extends AppCompatActivity {
                 }
             });
         }
+
+
+    private void getUsersId(final String key, final String formattedDistanceString)
+    {
+        final String adminId = "UYjTdbeg7zXSwXFhN72eDPseU1R2";
+        DatabaseReference usersInCategorydb = FirebaseDatabase.getInstance().getReference().child("Category").child(categoryID).child("users");
+        usersInCategorydb.addListenerForSingleValueEvent(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                //Sprawdzenie czy istnieje
+                if (dataSnapshot.exists()) {
+
+                    //pobranie wartości z "category"
+                    for (DataSnapshot userInCategory : dataSnapshot.getChildren()) {
+
+                        if (!userInCategory.getKey().equals(adminId) && userInCategory.getKey().equals(key)) {
+                            //Wywolanie metody zbierajacej informacje o kategorii z przekazaniem w niej ID danej kategorii
+                            //getKey() pobiera ID kategorii
+                            FetchUsersInCategoryInformation(userInCategory.getKey(),formattedDistanceString);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+
+            }
+        });
+    }
 
         private void FetchUsersInCategoryInformation(final String key, final String Distance) {
 
